@@ -178,3 +178,5 @@ vmap <A-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 map <C-w>t :terminal<cr>
 map <C-w>e :Vexplore<cr>
+
+"Une modif pour Git
