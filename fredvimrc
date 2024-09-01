@@ -1,0 +1,180 @@
+" All system-wide defaults are set in $VIMRUNTIME/debian.vim and sourced by
+" the call to :runtime you can find below.  If you wish to change any of those
+" settings, you should do it in this file (/etc/vim/vimrc), since debian.vim
+" will be overwritten everytime an upgrade of the vim packages is performed.
+" It is recommended to make changes after sourcing debian.vim since it alters
+" the value of the 'compatible' option.
+
+runtime! debian.vim
+
+" Vim will load $VIMRUNTIME/defaults.vim if the user does not have a vimrc.
+" This happens after /etc/vim/vimrc(.local) are loaded, so it will override
+" any settings in these files.
+" If you don't want that to happen, uncomment the below line to prevent
+" defaults.vim from being loaded.
+" let g:skip_defaults_vim = 1
+
+" Uncomment the next line to make Vim more Vi-compatible
+" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
+" options, so any other options should be set AFTER setting 'compatible'.
+"set compatible
+
+" Vim5 and later versions support syntax highlighting. Uncommenting the next
+" line enables syntax highlighting by default.
+if has("syntax")
+  syntax on
+endif
+
+" Enable syntax highlighting
+syntax enable
+
+" If using a dark background within the editing area and syntax highlighting
+" turn on this option as well
+
+" Enable 256 colors palette in Gnome Terminal
+if $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+endif
+
+try
+    colorscheme desert
+catch
+endtry
+
+set background=dark
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Uncomment the following to have Vim load indentation rules and plugins
+" according to the detected filetype.
+"filetype plugin indent on
+
+" The following are commented out as they cause vim to behave a lot
+" differently from regular Vi. They are highly recommended though.
+set showcmd		" Show (partial) command in status line.
+set showmatch		" Show matching brackets.
+set mat=2               " Time show
+set ignorecase		" Do case insensitive matching
+set smartcase		" Do smart case matching
+set hlsearch            " Hightlight search
+set incsearch		" Incremental search
+set autowrite		" Automatically save before commands like :next and :make
+set hidden		" Hide buffers when they are abandoned
+set mouse=a		" Enable mouse usage (all modes)
+
+set nu                  " Lines numbers
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+set ai                  " Auto-indent
+set si                  " Smart indent
+set wrap                " Wrap lines
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" Turn on the Wild menu
+set wildmenu
+set wildmode=list:full
+set path+=**
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+set wildignorecase
+
+" list the available buffers in the wildmenu with an empty prompt
+set wildcharm=<C-z>
+nnoremap <leader>b :buffer <C-z><S-Tab>
+nnoremap <leader>B :sbuffer <C-z><S-Tab>
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+nnoremap <PageUp>   :bprevious<CR>
+nnoremap <PageDown> :bnext<CR>
+
+" gb -> list buffers and prompt you
+nnoremap gb :ls<CR>:b<Space>
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+" For regular expressions turn magic on
+set magic
+
+" Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=2
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext<cr>
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
+
+" Ctrl+\ - Open the definition in a new tab
+" Alt+] - Open the definition in a vertical split
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" Source a global configuration file if available
+if filereadable("/etc/vim/vimrc.local")
+  source /etc/vim/vimrc.local
+endif
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <A-j> mz:m+<cr>`z
+nmap <A-k> mz:m-2<cr>`z
+vmap <A-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <A-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+map <C-w>t :terminal<cr>
+map <C-w>e :Vexplore<cr>
