@@ -5,11 +5,15 @@ alias v='valgrind --leak-check=full --track-fds=all --track-origins=yes'
 alias c='gcc -g -Wall -Werror -Wextra'
 alias g='gdb -tui'
 alias ga='gdb -tui --args'
+
 alias H='cd ~'
 alias svim='sudo vim'
 alias brc='vim ~/.bashrc'
 alias vrc='vim ~/.vimrc'
 alias nxc='svim /etc/nixos/configuration.nix'
+alias vpn='expressvpn status'
+alias vpnc='expressvpn connect'
+alias vpnd='expressvpn disconnect'
 
 # Expand the history size
 export HISTFILESIZE=10000
