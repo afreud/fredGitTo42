@@ -1,158 +1,112 @@
-" Enable syntax highlighting
-syntax enable
 
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
-
-try
-    colorscheme desert
-catch
-endtry
-
+colorscheme torte
 set background=dark
 
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
+syntax enable			" Enable syntax highlighting
+filetype plugin on		" Enable filetype plugins
+filetype indent on
+
+" Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-"filetype plugin indent on
+set showcmd				" Show (partial) command in status line.
+set showmatch			" Show matching brackets.
+set mat=2        		" Time show
+set ignorecase			" Do case insensitive matching
+set smartcase			" Do smart case matching
+set hlsearch			" Hightlight search
+set incsearch			" Incremental search
+set autowrite			" Auto save before cmds like :next and :make
+set hidden				" Hide buffers when they are abandoned
+set mouse=a				" Enable mouse usage (all modes)
+set nu					" Lines numbers
+set foldcolumn=1		 " Add a bit extra margin to the left
+set magic				 " For regular expressions turn magic on
+set ruler				 " Always show current position
+set cmdheight=2			 " Height of the command bar
 
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-set showcmd		" Show (partial) command in status line.
-set showmatch		" Show matching brackets.
-set mat=2               " Time show
-set ignorecase		" Do case insensitive matching
-set smartcase		" Do smart case matching
-set hlsearch            " Hightlight search
-set incsearch		" Incremental search
-set autowrite		" Automatically save before commands like :next and :make
-set hidden		" Hide buffers when they are abandoned
-set mouse=a		" Enable mouse usage (all modes)
-
-set nu                  " Lines numbers
-
-
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 4 spaces
+set noexpandtab			 " Don't use spaces instead of tabs
 set shiftwidth=4
-set tabstop=4
+set tabstop=4			 " 1 tab == 4 spaces
+set tw=80
 
 set ai                  " Auto-indent
 set si                  " Smart indent
 set wrap                " Wrap lines
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
-
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
-
-" Turn on the Wild menu
-set wildmenu
+set wildmenu						" Turn on the Wild menu
 set wildmode=list:full
 set path+=**
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
+set wildignore=*.o,*.out,*~,*.pyc	" Ignore compiled files
 set wildignorecase
+set wildcharm=<C-z>					" list buffers in the wildmenu with an empty prompt
 
-" list the available buffers in the wildmenu with an empty prompt
-set wildcharm=<C-z>
-nnoremap <leader>b :buffer <C-z><S-Tab>
-nnoremap <leader>B :sbuffer <C-z><S-Tab>
+" :W sudo saves the file
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
-" Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
-
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-
+" Move between buffers
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
-
 " gb -> list buffers and prompt you
 nnoremap gb :ls<CR>:b<Space>
 
-" Add a bit extra margin to the left
-set foldcolumn=1
-
-" For regular expressions turn magic on
-set magic
-
-" Always show current position
-set ruler
-
-" Height of the command bar
-set cmdheight=2
-
-" Smart way to move between windows
+" Move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext<cr>
+map <C-w>t :terminal<cr>
+map <C-w>e :Explore<cr>
 
-" Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
+" Manage tabs
+let mapleader = ","
+map ,j  :tabprevious<cr>
+map ,k  :tabnext<cr>
+map ,n :tabnew<cr>
+map ,o :tabonly<cr>
+map ,c :tabclose<cr>
+map ,e :tabedit<cr>
+map ,m :tabmove<cr>
 
+" No annoying sound on errors
+"set noerrorbells
+"set novisualbell
+"set t_vb=
+"set tm=500
+set noeb vb t_vb=
 
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
+" Abbreviations
+func Eatchar(pat)
+  let c = nr2char(getchar(0))
+  return (c =~ a:pat) ? '' : c
+endfunc
 
-" Alt+] - Open the definition in a vertical split
-map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+iab <silent> #i #include <unistd.h><CR><C-R>=Eatchar('\s')<CR>
+iab <silent> ## #include <><Left><C-R>=Eatchar('\s')<CR>
+iab <silent> ii int main(int argc, char **argv)<CR>{<CR>if (argc)<CR>{<CR><CR>}<CR>return (0);<CR>}<up><up><up><Tab><Tab><C-R>=Eatchar('\s')<CR>
+iab <silent> im int main()<CR>{<CR><CR>return (0);<CR>}<up><up><Tab><C-R>=Eatchar('\s')<CR>
+
+iab <silent> if if ()<Left><C-R>=Eatchar('\s')<CR>
+iab <silent> ef else if ()<Left><C-R>=Eatchar('\s')<CR>
+iab <silent> el else
+iab <silent> wh while ()<Left><C-R>=Eatchar('\s')<CR>
+iab { {<CR>}<up>
+
+iab <silent> it int	i;<CR><CR>i = 0;<CR><C-R>=Eatchar('\s')<CR>
+iab <silent> ijt int	i;<CR>int	j;<CR><CR>i = 0;<CR>j = 0;<CR><C-R>=Eatchar('\s')<CR>
+iab <silent> 00 '\0'<Right><C-R>=Eatchar('\s')<CR>
+iab <silent> pf printf("%",);<Left><Left><Left><Left><C-R>=Eatchar('\s')<CR>
+iab <silent> re return();<Left><Left><C-R>=Eatchar('\s')<CR>
+iab <silent> ma malloc();<Left><Left><C-R>=Eatchar('\s')<CR>
+iab <silent> fr free();<Left><Left><C-R>=Eatchar('\s')<CR>
+iab <silent> si sizeof()<Left><C-R>=Eatchar('\s')<CR>
+iab <silent> wr write(,,);<Left><Left><Left><Left><C-R>=Eatchar('\s')<CR>
+
+" Ctrl+\ - Open the definition in a new tab
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Source a global configuration file if available
 "if filereadable("/etc/vim/vimrc.local")
 "  source /etc/vim/vimrc.local
 "endif
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <A-j> mz:m+<cr>`z
-nmap <A-k> mz:m-2<cr>`z
-vmap <A-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <A-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-map <C-w>t :terminal<cr>
-map <C-w>e :Vexplore<cr>
-
-
-"filetype plugin on
-"au FileType php setl ofu=phpcomplete#CompletePHP
-"au FileType ruby,eruby setl ofu=rubycomplete#Complete
-"au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
-"au FileType c setl ofu=ccomplete#CompleteCpp
-"au FileType css setl ofu=csscomplete#CompleteCSS
-
-
-
-"Une modif pour Git
