@@ -1,28 +1,29 @@
 
-(LIB) = libft.a
+LIB = libft.a
 
-(CC) = gcc
-(CFLAGS) = -Wall -Wextra -Werror
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-(AR) = ar
-(ARFLAGS) = -rcs
+AR = ar
+ARFLAGS = -rcs
 
-(RM) = rm -f
+RM = rm -f
 
-(SRCS) =	ft_split.c		\
-			ft_strjoin.c	\
-			ft_strmapi.c	\
-			ft_strtrim.c
+SRCS =	ft_split.c		\
+		ft_strjoin.c	\
+		ft_strmapi.c	\
+		ft_strtrim.c	\
+		ft_strlen
 
-(OBJS) = $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o)
+
+%.o: %.c
+	$(cc) $(CFLAGS) -o $@ -c $^
 
 all: $(LIB) clean
 
 $(LIB): $(OBJS)
 	$(AR) $(ARFLAGS) $(LIB) $(OBJS)
-
-%.o: %.c
-	$(cc) $(CFLAGS) -o $@ -c $<
 
 clean:
 	$(RM) $(OBJS)
