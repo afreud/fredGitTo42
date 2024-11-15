@@ -83,4 +83,16 @@ ftext() {
 
 eval "$(starship init bash)"
 fastfetch
-echo "Hello !"
+
+echo "La cruauté et la compassion viennent avec les chromoses.
+Tous les Hommes sont miséricordieux et tous sont des assassins.
+Tout en étant fous de leur chien ils construisent leur Dachau,
+Incendient des villes entières et cajolent des orphelins.
+Marchent pour leur liberté mais partout c'est le NKVD.
+Qui aimons nous? qui persécutons nous?
+Tout ceci c'est l'affaire des moeurs du moment,
+De mots sur de la pâte de bois ou de radios rugissantes,
+De jardins d'enfants communistes ou de premiére communion.
+C'est seulement dans la connaissance de sa propre essence,
+Que l'Homme cesse d'être une multitude de singe.
+A.H."
