@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 10:14:11 by frdurand          #+#    #+#             */
-/*   Updated: 2024/11/12 13:35:59 by frdurand         ###   ########.fr       */
+/*   Created: 2024/10/07 19:45:38 by frdurand          #+#    #+#             */
+/*   Updated: 2024/11/14 14:52:29 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_isascii(int c)
 {
-	char	*dest;
-	int		len;
-	int		i;
-
-	i = 0;
-	if (!(s1) || !(s2))
-		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	dest = malloc(sizeof(char) * len);
-	if (dest == NULL)
-		return (NULL);
-	while (*s1)
-		dest[i++] = *s1++;
-	while (*s2)
-		dest[i++] = *s2++;
-	dest[i] = '\0';
-	return (dest);
+	if (c >= 0 && c <= 127)
+		return (1);
+	else
+		return (0);
 }

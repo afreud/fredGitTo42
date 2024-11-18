@@ -1,10 +1,20 @@
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 10:12:28 by frdurand          #+#    #+#             */
+/*   Updated: 2024/11/14 16:26:01 by frdurand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char **ft_split(char const *s, char c);
+#include "libft.h"
 
 static int	ft_len(const char *str, char c)
 {
-	int sum;
+	int	sum;
 
 	sum = 0;
 	while (*str == c)
@@ -14,13 +24,13 @@ static int	ft_len(const char *str, char c)
 		sum++;
 		str++;
 	}
-	return(sum);
+	return (sum);
 }
 
 static int	ft_wc(const char *str, char c)
 {
 	int	i;
-	int sum;
+	int	sum;
 
 	i = 0;
 	sum = 0;
@@ -32,47 +42,62 @@ static int	ft_wc(const char *str, char c)
 			sum++;
 		i++;
 	}
-	return(sum);
+	return (sum);
 }
 
-static char *ft_putstr(const char *s, char c)
+static void	ft_clear_strs(char **strs)
 {
 	int	i;
-	char *dest;
+
+	i = 0;
+	while (strs[i])
+		free(strs[i++]);
+	free(strs);
+}
+
+static char	*ft_putstr(const char *s, char c, char **strs)
+{
+	int		i;
+	char	*dest;
 
 	i = 0;
 	dest = malloc(sizeof(char) * (ft_len(s, c) + 1));
 	if (dest == NULL)
-		return(NULL);
+	{
+		ft_clear_strs(strs);
+		return (NULL);
+	}
 	while (*s != c && *s != '\0')
 		dest[i++] = *s++;
 	dest[i] = '\0';
-	return(dest);
+	return (dest);
 }
 
-
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	int	i;
-	int	t;
-	char **strs;
+	int		i;
+	int		t;
+	char	**strs;
 
 	i = 0;
 	t = 1;
-	if ((strs = malloc(sizeof(char *) * (ft_wc(s, c) + 1))) == NULL)
-		return(NULL);
+	strs = malloc(sizeof(char *) * (ft_wc(s, c) + 1));
+	if (strs == NULL)
+		return (NULL);
 	while (*s)
 	{
 		if (*s != c && t == 1)
 		{
-			strs[i] = ft_putstr(s, c);
-			t =  0;
+			strs[i] = ft_putstr(s, c, strs);
+			if (strs[i] == NULL)
+				return (NULL);
+			t = 0;
 			i++;
 		}
-		if (*s != c && *(s + 1) == c )
+		if (*s != c && *(s + 1) == c)
 			t = 1;
 		s++;
 	}
 	strs[i] = NULL;
-	return(strs);
+	return (strs);
 }
