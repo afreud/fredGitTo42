@@ -1,49 +1,53 @@
 #include <unistd.h>
 #include <stdarg.h>
 
-void	ft_wrnbr(int arg, char *base, int len, int *i)
+void	ft_wrnbr(int nbr, char *base, int len, ssize_t *i)
 {
-	int	c;
+	ssize_t	c;
+	int rest;
 
-	c = 0;
-	if (arg > 0 && *i >= 0)
+	if (nbr > 0 && *i >= 0)
 	{
-		c = arg % len;
-		arg = arg /len;
-		ft_wrnbr(arg, base, len, i);
-		*i += write(1, &base[c], 1);
+		rest = nbr % len;
+		nbr = nbr /len;
+		ft_wrnbr(nbr, base, len, i);
+		c = write(1, &base[rest], 1);
+		if (c >= 0)
+			*i += c;
 	}
 }
 
-int	ft_putnbrf_base(int arg, char *base)
+int	ft_putnbrf_base(int nbr, char *base)
 {
-	int	i;
+	ssize_t	i;
 
 	i = 0;
-	if (!arg)
+	if (!nbr)
 		return (-42);
-	if (arg < 0)
+	if (nbr < 0)
 	{
 		i += write(1, "-", 1);
-		arg *= -1;
+		nbr *= -1;
 	}
-	if (arg == 0)
+	if (nbr == 0)
 		i += write(1, base[0], 1);
 	else
-		i += ft_wrnbr(arg, base, ft_strlen(base), &i);
+		i += ft_wrnbr(nbr, base, ft_strlen(base), &i);
 	return (i);
 }
 
-void	ft_putarg(char *str, void *arg, int *count)
+void	ft_putarg(char *str, void *arg, ssize_t *count)
 {
-	int	i;
+	ssize_t	i;
 
 	if (*str == 'c')
 		i =	write(1, &(char)arg, 1);
 	else if (*str == 's')
 		i = write(1, (char *)arg, ft_strlen((char *)arg));
 	else if (*str == 'p')
-		i = ft_putnbrf_base((unsigned int)arg, "0123456789abcde");
+
+		i = ft_putnbrf_base((int)(unsigned int)&arg, "0123456789abcde");
+	
 	else if (*str == 'd')	
 		i = ft_putnbrf_base((int)arg, "0123456789");
 	else if (*str == 'i')	
@@ -65,7 +69,8 @@ void	ft_putarg(char *str, void *arg, int *count)
 int	ft_printf(const char *str, ...)
 {
 	va_list	pls;
-	int	count;
+	ssize_t temp;
+	ssize_t	count;
 
 	count = 0;
 	if (!str)
@@ -74,11 +79,17 @@ int	ft_printf(const char *str, ...)
 	while (*str && count >= 0)
 	{
 		if (*str != '%')
-			count += write(1, str, 1);
+		{
+			temp = write(1, str, 1);
+			if (temp >= 0)
+				count += temp;
+			else
+				count = -42;
+		}
 		else if (*str++ == '%')
 			ft_putarg(str, va_arg(pls, void *), &count);
 		str++;
 	}
 	va_end(pls);
-	return (count);
+	return ((int)count);
 }
