@@ -50,13 +50,12 @@ void	ft_wr_nbr(int nbr, char *base, int len, ssize_t *i)
 		*i = -42;
 }
 
-static ssize_t	ft_putnbrf_base(int *n, char *base)
+static ssize_t	ft_putnbrf_base(int nbr, char *base)
 {
 	ssize_t	i;
 	int nbr;
 
 	i = 0;
-	nbr = *n;
 	if (!nbr)
 		return (-42);
 	if (nbr < 0)
@@ -74,33 +73,26 @@ static ssize_t	ft_putnbrf_base(int *n, char *base)
 		return (-42);
 }
 
-void	ft_putarg(const char *str, void *arg, ssize_t *count)
+void	ft_putarg(const char *str, va_list pls, ssize_t *count)
 {
-	ssize_t	i;
-
-	i = 0;
 	if (*str == 'c')
-		i =	write(1, (char *)arg, 1);
+		return (ft_putchar(va_arg(pls, int)));
 	else if (*str == 's')
-		i = write(1, (char *)arg, ft_strlen((char *)arg));
+		i = write(1, va_arg(pls, char *), ft_strlen((char *)arg));
 
 	//else if (*str == 'p')
-	//	i = ft_((int *)(unsigned int *)&arg, "0123456789abcde");
+	//	i = ft_putadr((int *)(va_arg(pls, void *), "0123456789abcde");
 	
 	else if (*str == 'd' || *str == 'i')	
-		i = ft_putnbrf_base((int *)arg, "0123456789");
+		i = ft_putnbrf_base(va_arg(pls, int), "0123456789");
 	else if(*str == 'u')	
-		i =ft_putnbrf_base((int *)(unsigned int *)arg, "0123456789");
+		i =ft_putnbrf_base((va_arg( pls, unsigned int), "0123456789");
 	else if (*str == 'x')	
-		i = ft_putnbrf_base((int *)(unsigned int *)arg, "0123456789abcde");
+		i = ft_putnbrf_base(va_arg(pls, ssize_t)), "0123456789abcde");
 	else if (*str == 'X')	
-		i = ft_putnbrf_base((int *)(unsigned int *)arg, "0123456789ABCDEF");
+		i = ft_putnbrf_base(va_arg(pls, ssize_t), "0123456789ABCDEF");
 	else if (*str == '%')	
 		i = write(1, "%", 1);
-	if (i >= 0)
-		*count += i;
-	else
-		*count = -42;
 }
 
 int	ft_printf(const char *str, ...)
@@ -124,7 +116,7 @@ int	ft_printf(const char *str, ...)
 				count = -42;
 		}
 		else if (*str++ == '%')
-			ft_putarg(str, va_arg(pls, void *), &count);
+			ft_putarg(str, pls, &count);
 		str++;
 	}
 	va_end(pls);
@@ -145,35 +137,35 @@ int	ft_printf(const char *str, ...)
 	char	*s = "abcde";
 
 	r = ft_printf("Me modulo : %%\n");
-	printf("%d", r);
+	printf("%d\n", r);
 	r = printf("Org modulo : %%\n");
-	printf("%d", r);
+	printf("%d\n", r);
 
 	r = ft_printf("Me s: %s\n", s);
-	printf("%d", r);
+	printf("%d\n", r);
 	r = printf("Org s: %s\n", s);
-	printf("%d", r);
+	printf("%d\n", r);
 
 	r = ft_printf("Me c: %c \n", c);
-	printf("%d", r);
+	printf("%d\n", r);
 	r = printf("Org c: %c \n", c);
-	printf("%d", r);
+	printf("%d\n", r);
 
 
 
 	r = ft_printf("Me d: %d\n", d);
-	printf("%d", r);
+	printf("%d\n", r);
 	r = ft_printf("Me i: %i\n", i);
-	printf("%d", r);
+	printf("%d\n", r);
 	r = ft_printf("Me u: %u\n", u);
-	printf("%d", r);
+	printf("%d\n", r);
 
 	r = printf("Org d: %d\n", d);
-	printf("%d", r);
+	printf("%d\n", r);
 	r = printf("Org i: %i\n", i);
-	printf("%d", r);
+	printf("%d\n", r);
 	r = printf("Org u: %u\n", u);
-	printf("%d", r);
+	printf("%d\n", r);
 
 	return (0);
 }
