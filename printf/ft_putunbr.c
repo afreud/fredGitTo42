@@ -1,28 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putunbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 09:40:16 by frdurand          #+#    #+#             */
-/*   Updated: 2024/11/21 11:09:31 by frdurand         ###   ########.fr       */
+/*   Created: 2024/11/21 11:17:35 by frdurand          #+#    #+#             */
+/*   Updated: 2024/11/21 11:17:39 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <unistd.h>
-# include <stdarg.h>
+static int	ft_unbrlen(unsigned int n)
+{
+	int	c;
 
-int		ft_printf(const char *str, ...);
-int		ft_strlen(char *str);
-ssize_t	ft_putadr(void *adr);
-ssize_t	ft_putchar(int c);
-ssize_t	ft_puthex(unsigned int exa, char c);
-ssize_t	ft_putnbr(int n);
-ssize_t	ft_putstr(char *str);
-ssize_t	ft_putunbr(unsigned int unbr);
+	c = 0;
+	if (n == 0)
+		return (1);
+	while (n)
+	{
+		n /= 10;
+		c++;
+	}
+	return (c);
+}
 
-#endif
+ssize_t	ft_putunbr(unsigned int unbr)
+{
+	int		len;
+	char	str[11];
+
+	len = ft_unbrlen(unbr);
+	str[len--] = '\0';
+	while (unbr)
+	{
+		str[len--] = (unbr % 10) + 48;
+		unbr /= 10;
+	}
+	return (write(1, str, ft_strlen(str)));
+}

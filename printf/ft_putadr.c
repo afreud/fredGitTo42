@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putadr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 09:40:16 by frdurand          #+#    #+#             */
-/*   Updated: 2024/11/21 11:09:31 by frdurand         ###   ########.fr       */
+/*   Created: 2024/11/21 11:10:34 by frdurand          #+#    #+#             */
+/*   Updated: 2024/11/21 11:10:54 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
+#include <stdint.h>
 
-# include <unistd.h>
-# include <stdarg.h>
-
-int		ft_printf(const char *str, ...);
-int		ft_strlen(char *str);
-ssize_t	ft_putadr(void *adr);
-ssize_t	ft_putchar(int c);
-ssize_t	ft_puthex(unsigned int exa, char c);
-ssize_t	ft_putnbr(int n);
-ssize_t	ft_putstr(char *str);
-ssize_t	ft_putunbr(unsigned int unbr);
-
-#endif
+ssize_t	ft_putadr(void *adr)
+{
+	if (!adr)
+		return (write(1, "NULL", 4));
+	if (write(1, "0x", 2) < 0)
+		return (-1);
+	return (ft_puthex((unsigned int)(uintptr_t)adr, 'x') + 2);
+}
