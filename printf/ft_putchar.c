@@ -6,7 +6,7 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:12:50 by frdurand          #+#    #+#             */
-/*   Updated: 2024/11/21 11:12:54 by frdurand         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:47:54 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,5 @@
 
 ssize_t	ft_putchar(int c)
 {
-	if (!c)
-		return (-1);
-	else
-		return (write(1, &c, 1));
+	return (write(1, &c, 1));
 }

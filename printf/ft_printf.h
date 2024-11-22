@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 09:40:16 by frdurand          #+#    #+#             */
-/*   Updated: 2024/11/21 11:09:31 by frdurand         ###   ########.fr       */
+/*   Created: 2024/11/22 11:02:36 by frdurand          #+#    #+#             */
+/*   Updated: 2024/11/22 13:29:19 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdint.h>
 
 int		ft_printf(const char *str, ...);
 int		ft_strlen(char *str);

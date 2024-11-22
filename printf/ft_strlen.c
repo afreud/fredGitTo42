@@ -6,7 +6,7 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:18:17 by frdurand          #+#    #+#             */
-/*   Updated: 2024/11/21 11:18:25 by frdurand         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:10:20 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
-	while (*str++)
-		i++;
+	if (str)
+	{
+		while (*str++)
+			i++;
+	}
 	return (i);
 }

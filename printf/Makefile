@@ -6,7 +6,7 @@
 #    By: frdurand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 17:34:38 by frdurand          #+#    #+#              #
-#    Updated: 2024/11/21 09:43:56 by frdurand         ###   ########.fr        #
+#    Updated: 2024/11/22 10:15:24 by frdurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,8 @@ CFILES = 	ft_printf.c		\
 
 OFILES =  $(CFILES:.c=.o)
 
-%.c: %.o
-	$(CC) $(FLAGS) -O $@ -C $^
+%.o: %.c
+	$(CC) $(FLAGS) -o $@ -c $^
 
 $(NAME): $(OFILES)
 	ar -rc $(NAME) $(OFILES) 
@@ -38,11 +38,10 @@ all: $(NAME)
 clean:
 	rm -f *.o
 
-fclean:
-	clean rm -f $(NAME)
+fclean:	clean
+	rm -f $(NAME)
 
-re:
-	fclean all
+re: fclean all
 
 .PHONY :
 	all clean fclean re

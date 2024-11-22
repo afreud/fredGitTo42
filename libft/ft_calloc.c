@@ -11,20 +11,13 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	char		*cptr;
-	size_t		i;
-
-	i = 0;
-	cptr = (char *)malloc(nmemb * size);
-	if (!cptr)
-		return (NULL);
-	while (i <= (nmemb * size))
+	if (cptr)
 	{
-		cptr[i] = '\0';
-		i++;
+		while (i < (nmemb * size))
+		{
+			cptr[i] = '\0';
+			i++;
+		}
 	}
-	return (cptr);
+	return ((void *)cptr);
 }

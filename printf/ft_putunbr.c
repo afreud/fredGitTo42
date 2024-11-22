@@ -6,7 +6,7 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:17:35 by frdurand          #+#    #+#             */
-/*   Updated: 2024/11/21 11:17:39 by frdurand         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:54:16 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static int	ft_unbrlen(unsigned int n)
 	int	c;
 
 	c = 0;
-	if (n == 0)
-		return (1);
 	while (n)
 	{
 		n /= 10;
@@ -30,8 +28,10 @@ static int	ft_unbrlen(unsigned int n)
 ssize_t	ft_putunbr(unsigned int unbr)
 {
 	int		len;
-	char	str[11];
+	char	str[30];
 
+	if (unbr == 0)
+		return (write(1, "0", 1));
 	len = ft_unbrlen(unbr);
 	str[len--] = '\0';
 	while (unbr)
