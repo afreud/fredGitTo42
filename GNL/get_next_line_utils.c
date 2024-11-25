@@ -6,6 +6,8 @@ ssize_t	ft_gllen(char *str, char c)
 	ssize_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (*str++ != c)
 		i++;
 	return (i);

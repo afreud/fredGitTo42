@@ -6,9 +6,9 @@ static ssize_t	ft_read_file(int fd, char *buff)
 	ssize_t	count;
 	int	i;
 
-	i = 0;
-	while (buff[i])
-		buff[i++] = '\0';
+	i = BUFFER_SIZE;
+	while (i >= 0)
+		buff[i--] = '\0';
 	count = read(fd, buff, BUFFER_SIZE);
 	return (count);
 }
