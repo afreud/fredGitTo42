@@ -4,9 +4,12 @@
 static ssize_t	ft_read_file(int fd, char *buff)
 {
 	ssize_t	count;
+	int	i;
 
+	i = 0;
+	while (buff[i])
+		buff[i++] = '\0';
 	count = read(fd, buff, BUFFER_SIZE);
-	buff[BUFFER_SIZE] = '\0';
 	return (count);
 }
 
@@ -51,13 +54,15 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
+	{
+		free(stash);
 		return (NULL);
+	}
 	line = NULL;
-	buff[0] = '\0';
 	i = ft_read_file(fd, buff);
 	if (i < 0 || (i == 0 && *stash == '\0')) 
 	{
-		free(stash );
+		free(stash);
 		return (NULL);
 	}
 	stash = ft_tostash(stash, buff);

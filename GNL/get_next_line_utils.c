@@ -39,11 +39,14 @@ char	*ft_gljoin(char *s1, char *s2)
 	i = 0;
 	str = malloc(sizeof(char) * 
 			(ft_gllen(s1, '\0') + ft_gllen(s2, '\0') + 1));
-	while (*s1 )
-		str[i++] = *s1++;
-	while (*s2)
-		str[i++] = *s2++;
-	str[i] = '\0';
+	if (str)
+	{
+		while (*s1 )
+			str[i++] = *s1++;
+		while (*s2)
+			str[i++] = *s2++;
+		str[i] = '\0';
+	}
 	return (str);
 }
 
