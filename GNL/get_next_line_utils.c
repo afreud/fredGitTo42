@@ -62,24 +62,10 @@ void	ft_cutstash(char *stash)
 	while (stash[i] != ft_eol(stash))
 		i++;
 	i++;
-	if (stash[i])
+	if (i < ft_gllen(stash, '\0'))
 	{
 		while (stash[i])
 			stash[j++] = stash[i++];
 	}
 	stash[j] = '\0';
 }
-//
-//	if (!stash[i] || (stash[i] && !stash[i + 1]))
-//		*stash = '\0';
-//	else
-//	{
-//		while (stash[++i])
-//		{
-//			*stash = stash[i];
-//			stash++;
-//		}
-//		*stash = '\0';
-//
-//	}
-//}
