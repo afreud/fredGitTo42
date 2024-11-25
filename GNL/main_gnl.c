@@ -15,7 +15,7 @@ int main()
 	line = NULL;
 	while (line = get_next_line(fd), line)
 	{
-		printf("[%d]: %s", i, line);
+		printf("[%d]%s", i, line);
 		free(line);
 		line = NULL;
 		i++;

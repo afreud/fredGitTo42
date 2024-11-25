@@ -55,20 +55,31 @@ char	*ft_gljoin(char *s1, char *s2)
 void	ft_cutstash(char *stash)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (stash[i] != ft_eol(stash))
 		i++;
-	if (!stash[i] || (stash[i] && !stash[i + 1]))
-		*stash = '\0';
-	else
+	i++;
+	if (stash[i])
 	{
-		while (stash[++i])
-		{
-			*stash = stash[i];
-			stash++;
-		}
-		*stash = '\0';
-
+		while (stash[i])
+			stash[j++] = stash[i++];
 	}
+	stash[j] = '\0';
 }
+//
+//	if (!stash[i] || (stash[i] && !stash[i + 1]))
+//		*stash = '\0';
+//	else
+//	{
+//		while (stash[++i])
+//		{
+//			*stash = stash[i];
+//			stash++;
+//		}
+//		*stash = '\0';
+//
+//	}
+//}
