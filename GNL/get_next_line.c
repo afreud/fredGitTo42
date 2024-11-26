@@ -1,10 +1,9 @@
-
 #include "get_next_line.h"
 
 static ssize_t	ft_read_file(int fd, char *buff)
 {
 	ssize_t	count;
-	int	i;
+	int		i;
 
 	i = BUFFER_SIZE;
 	while (i >= 0)
@@ -48,7 +47,7 @@ static char	*ft_toline(char *stash)
 
 char	*get_next_line(int fd)
 {
-	ssize_t		 i;
+	ssize_t		i;
 	char		buff[BUFFER_SIZE + 1];
 	static char	*stash = NULL;
 	char		*line;
@@ -60,7 +59,7 @@ char	*get_next_line(int fd)
 	}
 	line = NULL;
 	i = ft_read_file(fd, buff);
-	if (i < 0 || (i == 0 && *stash == '\0')) 
+	if (i < 0 || (i == 0 && *stash == '\0'))
 	{
 		free(stash);
 		return (NULL);

@@ -1,4 +1,3 @@
-
 #include "get_next_line.h"
 
 ssize_t	ft_gllen(char *str, char c)
@@ -35,15 +34,14 @@ void	ft_glcp(char *dest, char *src, char c)
 
 char	*ft_gljoin(char *s1, char *s2)
 {
-	int	i;
-	char *str;
+	int		i;
+	char	*str;
 
 	i = 0;
-	str = malloc(sizeof(char) * 
-			(ft_gllen(s1, '\0') + ft_gllen(s2, '\0') + 1));
+	str = malloc(sizeof(char) * (ft_gllen(s1, '\0') + ft_gllen(s2, '\0') + 1));
 	if (str)
 	{
-		while (*s1 )
+		while (*s1)
 			str[i++] = *s1++;
 		while (*s2)
 			str[i++] = *s2++;
