@@ -14,30 +14,43 @@ static ssize_t	ft_read_file(int fd, char *buff)
 
 static char	*ft_tostash(char *stash, char *buff)
 {
-	char	temp[ft_gllen(stash, '\0') + 1];
+	char	*temp;
 
-	temp[0] = '\0';
 	if (*buff == '\0')
 		return (stash);
 	if (stash)
 	{
-		ft_glcp(temp, stash, '\0');
-		free(stash);
+		temp = malloc(sizeof(char) * (ft_gllen(stash, '\0') + 1));
+		if (temp)
+		{
+			temp[0] = '\0';
+			ft_glcp(temp, stash, '\0');
+			free(stash);
+			stash = ft_gljoin(temp, buff);
+			free(temp);
+		}
+		return (stash);
 	}
-	return (ft_gljoin(temp, buff));
+	else
+		return (ft_gljoin("\0", buff));
 }
 
 static char	*ft_toline(char *stash)
 {
-	char	*line;
 	char	c[2];
-	char	temp[ft_gllen(stash, ft_eol(stash)) + 1];
+	char	*line;
+	char	*temp;
 
 	c[0] = ft_eol(stash);
 	c[1] = '\0';
-	temp[0] = '\0';
-	ft_glcp(temp, stash, ft_eol(stash));
-	line = ft_gljoin(temp, c);
+	temp = malloc(sizeof(char) * (ft_gllen(stash, ft_eol(stash)) + 1));
+	if (temp)
+	{
+		temp[0] = '\0';
+		ft_glcp(temp, stash, ft_eol(stash));
+		line = ft_gljoin(temp, c);
+		free(temp);
+	}
 	if (!line)
 		free(stash);
 	else
