@@ -66,17 +66,11 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
-		free(stash);
-		return (NULL);
-	}
+		return (free(stash), NULL);
 	line = NULL;
 	i = ft_read_file(fd, buff);
 	if (i < 0 || (i == 0 && *stash == '\0'))
-	{
-		free(stash);
-		return (NULL);
-	}
+		return (free(stash), NULL);
 	stash = ft_tostash(stash, buff);
 	if (stash)
 		line = ft_toline(stash);
