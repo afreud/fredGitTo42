@@ -18,8 +18,6 @@ char	ft_eol(char *s)
 	{
 		if (*s == '\n')
 			return ('\n');
-		if (*s == '\r')
-			return ('\r');
 		s++;
 	}
 	return ('\0');
