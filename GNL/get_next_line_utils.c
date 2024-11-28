@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/27 09:46:21 by frdurand          #+#    #+#             */
+/*   Updated: 2024/11/27 09:46:33 by frdurand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 ssize_t	ft_gllen(char *str, char c)
@@ -25,8 +37,11 @@ char	ft_eol(char *s)
 
 void	ft_glcp(char *dest, char *src, char c)
 {
-	while (*src != c)
-		*dest++ = *src++;
+	if (src)
+	{
+		while (*src != c)
+			*dest++ = *src++;
+	}
 	*dest = '\0';
 }
 
@@ -57,7 +72,8 @@ void	ft_cutstash(char *stash)
 	j = 0;
 	while (stash[i] != ft_eol(stash))
 		i++;
-	i++;
+	if (stash[i] == '\n')
+		i++;
 	if (i < ft_gllen(stash, '\0'))
 	{
 		while (stash[i])

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/27 09:47:08 by frdurand          #+#    #+#             */
+/*   Updated: 2024/11/28 15:06:00 by frdurand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 static ssize_t	ft_read_file(int fd, char *buff)
@@ -12,27 +24,28 @@ static ssize_t	ft_read_file(int fd, char *buff)
 	return (count);
 }
 
-static char	*ft_tostash(char *stash, char *buff)
+static char	*ft_tostash(char *stash, char *buff, int count)
 {
 	char	*temp;
 
-	if (*buff == '\0')
-		return (stash);
-	if (stash)
+	if (count < 0 || (!count && !stash))
+		return (NULL);
+	if (count == 0 && !*stash)
 	{
-		temp = malloc(sizeof(char) * (ft_gllen(stash, '\0') + 1));
-		if (temp)
-		{
-			temp[0] = '\0';
-			ft_glcp(temp, stash, '\0');
-			free(stash);
-			stash = ft_gljoin(temp, buff);
-			free(temp);
-		}
-		return (stash);
+		free(stash);
+		stash = NULL;
+		return (NULL);
 	}
-	else
-		return (ft_gljoin("\0", buff));
+	temp = malloc(sizeof(char) * (ft_gllen(stash, '\0') + 1));
+	if (temp)
+	{
+		ft_glcp(temp, stash, '\0');
+		free(stash);
+		stash = ft_gljoin(temp, buff);
+		free(temp);
+		temp = NULL;
+	}
+	return (stash);
 }
 
 static char	*ft_toline(char *stash)
@@ -43,7 +56,8 @@ static char	*ft_toline(char *stash)
 
 	c[0] = ft_eol(stash);
 	c[1] = '\0';
-	temp = malloc(sizeof(char) * (ft_gllen(stash, ft_eol(stash)) + 1));
+	line = NULL;
+	temp = malloc(sizeof(char) * (ft_gllen(stash, ft_eol(stash)) + 2));
 	if (temp)
 	{
 		temp[0] = '\0';
@@ -60,18 +74,27 @@ static char	*ft_toline(char *stash)
 
 char	*get_next_line(int fd)
 {
-	ssize_t		i;
-	char		buff[BUFFER_SIZE + 1];
+	ssize_t		count;
+	int			t;
+	char		*buff;
 	static char	*stash = NULL;
 	char		*line;
 
+	t = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (free(stash), NULL);
+		return (NULL);
 	line = NULL;
-	i = ft_read_file(fd, buff);
-	if (i < 0 || (i == 0 && *stash == '\0'))
-		return (free(stash), NULL);
-	stash = ft_tostash(stash, buff);
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
+		return (NULL);
+	while (t)
+	{
+		count = ft_read_file(fd, buff);
+		stash = ft_tostash(stash, buff, count);
+		if (!stash || ft_eol(stash) == '\n' || (!(ft_eol(stash)) && !count))
+			t = 0;
+	}
+	free(buff);
 	if (stash)
 		line = ft_toline(stash);
 	return (line);
