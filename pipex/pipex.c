@@ -12,6 +12,7 @@ static void	ft_child(int *fd, int *pipefd, char ***tabcmd, char **path)
 	if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 		perror("dupfd1");
 	close(pipefd[0]);
+	close(pipefd[1]);
 	cmd_path = ft_cmdpath(path, tabcmd[0][0]);
 	if (!cmd_path)
 		perror("cmd_path");
@@ -20,7 +21,6 @@ static void	ft_child(int *fd, int *pipefd, char ***tabcmd, char **path)
 		i++;
 	}
 	ft_clean(cmd_path);
-	close(pipefd[1]);
 	exit(EXIT_SUCCESS);
 }
 
@@ -33,11 +33,11 @@ static void	ft_parent(int *fd, int *pipefd, char ***tabcmd, char **path)
 	dup2(fd[1], STDOUT_FILENO);
 	dup2(pipefd[0], STDIN_FILENO);
 	close(pipefd[1]);
+	close(pipefd[0]);
 	cmd_path = ft_cmdpath(path, tabcmd[1][0]);
 	while (cmd_path[i] && (execve(cmd_path[i], tabcmd[1], environ) == -1))
 		i++;
 	ft_clean(cmd_path);
-	close(pipefd[0]);
 	exit(EXIT_SUCCESS);
 }
 
@@ -59,9 +59,11 @@ void	pipex(int *fd, char ***tabcmd, char **path)
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
 		ft_parent(fd, pipefd, tabcmd, path);
+		ft_clean3d(tabcmd);
+		ft_clean(path);
+		close(fd[0]);
+		close(fd[1]);
+		waitpid(pid, &status, 0);
 	}
-	ft_clean3d(tabcmd);
-	ft_clean(path);
 }
