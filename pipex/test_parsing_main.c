@@ -9,66 +9,51 @@ int main(int argc, char **argv)
 {
 	if (argc)
 	{
-		int	i;
 		int j;
 		int k =0;
 
-		i = 0;
 		j = 0;
-		char	***tabcmd;
-		char	**cmdpath;
-		cmdpath = NULL;
-		tabcmd = NULL;
-		char	**path = ft_getenv(argv[1]);
+		char	***cmds_t;
+		char	***cmdpath_t;
+		cmds_t = NULL;
+		cmdpath_t = NULL;
 		printf("\n");
 
-		if (!path)
+		cmds_t = ft_cmds_t(argc, argv);
+		while (cmds_t[j])
 		{
-			printf("%s doesn't exist", argv[1]);
-			printf("ENV_VAR(ex:PATH) cmd..cmd message\n");
-		}
-		else
-		{
-			while (path[i])
+			while (cmds_t[j][k])
 			{
-				printf("%s\n",path[i]);
-				i++;
-			}
-			i = 0;
-			printf("\n");
-
-			tabcmd = ft_tabcmd(argc, argv);
-			while (tabcmd[j])
-			{
-				while (tabcmd[j][k])
-				{
-					printf("%s\n", tabcmd[j][k]);
-					k++;
-				}
-				printf("\n");
-				j++;
-				k = 0;
+				printf("%s\n", cmds_t[j][k]);
+				k++;
 			}
 			printf("\n");
-
-			j = 0;
-			while (tabcmd[j])
-			{
-				cmdpath = ft_cmdpath(path, tabcmd[j][0]);
-				while (cmdpath[i])
-				{
-					printf("%s\n",cmdpath[i]);
-					i++;
-				}
-				ft_clean(cmdpath);
-				printf("\n");
-				j++;
-				i = 0;
-			}
-			ft_clean(path);
-			ft_clean3d(tabcmd);
-			printf("      %s\n", argv[argc - 1]);
+			j++;
+			k = 0;
 		}
+
+		j = 0;
+		k = 0;
+		cmdpath_t = ft_cmdpath_t(cmds_t);
+		if (!cmdpath_t)
+		{
+			printf("HAHAHA");
+			return (-1);
+		}
+		while (cmdpath_t[j])
+		{
+			while (cmdpath_t[j][k])
+			{
+				printf("%s\n",cmdpath_t[j][k]);
+				k++;
+			}
+			printf("\n");
+			j++;
+			k = 0;
+		}
+		ft_clean3d(cmdpath_t);
+		ft_clean3d(cmds_t);
+		printf("      %s\n", argv[argc - 1]);
 	}
 	return (0);
 }

@@ -4,7 +4,7 @@
 int main(int argc, char **argv)
 {
 	int fd[2];
-	char	***tabcmd;
+	char	***cmds_t;
 	char	**path;
 
 	if (argc)
@@ -16,13 +16,13 @@ int main(int argc, char **argv)
 			perror("Files");
 			exit (EXIT_FAILURE);
 		}
-		tabcmd = ft_tabcmd(argc, argv);
-		if (!tabcmd)
+		cmds_t = ft_cmds_t(argc, argv);
+		if (!cmds_t)
 			perror("tabcmd");
 		path = ft_getenv("PATH");
 		if (!path)
 			perror("path");
-		pipex(fd, tabcmd, path);
+		pipex(fd, cmds_t, path);
 	}
 	close(fd[0]);
 	close(fd[1]);
