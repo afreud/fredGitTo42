@@ -28,16 +28,14 @@ static int	ft_len(const char *str, char c)
 	int	sum;
 
 	sum = 0;
-	if (*str == '\'')
+	if (*str == '\'' || *str == '\"')
 	{
-		sum++;
 		str++;
-		while (*str != '\'' && *str)
+		while (*str != '\'' && *str != '\"' && *str)
 		{
 			sum++;
 			str++;
 		}
-		sum++;
 		return (sum);
 	}
 	while (*str == c)
@@ -80,12 +78,11 @@ static char	*ft_cpstr(const char *s, char c, char **strs)
 		ft_clean(strs);
 		return (NULL);
 	}
-	if (*s == '\'')
+	if (*s == '\'' || *s == '\"')
 	{
-		dest[i++] = *s++;
-		while (*s != '\'' && *s)
+		s++;
+		while (*s != '\'' && *s != '\"' && *s)
 			dest[i++] = *s++;
-		dest[i++] = *s++;
 	}
 	else
 		while (*s != c && *s != '\0')
@@ -110,8 +107,8 @@ char	**ft_msplit(char const *s, char c)
 			strs[i++] = ft_cpstr(s, c, strs);
 			t = 0;
 		}
-		if (*s == '\'')
-			s += ft_len(s, ' ') - 1;
+		if (*s == '\'' || *s == '\"')
+			s += ft_len(s, ' ') + 1;
 		if (*s != c && *(s + 1) == c)
 			t = 1;
 		s++;
