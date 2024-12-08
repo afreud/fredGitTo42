@@ -19,7 +19,7 @@ char	***ft_cmdpath_t(char ***cmds_t);
 size_t	ft_strlen(const char *s);
 char	**ft_msplit(char const *s, char c);
 char	*ft_cjoin(char const *s1, char const *s2);
-void	pipex(int *fd, char ***tabcmd, char **path);
+void	pipex(int *fd, char ***cmds_t, char ***cmdpath_t);
 
 
 # endif

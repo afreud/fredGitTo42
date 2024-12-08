@@ -25,13 +25,15 @@ char	*ft_cjoin(char const *s1, char const *s2)
 
 static int	ft_len(const char *str, char c)
 {
-	int	sum;
+	int		sum;
+	char	q;
 
 	sum = 0;
 	if (*str == '\'' || *str == '\"')
 	{
+		q = *str;
 		str++;
-		while (*str != '\'' && *str != '\"' && *str)
+		while (*str != q && *str)
 		{
 			sum++;
 			str++;
@@ -69,6 +71,7 @@ static int	ft_wc(const char *str, char c)
 static char	*ft_cpstr(const char *s, char c, char **strs)
 {
 	int		i;
+	char	q;
 	char	*dest;
 
 	i = 0;
@@ -80,8 +83,9 @@ static char	*ft_cpstr(const char *s, char c, char **strs)
 	}
 	if (*s == '\'' || *s == '\"')
 	{
+		q = *s;
 		s++;
-		while (*s != '\'' && *s != '\"' && *s)
+		while (*s != q && *s)
 			dest[i++] = *s++;
 	}
 	else

@@ -1,9 +1,8 @@
 
 #include "pipex.h"
 
-static void	ft_child(int *fd, int *pipefd, char ***cmds_t, char **path)
+static void	ft_child(int *fd, int *pipefd, char **cmds, char **cmd_path)
 {
-	char	**cmd_path;
 	int	i;
 
 	i = 0;
@@ -14,20 +13,15 @@ static void	ft_child(int *fd, int *pipefd, char ***cmds_t, char **path)
 	close(fd[0]);
 	close(pipefd[1]);
 	close(pipefd[0]);
-	cmd_path = ft_join_pc(path, cmds_t[0][0]);
-	if (!cmd_path)
-		perror("cmd_path");
-	while (cmd_path[i] && (execve(cmd_path[i], cmds_t[0], environ) == -1))
+	while (cmd_path[i] && (execve(cmd_path[i], cmds, environ) == -1))
 	{
 		i++;
 	}
-	ft_clean(cmd_path);
 	exit(EXIT_SUCCESS);
 }
 
-static void	ft_parent(int *fd, int *pipefd, char ***cmds_t, char **path)
+static void	ft_parent(int *fd, int *pipefd, char **cmds, char **cmd_path)
 {
-	char	**cmd_path;
 	int	i;
 
 	i = 0;
@@ -36,15 +30,13 @@ static void	ft_parent(int *fd, int *pipefd, char ***cmds_t, char **path)
 	close(fd[1]);
 	close(pipefd[0]);
 	close(pipefd[1]);
-	cmd_path = ft_join_pc(path, cmds_t[1][0]);
-	while (cmd_path[i] && (execve(cmd_path[i], cmds_t[1], environ) == -1))
+	while (cmd_path[i] && (execve(cmd_path[i], cmds, environ) == -1))
 		i++;
-	ft_clean(cmd_path);
 	exit(EXIT_SUCCESS);
 }
 
 
-void	pipex(int *fd, char ***cmds_t, char **path)
+void	pipex(int *fd, char ***cmds_t, char ***cmdpath_t)
 {
 	int		status;
 	int		pipefd[2];
@@ -57,14 +49,14 @@ void	pipex(int *fd, char ***cmds_t, char **path)
 		exit(EXIT_FAILURE);
 	if (!pid)
 	{
-		ft_child(fd, pipefd, cmds_t, path);
+		ft_child(fd, pipefd, cmds_t[0], cmdpath_t[0]);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		ft_parent(fd, pipefd, cmds_t, path);
+		ft_parent(fd, pipefd, cmds_t[1], cmdpath_t[1]);
 		ft_clean3d(cmds_t);
-		ft_clean(path);
+		ft_clean3d(cmdpath_t);
 		close(fd[0]);
 		close(fd[1]);
 	}
