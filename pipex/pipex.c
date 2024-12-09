@@ -15,7 +15,8 @@ static void	ft_child(int *fd, int *pipefd, char **cmds, char **cmd_path)
 	close(pipefd[1]);
 	while (cmd_path[i] && (execve(cmd_path[i], cmds, environ) == -1))
 		i++;
-	exit(EXIT_SUCCESS);
+	perror("Second command arguments error");
+	exit(EXIT_FAILURE);
 }
 
 static void	ft_parent(int *fd, int *pipefd, char **cmds, char **cmd_path)
@@ -24,15 +25,16 @@ static void	ft_parent(int *fd, int *pipefd, char **cmds, char **cmd_path)
 
 	i = 0;
 	close(pipefd[1]);
-	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		perror("dupfd0");
 	if (dup2(pipefd[0], STDIN_FILENO) == -1)
+		perror("dupfd0");
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
 		perror("dupfd0");
 	close(fd[1]);
 	close(pipefd[0]);
 	while (cmd_path[i] && (execve(cmd_path[i], cmds, environ) == -1))
 		i++;
-	exit(EXIT_SUCCESS);
+	perror("Second command arguments error");
+	exit(EXIT_FAILURE);
 }
 
 
@@ -49,7 +51,6 @@ void	pipex(int *fd, char ***cmds_t, char ***cmdpath_t)
 	if (!pid)
 		ft_child(fd, pipefd, cmds_t[0], cmdpath_t[0]);
 	waitpid(pid, NULL, 0);
-	close(fd[0]);
 	close(pipefd[1]);
 	pid = fork();
 	if (pid < 0)
@@ -59,7 +60,6 @@ void	pipex(int *fd, char ***cmds_t, char ***cmdpath_t)
 	else
 	{
 		waitpid(pid, NULL, 0);
-		close(fd[1]);
 		close(pipefd[0]);
 		ft_clean3d(cmds_t);
 		ft_clean3d(cmdpath_t);
