@@ -23,7 +23,7 @@ static void	ft_child_m(int *fdprev, int *fdnext, char **cmds, char **cmd_path)
 	int	i;
 
 	i = 0;
-	close(fdprev[1]);
+	close(fdnext[0]);
 	if (dup2(fdprev[0], STDIN_FILENO) == -1)
 		perror("dupfd0");
 	if (dup2(fdnext[1], STDOUT_FILENO) == -1)
