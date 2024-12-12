@@ -1,3 +1,4 @@
+
 #include "pipex.h"
 
 
@@ -7,24 +8,21 @@ int main(int argc, char **argv)
 	char	***cmds_t;
 	char	**path_t;
 
-	if (argc <= 4)
-		return (-1);
-	fd[0] = open(argv[1], O_RDWR | O_CREAT, 0666);
-	fd[1] = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0666);
-	if (fd[0] < 0 || fd[1] < 0)
+	if (argc < 5)
 	{
-		perror("Error opening Files");
-		exit (-2);
+		write(0, "Too few arguments", 17);
+		return (-1);
 	}
+	if (ft_open_files(fd, argv[1], argv[2]))
+		argv++;
 	cmds_t = ft_cmds_t(argc, argv);
 	if (!cmds_t)
-		perror("tabcmd");
+		perror("Problem creating arguments array");
 	path_t = ft_path_t(cmds_t);		
+	if (!path_t && cmds_t)
+		perror("Wrong command");
 	if (path_t)
 		pipex(fd, cmds_t, path_t);
-	close(fd[0]);
-	close(fd[1]);
-	ft_clean3(cmds_t);
-	ft_clean2(path_t);
+	ft_clean_close(fd, cmds_t, path_t)
 	return (0);
 }

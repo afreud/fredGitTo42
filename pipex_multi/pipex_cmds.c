@@ -4,8 +4,8 @@
 char	***ft_cmds_t(int argc, char **argv)
 {
 	char	***cmds_t;
-	int	i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 2;

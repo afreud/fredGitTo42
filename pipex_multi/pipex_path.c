@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-static void	ft_error_acess(int *t, char **path_t, int i)
+static void	ft_error_access(int *t, char **path_t, int i)
 {
 	if (!*t)
 		path_t[i] = NULL;
@@ -49,11 +49,12 @@ static char	**ft_check_acc(char ***allpaths_t, int i, int j)
 			j++;
 		}
 		if (t == 0 || !path_t[i])
-			ft_error_acess(&t, path_t, i);
+			ft_error_access(&t, path_t, i);
 		j = 0;
 		i++;
 	}
-	path_t[i] = NULL;
+	if (path_t)
+		path_t[i] = NULL;
 	return (path_t);
 }
 
@@ -72,6 +73,5 @@ char	**ft_path_t(char ***cmds_t)
 		return (NULL);
 	path_t = ft_check_acc(allpaths_t, i, j);
 	ft_clean3(allpaths_t);
-	allpaths_t = NULL;
 	return (path_t);
 }
