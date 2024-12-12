@@ -75,9 +75,9 @@ char	**ft_join_pc(char **path, char *cmd)
 	return (cmd_path);
 }
 
-char	***ft_cmdpath_t(char ***cmds_t)
+char	***ft_allpaths_t(char ***cmds_t)
 {
-	char	***cmdpath_t;
+	char	***allpaths_t;
 	char	**path;
 	int	i;
 
@@ -87,16 +87,16 @@ char	***ft_cmdpath_t(char ***cmds_t)
 	path = ft_getenv("PATH");
 	if (!path)
 		return (NULL);
-	cmdpath_t = malloc(sizeof(char **) * (ft_len3(cmds_t) + 1));
-	while (cmds_t[i] && cmdpath_t)
+	allpaths_t = malloc(sizeof(char **) * (ft_len3(cmds_t) + 1));
+	while (cmds_t[i] && allpaths_t)
 	{
-		cmdpath_t[i] = ft_join_pc(path, cmds_t[i][0]);
-		if (!cmdpath_t[i])
-			ft_clean3d(cmdpath_t);
+		allpaths_t[i] = ft_join_pc(path, cmds_t[i][0]);
+		if (!allpaths_t[i])
+			ft_clean3d(allpaths_t);
 		i++;
 	}
-	if (cmdpath_t)
-		cmdpath_t[i] = NULL;
+	if (allpaths_t)
+		allpaths_t[i] = NULL;
 	ft_clean(path);
-	return (cmdpath_t);
+	return (allpaths_t);
 }

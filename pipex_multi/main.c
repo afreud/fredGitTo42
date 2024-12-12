@@ -5,7 +5,7 @@ int main(int argc, char **argv)
 {
 	int fd[2];
 	char	***cmds_t;
-	char	***cmdpath_t;
+	char	***allpaths_t;
 
 	if (argc <= 4)
 		return (-1);
@@ -19,13 +19,13 @@ int main(int argc, char **argv)
 	cmds_t = ft_cmds_t(argc, argv);
 	if (!cmds_t)
 		perror("tabcmd");
-	cmdpath_t = ft_cmdpath_t(cmds_t);		
-	if (!cmdpath_t)
+	allpaths_t = ft_allpaths_t(cmds_t);		
+	if (!allpaths_t)
 		perror("path");
-	pipex(fd, cmds_t, cmdpath_t);
+	pipex(fd, cmds_t, allpaths_t);
 	close(fd[0]);
 	close(fd[1]);
 	ft_clean3d(cmds_t);
-	ft_clean3d(cmdpath_t);
+	ft_clean3d(allpaths_t);
 	return (0);
 }

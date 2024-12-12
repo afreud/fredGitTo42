@@ -4,6 +4,11 @@
 #include "pipex_cmds.c"
 #include "pipex_strs.c"
 #include "pipex_utils.c"
+#include "pipex_init.c"
+
+
+
+
 
 int main(int argc, char **argv)
 {
@@ -14,9 +19,10 @@ int main(int argc, char **argv)
 
 		j = 0;
 		char	***cmds_t;
-		char	***cmdpath_t;
+//		char	***allpaths_t;
+		char	**path_t;
 		cmds_t = NULL;
-		cmdpath_t = NULL;
+		path_t = NULL;
 		printf("\n");
 
 		cmds_t = ft_cmds_t(argc, argv);
@@ -32,27 +38,32 @@ int main(int argc, char **argv)
 			k = 0;
 		}
 
-		j = 0;
-		k = 0;
-		cmdpath_t = ft_cmdpath_t(cmds_t);
-		if (!cmdpath_t)
+//		j = 0;
+//		k = 0;
+//		allpaths_t = ft_allpaths_t(cmds_t);
+//		while (allpaths_t[j])
+//		{
+//			while (allpaths_t[j][k])
+//			{
+//				printf("%s\n", allpaths_t[j][k]);
+//				k++;
+//			}
+//			printf("\n");
+//			k =0;
+//			j++;
+//		}
+//
+
+		j =0;
+		path_t = ft_path_t(cmds_t);
+		while (path_t[j])
 		{
-			printf("HAHAHA");
-			return (-1);
-		}
-		while (cmdpath_t[j])
-		{
-			while (cmdpath_t[j][k])
-			{
-				printf("%s\n",cmdpath_t[j][k]);
-				k++;
-			}
-			printf("\n");
+			printf("%s\n", path_t[j]);
 			j++;
-			k = 0;
 		}
-		ft_clean3d(cmdpath_t);
 		ft_clean3d(cmds_t);
+//		ft_clean3d(allpaths_t);
+		ft_clean(path_t);
 		printf("      %s\n", argv[argc - 1]);
 	}
 	return (0);

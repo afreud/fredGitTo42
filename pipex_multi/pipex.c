@@ -53,7 +53,7 @@ static void	ft_child_l(int *fd, int *pipefd, char **cmds, char **cmd_path)
 }
 
 
-void	pipex(int *fd, char ***cmds_t, char ***cmdpath_t)
+void	pipex(int *fd, char ***cmds_t, char ***allpaths_t)
 {
 	int		pipefd[1024][2];
 	pid_t	pid;
@@ -73,11 +73,11 @@ void	pipex(int *fd, char ***cmds_t, char ***cmdpath_t)
 		if (pid < 0)
 			perror("fork");
 		if (!pid && !i)
-			ft_child_f(fd, pipefd[i], cmds_t[i], cmdpath_t[i]);
+			ft_child_f(fd, pipefd[i], cmds_t[i], allpaths_t[i]);
 		else if (!pid && i && i != max)
-			ft_child_m(pipefd[i - 1], pipefd[i], cmds_t[i], cmdpath_t[i]);
+			ft_child_m(pipefd[i - 1], pipefd[i], cmds_t[i], allpaths_t[i]);
 		else if (!pid && i == max)
-			ft_child_l(fd, pipefd[i - 1], cmds_t[i], cmdpath_t[i]);
+			ft_child_l(fd, pipefd[i - 1], cmds_t[i], allpaths_t[i]);
 		else if (pid)
 		{
 			waitpid(pid, NULL, 0);
