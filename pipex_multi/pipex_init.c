@@ -67,7 +67,7 @@ char	**ft_path_t(char ***cmds_t)
 	if (!allpaths_t)
 		return (NULL);
 	path_t = ft_check_acc(allpaths_t, i, j);
-	free(allpaths_t);
+	ft_clean3d(allpaths_t);
 	allpaths_t = NULL;
 	return (path_t);
 }
