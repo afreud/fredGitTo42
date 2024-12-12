@@ -1,7 +1,7 @@
 
 #include "pipex.h"
 
-static void	ft_child_f(int *fd, int *pipefd, char **cmds, char **cmd_path)
+static void	ft_child_f(int *fd, int *pipefd, char **cmds, char *cmd_path)
 {
 	int	i;
 
@@ -13,12 +13,12 @@ static void	ft_child_f(int *fd, int *pipefd, char **cmds, char **cmd_path)
 		perror("dupfd1");
 	close(fd[0]);
 	close(pipefd[1]);
-	while (cmd_path[i] && (execve(cmd_path[i], cmds, environ) == -1))
+	while (cmd_path && (execve(cmd_path, cmds, environ) == -1))
 		i++;
 	perror("First command arguments error");
 }
 
-static void	ft_child_m(int *fdprev, int *fdnext, char **cmds, char **cmd_path)
+static void	ft_child_m(int *fdprev, int *fdnext, char **cmds, char *cmd_path)
 {
 	int	i;
 
@@ -30,12 +30,12 @@ static void	ft_child_m(int *fdprev, int *fdnext, char **cmds, char **cmd_path)
 		perror("dupfd0");
 	close(fdprev[0]);
 	close(fdnext[1]);
-	while (cmd_path[i] && (execve(cmd_path[i], cmds, environ) == -1))
+	while (cmd_path && (execve(cmd_path, cmds, environ) == -1))
 		i++;
 	perror("Command arguments error");
 }
 
-static void	ft_child_l(int *fd, int *pipefd, char **cmds, char **cmd_path)
+static void	ft_child_l(int *fd, int *pipefd, char **cmds, char *cmd_path)
 {
 	int	i;
 
@@ -47,13 +47,13 @@ static void	ft_child_l(int *fd, int *pipefd, char **cmds, char **cmd_path)
 		perror("dupfd0");
 	close(fd[1]);
 	close(pipefd[0]);
-	while (cmd_path[i] && (execve(cmd_path[i], cmds, environ) == -1))
+	while (cmd_path && (execve(cmd_path, cmds, environ) == -1))
 		i++;
 	perror("Last command arguments error");
 }
 
 
-void	pipex(int *fd, char ***cmds_t, char ***allpaths_t)
+void	pipex(int *fd, char ***cmds_t, char **path_t)
 {
 	int		pipefd[1024][2];
 	pid_t	pid;
@@ -73,11 +73,11 @@ void	pipex(int *fd, char ***cmds_t, char ***allpaths_t)
 		if (pid < 0)
 			perror("fork");
 		if (!pid && !i)
-			ft_child_f(fd, pipefd[i], cmds_t[i], allpaths_t[i]);
+			ft_child_f(fd, pipefd[i], cmds_t[i], path_t[i]);
 		else if (!pid && i && i != max)
-			ft_child_m(pipefd[i - 1], pipefd[i], cmds_t[i], allpaths_t[i]);
+			ft_child_m(pipefd[i - 1], pipefd[i], cmds_t[i], path_t[i]);
 		else if (!pid && i == max)
-			ft_child_l(fd, pipefd[i - 1], cmds_t[i], allpaths_t[i]);
+			ft_child_l(fd, pipefd[i - 1], cmds_t[i], path_t[i]);
 		else if (pid)
 		{
 			waitpid(pid, NULL, 0);

@@ -18,7 +18,7 @@ char	***ft_cmds_t(int argc, char **argv)
 		cmds_t[i] = ft_msplit(argv[j], ' ');
 		if (!cmds_t[i])
 		{
-			ft_clean3d(cmds_t);
+			ft_clean3(cmds_t);
 			return (NULL);
 		}
 		i++;
@@ -27,32 +27,7 @@ char	***ft_cmds_t(int argc, char **argv)
 	return (cmds_t);
 }
 
-static int	ft_len2(char **s)
-{
-	int c;
-	int	i;
-
-	i = 0;
-	c = 0;
-	while (s[i++])
-		c++;
-	return (c);
-}
-
-int	ft_len3(char ***s)
-{
-	int	i;
-
-	i = 0;
-	if (s)
-	{
-		while (s[i])
-			i++;
-	}
-	return (i);
-}
-
-char	**ft_join_pc(char **path, char *cmd)
+static char	**ft_join_pc(char **path, char *cmd)
 {
 	char **cmd_path;
 	int	i;
@@ -66,7 +41,7 @@ char	**ft_join_pc(char **path, char *cmd)
 		cmd_path[i] = ft_cjoin(path[i], cmd);
 		if (!cmd_path[i])
 		{
-			ft_clean(cmd_path);
+			ft_clean2(cmd_path);
 				return (NULL);
 		}
 		i++;
@@ -92,11 +67,11 @@ char	***ft_allpaths_t(char ***cmds_t)
 	{
 		allpaths_t[i] = ft_join_pc(path, cmds_t[i][0]);
 		if (!allpaths_t[i])
-			ft_clean3d(allpaths_t);
+			ft_clean3(allpaths_t);
 		i++;
 	}
 	if (allpaths_t)
 		allpaths_t[i] = NULL;
-	ft_clean(path);
+	ft_clean2(path);
 	return (allpaths_t);
 }

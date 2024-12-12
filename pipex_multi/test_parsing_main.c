@@ -56,11 +56,11 @@ int main(int argc, char **argv)
 
 		j =0;
 		path_t = ft_path_t(cmds_t);
-		while (path_t[j])
-		{
-			printf("%s\n", path_t[j]);
-			j++;
-		}
+		if (!path_t)
+			printf("WRONG COMMAND\n");
+		else
+			while (path_t[j])
+				printf("%s\n", path_t[j++]);
 		ft_clean3d(cmds_t);
 //		ft_clean3d(allpaths_t);
 		ft_clean(path_t);

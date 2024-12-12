@@ -5,7 +5,7 @@ int main(int argc, char **argv)
 {
 	int fd[2];
 	char	***cmds_t;
-	char	***allpaths_t;
+	char	**path_t;
 
 	if (argc <= 4)
 		return (-1);
@@ -13,19 +13,18 @@ int main(int argc, char **argv)
 	fd[1] = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0666);
 	if (fd[0] < 0 || fd[1] < 0)
 	{
-		perror("Files");
-		exit (EXIT_FAILURE);
+		perror("Error opening Files");
+		exit (-2);
 	}
 	cmds_t = ft_cmds_t(argc, argv);
 	if (!cmds_t)
 		perror("tabcmd");
-	allpaths_t = ft_allpaths_t(cmds_t);		
-	if (!allpaths_t)
-		perror("path");
-	pipex(fd, cmds_t, allpaths_t);
+	path_t = ft_path_t(cmds_t);		
+	if (path_t)
+		pipex(fd, cmds_t, path_t);
 	close(fd[0]);
 	close(fd[1]);
-	ft_clean3d(cmds_t);
-	ft_clean3d(allpaths_t);
+	ft_clean3(cmds_t);
+	ft_clean2(path_t);
 	return (0);
 }

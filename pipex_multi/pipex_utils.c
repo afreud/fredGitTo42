@@ -13,7 +13,32 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	ft_clean(char **t)
+int	ft_len2(char **s)
+{
+	int c;
+	int	i;
+
+	i = 0;
+	c = 0;
+	while (s[i++])
+		c++;
+	return (c);
+}
+
+int	ft_len3(char ***s)
+{
+	int	i;
+
+	i = 0;
+	if (s)
+	{
+		while (s[i])
+			i++;
+	}
+	return (i);
+}
+
+void	ft_clean2(char **t)
 {
 	int	i;
 
@@ -30,13 +55,13 @@ void	ft_clean(char **t)
 	}
 }
 
-void ft_clean3d(char ***t)
+void ft_clean3(char ***t)
 {
 	int	i;
 
 	i = 0;
 	while (t[i])
-		ft_clean(t[i++]);
+		ft_clean2(t[i++]);
 	free(t);
 	t = NULL;
 }

@@ -23,7 +23,7 @@ char	*ft_cjoin(char const *s1, char const *s2)
 	return (dest);
 }
 
-static int	ft_len(const char *str, char c)
+static int	ft_splen(const char *str, char c)
 {
 	int		sum;
 	char	q;
@@ -75,10 +75,10 @@ static char	*ft_cpstr(const char *s, char c, char **strs)
 	char	*dest;
 
 	i = 0;
-	dest = malloc(sizeof(char) * (ft_len(s, c) + 1));
+	dest = malloc(sizeof(char) * (ft_splen(s, c) + 1));
 	if (dest == NULL)
 	{
-		ft_clean(strs);
+		ft_clean2(strs);
 		return (NULL);
 	}
 	if (*s == '\'' || *s == '\"')
@@ -112,7 +112,7 @@ char	**ft_msplit(char const *s, char c)
 			t = 0;
 		}
 		if (*s == '\'' || *s == '\"')
-			s += ft_len(s, ' ') + 1;
+			s += ft_splen(s, ' ') + 1;
 		if (*s != c && *(s + 1) == c)
 			t = 1;
 		s++;
