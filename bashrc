@@ -1,10 +1,11 @@
 alias paco=%s/francinette/tester.sh
 
 alias f=%s/francinette/tester.sh
-alias v='valgrind --leak-check=full --track-fds=all --track-origins=yes'
+alias v='valgrind --trace-children=no --child-silent-after-fork=yes --leak-check=full --track-fds=all --track-origins=yes'
 alias c='gcc -g -Wall -Werror -Wextra'
 alias g='gdb -tui'
 alias ga='gdb -tui --args'
+alias t=tldr
 
 alias H='cd ~'
 alias svim='sudo vim'
@@ -84,15 +85,4 @@ ftext() {
 eval "$(starship init bash)"
 fastfetch
 
-echo "La cruauté et la compassion viennent avec les chromoses.
-Tous les Hommes sont miséricordieux et tous sont des assassins.
-Tout en étant fous de leur chien ils construisent leur Dachau,
-Incendient des villes entières et cajolent des orphelins.
-Marchent pour leur liberté mais partout c'est le NKVD.
-Qui aimons nous? qui persécutons nous?
-Tout ceci c'est l'affaire des moeurs du moment,
-De mots sur de la pâte de bois ou de radios rugissantes,
-De jardins d'enfants communistes ou de premiére communion.
-C'est seulement dans la connaissance de sa propre essence,
-Que l'Homme cesse d'être une multitude de singe.
-A.H."
+

@@ -1,0 +1,643 @@
+
+
+//SPRINGSETTINGS DO NOT TOUCH
+
+
+
+
+//
+//  AFREUD UIKEYS.TXT FOR SPRING-B.A.R. 2024
+//  -------------------------------------
+//
+
+
+//
+//  Quick Notes:
+//
+//  1. The built-in default bindings are always loaded. If you wish
+//     to override them, use the unbindall and unbind commands
+//     to delete them at the beginning of your 'uikeys.txt'.
+//
+//  2. More then one action can be bound to a specific keyset. The
+//     actions for any given keyset are tried in the order that they
+//     were bound. The first currently available command that matches
+//     an action is used.
+//
+//  3. As a slight modification to the above note, keysets that use
+//     the 'Any' modifier are tried after those that do not use it.
+//
+//  4. A keyset using the Shift modifier should be bound with its
+//     unshifted key  (ex: bind  "Shift+."  instead of  "Shift+>" )
+//
+
+
+//
+//  Commands that can be used in this file:
+//
+//    unbindall
+//    ---------
+//    - removes all bindings, and adds "bind enter chat"
+//      (one of the other unbind commands can get rid of that one)
+//    - good for deleting the default bindings
+//
+//    keysym <name> <keycode>
+//    -----------------------
+//    - add a custom key symbol  (the default key symbols can not be overriden)
+//    - name must start with a letter, and only contain letters, numbers, and '_'
+//    - the <keycode> can be a currently recognized keysym
+//      (ex:  "keysym menu 0x13F"  or  "keysym radar r")
+//
+//    fakemeta <keysym>
+//    -----------------
+//    - assign an auxiliary key for the Meta modifier ("space" is a good choice)
+//    - use "fakemeta none" to disable this feature
+//
+//    bind <keyset> <action>
+//    ----------------------
+//    - appends the action to the keyset's list of actions
+//    - the action can be just a command, or a command with arguments
+//
+//    unbind <keyset> <action>
+//    ------------------------
+//    - removes the action from the keyset's list of actions
+//    - both the action and the keyset must match
+//
+//    unbindkeyset <keyset>
+//    ---------------------
+//    - removes all bindings that use the keyset
+//
+//    unbindaction <action>
+//    ---------------------
+//    - removes all bindings that use the action  (command that is, a misnomer)
+//
+//
+//  * NOTE: These commands can also be run from the chat line in-game using
+//          the slash command syntax  (/bind, /unbind, etc...)
+//
+
+
+//
+//  Keyset Format:
+//
+//    A keyset is a combination of keys, the main key and its modifiers.
+//
+//    Here are some examples:
+//
+//      bind            a  fake_action
+//      bind       Ctrl+a  fake_action
+//      bind          C+a  fake_action
+//      bind Ctrl+Shift+a  fake_action
+//      bind          *+a  fake_action
+//
+//    The format then goes like this:
+//
+//      [<Modifier>+]...[<Modifier>+]<keysym>
+//
+//
+//    The modifiers (and their abbreviations), are:
+//
+//      Any   (*)
+//      Alt   (A)
+//      Ctrl  (C)
+//      Meta  (M)
+//      Shift (S)
+//
+//    The special 'Any' modifier makes it so that the keyset matches
+//    regardless of the current state of the real modifiers.
+//
+//    The known keysyms (key symbols), are listed at the end of this file.
+//    If you want to use a key that is unknown to Spring, then you may use
+//    the hexadecimal notation. Here are two equivalent bindings:
+//
+//      bind Ctrl+0x20  firestate 0  // hold fire
+//      bind Ctrl+space firestate 0  // hold fire
+//
+
+//
+//  Keychains (new in 98.0):
+//
+//    A keychain is a timed combination of keysets,
+//    i.e. "press A, then B".
+//
+//    Here are some examples:
+//
+//      bind            a,b  fake_action
+//      bind Ctrl+a, Ctrl+b  fake_action
+//
+//    The format then goes like this:
+//
+//      <keyset>, <keyset>, ...
+//
+
+
+//
+//  Extra Run-Time Commands
+//
+//    /keyload   : loads the uikeys.txt bindings  (does not clear current bindings)
+//    /keyreload : loads the uikeys.txt bindings  (clears current bindings first)
+//    /keysave   : save current bindings to 'uikeys.tmp'  (NOTE: 'tmp' vs. 'txt')
+//    /keysyms   : prints the known keysyms to standard out
+//    /keycodes  : prints the known keycodes to standard out
+//    /keyprint  : prints the current bindings to standard out
+//    /keydebug  : prints debugging information to standard out (for each keystroke)
+
+
+
+
+//  ²      0xb2
+//  <      0x3c
+//  )      0x29
+//  =      0x3d
+//  AltG   0xfe03
+//  ,      0x2c
+//  ;      0x3b
+//  !      0x21
+//  ^      0xfe52
+//  ù      0xf9
+//  *      0x2a
+//  A      0x61
+//  Q      0x71
+//  M      0x6d
+//  W      0x77
+//  Z      0x7a
+
+
+
+
+
+unbindall          // clear the defaults
+unbind enter chat  // clear the defaults
+
+fakemeta  space
+
+
+
+bind                esc  select AllMap++_ClearSelection_SelectNum_0+
+bind                esc  quitmessage
+bind          Shift+esc  quitmenu
+bind     Ctrl+Shift+esc  quitforce
+bind      Alt+Shift+esc  reloadforce
+bind         Any+escape  edit_escape
+bind          Any+pause  pause
+bind                esc  teamstatus_close
+bind                esc  customgameinfo_close
+bind                esc  buildmenu_pregame_deselect
+bind Ctrl+Alt+backspace  fullscreen
+
+bind           Any+sc_x  selectbox_same
+bind          Any+space  selectbox_idle
+bind          Any+shift  selectbox_all
+bind           Any+ctrl  selectbox_deselect
+bind            Any+alt  selectbox_mobile
+//bind           Any+sc_b  selectbox_builder
+bind          Any+space  selectloop
+bind           Any+ctrl  selectloop_invert
+bind          Any+shift  selectloop_add
+bind          Any+space  commandinsert prepend_between
+bind          Any+enter  chat
+
+//bind      Alt+ctrl+sc_a  chatswitchally
+//bind      Alt+ctrl+sc_s  chatswitchspec
+
+bind            Any+tab  edit_complete
+bind      Any+backspace  edit_backspace
+bind         Any+delete  edit_delete
+bind           Any+home  edit_home
+bind           Alt+left  edit_home
+bind            Any+end  edit_end
+bind          Alt+right  edit_end
+bind             Any+up  edit_prev_line
+bind           Any+down  edit_next_line
+bind           Any+left  edit_prev_char
+bind          Any+right  edit_next_char
+bind          Ctrl+left  edit_prev_word
+bind         Ctrl+right  edit_next_word
+bind          Any+enter  edit_return
+bind             Ctrl+v  pastetext
+
+bind             Any+up  moveforward
+bind           Any+down  moveback
+bind          Any+right  moveright
+bind           Any+left  moveleft
+bind         Any+pageup  moveup
+bind       Any+pagedown  movedown
+bind            Any+alt  movereset
+bind            Any+alt  moverotate
+bind           Any+ctrl  movetilt
+
+
+bind                  1  specteam 0
+bind                  2  specteam 1
+bind                  3  specteam 2
+bind                  4  specteam 3
+bind                  5  specteam 4
+bind                  6  specteam 5
+bind                  7  specteam 6
+bind                  8  specteam 7
+bind                  9  specteam 8
+bind                  0  specteam 9
+bind               0x29  specteam 10             
+bind               0x3d  specteam 11
+
+bind              Alt+0  add_to_autogroup 0
+bind              Alt+1  add_to_autogroup 1
+bind              Alt+2  add_to_autogroup 2
+bind              Alt+3  add_to_autogroup 3
+bind              Alt+4  add_to_autogroup 4
+bind              Alt+5  add_to_autogroup 5
+bind              Alt+6  add_to_autogroup 6
+bind              Alt+7  add_to_autogroup 7
+bind              Alt+8  add_to_autogroup 8
+bind              Alt+9  add_to_autogroup 9
+bind           Alt+0x29  add_to_autogroup 10     //---------------------
+bind           Alt+0x3d  add_to_autogroup 11	  //--------------------
+
+bind                0,0  group focus 0
+bind                1,1  group focus 1
+bind                2,2  group focus 2
+bind                3,3  group focus 3
+bind                4,4  group focus 4
+bind                5,5  group focus 5
+bind                6,6  group focus 6
+bind                7,7  group focus 7
+bind                8,8  group focus 8
+bind                9,9  group focus 9
+bind          0x29,0x29  group focus 10		//---------------
+bind          0x3d,0x3d  group focus 11	   //---------------------
+
+bind                  0  group select 0
+bind                  1  group select 1
+bind                  2  group select 2
+bind                  3  group select 3
+bind                  4  group select 4
+bind                  5  group select 5
+bind                  6  group select 6
+bind                  7  group select 7
+bind                  8  group select 8
+bind                  9  group select 9
+bind               0x29  group select 10		//----------------------------
+bind               0x3d  group select 11	   //--------------------
+
+bind             Ctrl+0  group set 0
+bind             Ctrl+1  group set 1
+bind             Ctrl+2  group set 2
+bind             Ctrl+3  group set 3
+bind             Ctrl+4  group set 4
+bind             Ctrl+5  group set 5
+bind             Ctrl+6  group set 6
+bind             Ctrl+7  group set 7
+bind             Ctrl+8  group set 8
+bind             Ctrl+9  group set 9
+bind          Ctrl+0x29  group set 10		 //----------------------------
+bind          Ctrl+0x3d  group set 11		//----------------------------
+
+bind            Shift+0  group selectadd 0
+bind            Shift+1  group selectadd 1
+bind            Shift+2  group selectadd 2
+bind            Shift+3  group selectadd 3
+bind            Shift+4  group selectadd 4
+bind            Shift+5  group selectadd 5
+bind            Shift+6  group selectadd 6
+bind            Shift+7  group selectadd 7
+bind            Shift+8  group selectadd 8
+bind            Shift+9  group selectadd 9
+bind         Shift+0x29  group selectadd 10		 //----------------------------
+bind         Shift+0x3d  group selectadd 11		//----------------------------
+
+bind       Ctrl+Shift+0  group add 0
+bind       Ctrl+Shift+1  group add 1
+bind       Ctrl+Shift+2  group add 2
+bind       Ctrl+Shift+3  group add 3
+bind       Ctrl+Shift+4  group add 4
+bind       Ctrl+Shift+5  group add 5
+bind       Ctrl+Shift+6  group add 6
+bind       Ctrl+Shift+7  group add 7
+bind       Ctrl+Shift+8  group add 8
+bind       Ctrl+Shift+9  group add 9
+bind    Ctrl+Shift+0x29  group add 10		           //----------------------------
+bind    Ctrl+Shift+0x3d  group add 11		          //----------------------------
+
+bind         Ctrl+Alt+0  group selecttoggle 0
+bind         Ctrl+Alt+1  group selecttoggle 1
+bind         Ctrl+Alt+2  group selecttoggle 2
+bind         Ctrl+Alt+3  group selecttoggle 3
+bind         Ctrl+Alt+4  group selecttoggle 4
+bind         Ctrl+Alt+5  group selecttoggle 5
+bind         Ctrl+Alt+6  group selecttoggle 6
+bind         Ctrl+Alt+7  group selecttoggle 7
+bind         Ctrl+Alt+8  group selecttoggle 8
+bind         Ctrl+Alt+9  group selecttoggle 9
+bind      Ctrl+Alt+0x29  group selecttoggle 10		 //----------------------------
+bind      Ctrl+Alt+0x3d  group selecttoggle 11		//----------------------------
+
+
+// touche: ²
+bind          0xb2+1  select AllMap+_InGroup_1_InGroup_2_InGroup_3+_ClearSelection_SelectAll+
+bind          0xb2+4  select AllMap+_InGroup_4_InGroup_5_InGroup_6+_ClearSelection_SelectAll+
+bind          0xb2+7  select AllMap+_InGroup_7_InGroup_8_InGroup_9+_ClearSelection_SelectAll+
+bind       Ctrl+0xb2  group unset				
+bind        Alt+0xb2  remove_from_autogroup		   
+
+//bind           Any+sc_h  sharedialog
+
+
+
+bind    Shift+backspace  togglecammode                  
+bind            Any+tab  toggleoverview
+bind           Any+home  increaseViewRadius
+bind            Any+end  decreaseViewRadius
+
+
+
+
+bind               Any+sc_z  buildspacing inc            // W 
+bind         Any+Shift+sc_z  buildspacing inc  	         // W
+bind     Any+Shift+Alt+sc_z  buildspacing inc  	         // W
+bind               Any+sc_x  buildspacing dec             				
+bind         Any+Shift+sc_x  buildspacing dec            
+bind     Any+Shift+Alt+sc_x  buildspacing dec            
+
+
+
+bind               sc_q  attack                         // A					
+bind         Shift+sc_q  attack                         // A				
+bind           Alt+sc_q  areaattack                     // A						
+bind     Alt+Shift+sc_q  areaattack                     // A						
+bind               sc_d  manualfire
+bind         Shift+sc_d  manualfire
+bind               sc_d  manuallaunch
+bind         Shift+sc_d  manuallaunch
+bind        Ctrl+Alt+sc_d  selfd            			   
+bind  Shift+Ctrl+Alt+sc_d  selfd  queued 			
+bind               sc_e  reclaim
+bind         Shift+sc_e  reclaim
+bind               sc_f  fight
+bind         Shift+sc_f  fight
+bind           Alt+sc_f  forcestart
+bind               sc_g  guard
+bind         Shift+sc_g  guard
+bind               sc_h  firestate 0
+bind               sc_i  customgameinfo
+bind           Alt+sc_i  unit_stats      
+bind               sc_j  firestate 2
+bind           Alt+sc_j  firestate 1
+bind               sc_k  cloak
+bind         Shift+sc_k  cloak
+bind               sc_k  wantcloak
+bind           Any+sc_k  wantcloak
+bind               sc_l  loadunits
+bind         Shift+sc_l  loadunits
+bind            sc_0x6d  move                               // M
+bind      Shift+sc_0x6d  move                               // M
+bind               sc_o  movestate 0
+bind         Shift+sc_o  movestate 0
+bind               sc_p  patrol
+bind         Shift+sc_p  patrol
+bind               sc_[  movestate 1                         // ^
+bind         Shift+sc_[  movestate 1                         // ^
+bind               sc_]  movestate 2                         // $
+bind         Shift+sc_]  movestate 2                         // $
+bind          sc_a,sc_a  drawlabel   						 //  Q
+bind               sc_a  drawinmap   						 //  Q
+bind               sc_r  repair
+bind         Shift+sc_r  repair
+bind               sc_r  resurrect
+bind         Shift+sc_r  resurrect
+bind               sc_s  stop
+bind         Shift+sc_s  stop
+bind           Alt+sc_s  stopproduction
+bind               sc_t  settargetnoground
+bind           Alt+sc_t  canceltarget
+//bind           Alt+sc_t  settarget
+bind               sc_u  unloadunits
+bind         Shift+sc_u  unloadunits
+bind               sc_w  wait                             // Z
+bind         Shift+sc_w  wait queued                      // Z
+bind           Alt+sc_w  timewait 30                      // Z
+bind     Shift+Alt+sc_w  timewait 30 queued               // Z
+
+//bind               sc_x  onoff              
+//bind         Shift+sc_x  onoff	
+
+bind           Alt+sc_y  trackmode
+bind           Any+sc_y  track
+
+
+
+bind           Any+ctrl  moveslow
+bind          Any+shift  movefast
+
+bind            Ctrl+f1  viewfps
+bind            Ctrl+f2  viewta
+bind            Ctrl+f3  viewspring
+bind            Ctrl+f4  viewrot
+bind            Ctrl+f5  viewfree
+
+bind             Any+f1  ShowElevation
+bind             Any+f2  ShowPathTraversability
+bind             Any+f3  LastMsgPos
+bind             Any+f4  ShowMetalMap
+bind             Any+f5  HideInterface
+bind             Any+f6  MuteSound
+bind             Any+f7  DynamicSky
+bind                f10  options
+bind                f11  luaui selector
+bind            Any+f12  screenshot png
+bind      Ctrl+Shift+f8  savegame
+
+//bind          Alt+enter  fullscreen
+
+
+//                  A<->Q  &&	Z<->W
+//                  -----------------
+
+bind           Ctrl+sc_q  select AllMap++_SelectAll+
+
+bind           Ctrl+sc_w  selact AllMap+_Waiting+_ClearSelection_SelectAll
+
+bind           Ctrl+sc_e  select AllMap+_IdMatches_coreflash_Idle+_ClearSelection_SelectAll+   //!!!!!!!!!!!!!!!
+bind     Ctrl+Shift+sc_e  select AllMap+_IdMatches_coreflash+_ClearSelection_SelectAll+  //!!!!!!!!!!!!!!!
+
+bind           Ctrl+sc_r  select AllMap+_Radar_Not_Building+_ClearSelection_SelectOne+
+bind     CtrlShift++sc_r  select AllMap+_Radar_Not_Building+_ClearSelection_Selectall+
+
+bind           Ctrl+sc_t  select AllMap+_Transport_Idle+_ClearSelection_SelectOne+
+bind     Ctrl+Shift+sc_t  select AllMap+_Transport+_ClearSelection_SelectAll+
+			
+//---------------------------------------------------------------------------------------
+bind           Ctrl+sc_a  select AllMap+_Not_ManualFireUnit_Not_Building_Weapons_Not_InHotkeyGroup+_ClearSelection_SelectAll+
+bind     Ctrl+Shift+sc_a  select AllMap+_Not_ManualFireUnit_Not_Building_Weapons+_ClearSelection_SelectAll+
+
+bind           ctrl+sc_s  select PrevSelection++_ClearSelection_SelectPart_50+
+bind     ctrl+Shift+sc_s  select PrevSelection++_ClearSelection_SelectNum_2+						
+			
+bind           Ctrl+sc_d  select Visible+_Building_Weapons+_ClearSelection_SelectAll+
+bind     Ctrl+Shift+sc_d  select AllMap+_Building_Weapons+_ClearSelection_SelectAll+
+
+bind           Ctrl+sc_f  select AllMap+_Building_Builder_Not_Idle+_ClearSelection_SelectAll+
+bind     Ctrl+Shift+sc_f  select AllMap+_Builder_Not_Idle+_ClearSelection_SelectAll+
+
+bind           Ctrl+sc_g  select AllMap+_Resurrect_Idle+_ClearSelection_SelectAll+   //!!!!!!!!!!!!!!!
+bind     Ctrl+Shift+sc_g  select AllMap+_Resurrect+_ClearSelection_SelectAll+  //!!!!!!!!!!!!!!!
+
+//-----------------------------------------------------------------------------------------
+
+bind           ctrl+sc_z  select PrevSelection+_Not_Building_Not_RelativeHealth_50+_ClearSelection_SelectAll+ // W
+bind     ctrl+Shift+sc_z  select PrevSelection+_Not_Building_RelativeHealth_50+_ClearSelection_SelectAll+     // W
+
+bind           Ctrl+sc_x  select AllMap+_InPrevSel_Not_InHotkeyGroup+_SelectAll+
+bind     Ctrl+Shift+sc_x  select AllMap+_InPrevSel+_SelectAll+
+
+bind           Ctrl+sc_c  select AllMap+_ManualFireUnit+_ClearSelection_SelectOne+
+bind     Ctrl+Shift+sc_c  select AllMap+_Not_Building_Weapons+_ClearSelection_SelectAll+
+
+bind           Ctrl+sc_v  select AllMap+_Aircraft_Weapons_Not_InHotkeyGroup+_ClearSelection_SelectAll+
+bind     Ctrl+Shift+sc_v  select AllMap+_Aircraft+_ClearSelection_SelectAll+
+
+bind           Ctrl+sc_b  select AllMap+_Builder_Not_Building_Not_ManualFireUnit_Idle+_ClearSelection_SelectOne+
+bind     Ctrl+Shift+sc_b  select AllMap+_Builder_Not_Building_Not_ManualFireUnit+_ClearSelection_SelectOne+
+bind            Alt+sc_b  select Visible+_Builder_Not_Building_Not_ManualFireUnit_Idle+_ClearSelection_SelectAll+
+
+//---------------------------------------------------------------
+
+
+
+bind               sc_z  buildunit_cormoho     //  - cormoho
+bind         Shift+sc_z  buildunit_cormoho     //  - cormoho
+bind               sc_z  buildunit_corexp      //  - corexp
+bind         Shift+sc_z  buildunit_corexp      //  - corexp
+bind               sc_z  buildunit_cormex      //  - cormex
+bind         Shift+sc_z  buildunit_cormex      //  - cormex
+bind               sc_z  buildunit_cormexp     //  - cormexp
+bind         Shift+sc_z  buildunit_cormexp     //  - cormexp
+bind               sc_z  buildunit_coruwmex    //  - coruwmex
+bind         Shift+sc_z  buildunit_coruwmex    //  - coruwmex
+bind               sc_z  buildunit_coruwmme    //  - coruwmme
+bind         Shift+sc_z  buildunit_coruwmme    //  - coruwmme
+
+bind               sc_z  buildunit_armmoho     //  - armmoho
+bind         Shift+sc_z  buildunit_armmoho     //  - armmoho
+bind               sc_z  buildunit_armmex      //  - armmex
+bind         Shift+sc_z  buildunit_armmex      //  - armmex
+
+//---------------------------------------------------------------
+
+bind               sc_x  buildunit_corfus      //  - corfus
+bind         Shift+sc_x  buildunit_corfus      //  - corfus
+bind               sc_x  buildunit_coradvsol   //  - coradvsol
+bind         Shift+sc_x  buildunit_coradvsol   //  - coradvsol
+bind               sc_x  buildunit_corwin      //  - corwin
+bind         Shift+sc_x  buildunit_corwin      //  - corwin
+bind               sc_x  buildunit_corsolar    //  - corsolar
+bind         Shift+sc_x  buildunit_corsolar    //  - corsolar
+bind               sc_x  buildunit_cormmkr     //  - cormmkr
+bind         Shift+sc_x  buildunit_cormmkr     //  - cormmkr
+bind               sc_x  buildunit_coruwfus    //  - coruwfus
+bind         Shift+sc_x  buildunit_coruwfus    //  - coruwfus
+bind               sc_x  buildunit_cortide     //  - cortide
+bind         Shift+sc_x  buildunit_cortide     //  - cortide
+bind               sc_x  buildunit_coruwmmm    //  - coruwmmm
+bind         Shift+sc_x  buildunit_coruwmmm    //  - coruwmmm
+
+//---------------------------------------------------------------
+
+
+bind               sc_c  buildunit_corrad      //  - corrad
+bind         Shift+sc_c  buildunit_corrad      //  - corrad
+bind              +sc_c  buildunit_corhllt      //  - corhllt
+bind         Shift+sc_c  buildunit_corhllt      //  - corhllt
+bind               sc_c  buildunit_corllt      //  - corllt
+bind         Shift+sc_c  buildunit_corllt      //  - corllt
+bind               sc_c  buildunit_corsonar    //  - corsonar
+bind         Shift+sc_c  buildunit_corsonar    //  - corsonar
+bind               sc_c  buildunit_corfrad     //  - corfrad
+bind         Shift+sc_c  buildunit_corfrad     //  - corfrad
+bind               sc_c  buildunit_corfrt      //  - corfrt
+bind         Shift+sc_c  buildunit_corfrt      //  - corfrt
+bind               sc_c  buildunit_corgplat    //  - corgplat
+bind         Shift+sc_c  buildunit_corgplat    //  - corgplat
+bind               sc_c  buildunit_cortl       //  - cortl
+bind         Shift+sc_c  buildunit_cortl       //  - cortl
+bind               sc_c  buildunit_corvipe     //  - corvipe
+bind         Shift+sc_c  buildunit_corvipe     //  - corvipe
+
+
+bind           Alt+sc_c  buildunit_corhlt       //  - corhlt
+bind     Shift+Alt+sc_c  buildunit_corhlt       //  - corhlt
+bind           Alt+sc_c  buildunit_corpun
+bind     Shift+Alt+sc_c  buildunit_corpun
+bind           Alt+sc_c  buildunit_cordrag
+bind     Shift+Alt+sc_c  buildunit_cordrag
+
+//-------------------------------------------------------------------
+
+bind               sc_v  buildunit_corflak     //  - corflak
+bind         Shift+sc_v  buildunit_corflak     //  - corflak
+bind               sc_v  buildunit_cormadsam
+bind         Shift+sc_v  buildunit_cormadsam
+bind               sc_v  buildunit_corrl       //  - corrl
+bind         Shift+sc_v  buildunit_corrl       //  - corrl
+
+//--------------------------------------------------------------------
+
+bind               sc_b  buildunit_cornanotc   //  - cornanotc
+bind         Shift+sc_b  buildunit_cornanotc   //  - cornanotc
+bind               sc_b  buildunit_cornanotcplat  //  - cornanotcplat
+bind         Shift+sc_b  buildunit_cornanotcplat  //  - cornanotcplat
+bind               sc_b  buildunit_coralab     //  - coralab
+bind         Shift+sc_b  buildunit_coralab     //  - coralab
+bind               sc_b  buildunit_coravp      //  - coravp
+bind         Shift+sc_b  buildunit_coravp      //  - coravp
+bind               sc_b  buildunit_coraap       //  - coraap
+bind         Shift+sc_b  buildunit_coraap       //  - coraap
+bind               sc_b  buildunit_corasy       //  - corasy
+bind         Shift+sc_b  buildunit_corasy       //  - corasy
+bind               sc_b  buildunit_corlab      //  - corlab
+bind         Shift+sc_b  buildunit_corlab      //  - corlab
+bind               sc_b  buildunit_corvp       //  - corvp
+bind         Shift+sc_b  buildunit_corvp       //  - corvp
+bind               sc_b  buildunit_corap       //  - corap
+bind         Shift+sc_b  buildunit_corap       //  - corap
+bind               sc_b  buildunit_corsy       //  - corsy
+bind         Shift+sc_b  buildunit_corsy       //  - corsy
+
+bind               sc_b  buildunit_armavp      //  - coravp
+bind         Shift+sc_b  buildunit_armavp      //  - coravp
+bind               sc_b  buildunit_armaap       //  - coraap
+bind         Shift+sc_b  buildunit_armaap       //  - coraap
+bind               sc_b  buildunit_armasy       //  - corasy
+bind         Shift+sc_b  buildunit_armasy       //  - corasy
+
+
+//---------------------------------------------------------------------
+
+bind           Any+numpad2  buildfacing  south			
+bind           Any+numpad6  buildfacing  east              
+bind           Any+numpad4  buildfacing  west              
+bind           Any+numpad8  buildfacing  north    
+
+// bind            numpad9
+// bind            numpad3  
+// bind            numpad1  
+// bind            numpad7  
+// bind            numpad5  
+
+bind            numpad+  snd_volume_increase
+bind            numpad-  snd_volume_decrease
+bind        Alt+numpad+  increasespeed
+bind        Alt+numpad-  decreasespeed
+
+bind           Any+0x2c  areamex                // ,
+bind     Any+Shift+0x2c  areamex                // ,
+
+bind               0x3b  squadwait 5  queued           // ;
+bind         Shift+0x3b  squadwait 5  queued          // ;
+bind           Alt+0x3b  squadwait 10 queued          // ;
+bind     Shift+Alt+0x3b  squadwait 10 queued          // ;
+
+bind               0x3a  gathermode          // :
+bind           Any+0x21  deathwait	            // !	
+
+bind           Any+0xf9  losradar           // ù
+bind       Any+Alt+0xf9  togglelos           // ù
+bind           Any+0x2a  toggleradarandjammer    // *
