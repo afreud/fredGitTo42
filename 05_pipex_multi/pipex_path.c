@@ -2,10 +2,11 @@
 
 static void	ft_error_access(int *t, char **path_t, int i)
 {
-	if (!*t)
+	if (!i)
+		path_t = NULL;
+	if (!*t && i)
 		path_t[i] = NULL;
-	if (!path_t[i])
-		*t = 0;
+	*t = 0;
 	perror("Wrong command. ");
 	ft_clean2(path_t);
 }

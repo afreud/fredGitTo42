@@ -9,10 +9,11 @@ void	ft_clean_close(int *fd, char ***cmds_t, char **path_t)
 	ft_clean2(path_t);
 }
 
-void	ft_hdoc(int *fd, char *limiter)
+static void	ft_hdoc(int *fd,int argc,char **argv)
 {
 	char	*line;
-	fd[0] = open("here_file", O_RDWR | O_CREAT, 0666);
+	line = NULL;
+	fd[0] = open("here_file", O_WRONLY | O_CREAT, 0666);
 	fd[1] = open(argv[argc - 1], O_WRONLY | O_APPEND | O_CREAT, 0666);
 	if (fd[0] < 0 || fd[1] < 0)
 	{
@@ -23,26 +24,29 @@ void	ft_hdoc(int *fd, char *limiter)
 		perror("Error opening Files");
 		exit (-3);
 	}
-	line = ft_get_next_line(0, limiter);
-	while (line)
+	while (1)
 	{
+		line = get_next_line(0, argv[2]);
+		if (line == NULL)
+			break;
 		write(fd[0], line, ft_strlen(line));
 		free(line);
 		line = NULL;
-		line = ft_get_next_line(0, limiter);
 	}
-	free(line);
-	line = NULL;
+	close(fd[0]);
+	fd[0] = open("here_file", O_RDONLY, 0666);
+	if (fd[0] < 0)
+		close(fd[1]);
 }
 
-int	ft_open_files(int *fd, char **argv)
+int	ft_open_files(int *fd, int argc, char **argv)
 {
 	int	i;
 
 	i = 0;
-	if (!ft_strcmp(argv[1], "here_doc"))
+	if (ft_strcmp(argv[1], "here_doc") == 0)
 	{
-		ft_hdoc(fd, limiter);
+		ft_hdoc(fd, argc, argv);
 		i = 1;
 	}
 	else

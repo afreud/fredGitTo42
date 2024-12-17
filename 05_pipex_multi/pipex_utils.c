@@ -22,8 +22,8 @@ int	ft_len2(char **s)
 	{
 		while (s[i])
 			i++;
-		return (i);
 	}
+	return (i);
 }
 
 int	ft_len3(char ***s)
