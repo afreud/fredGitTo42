@@ -66,7 +66,6 @@ void	pipex(int *fd, char ***cmds_t, char **path_t)
 			ft_child_l(fd, pipefd[i - 1], cmds_t[i], path_t[i]);
 		else if (pid)
 		{
-			waitpid(pid, NULL, 0);
 			if (i == 0)
 			{
 				close(pipefd[i][1]);
@@ -81,4 +80,8 @@ void	pipex(int *fd, char ***cmds_t, char **path_t)
 		}
 		i++;
 	}
+	i = 0;
+	while (i++ <= max)
+		wait(NULL);
 }
+//tttttttttttttttttttttt
