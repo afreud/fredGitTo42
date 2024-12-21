@@ -24,8 +24,6 @@ int main(int argc, char **argv)
 	if (!cmds_t)
 		perror("Problem creating arguments array");
 	path_t = ft_path_t(cmds_t);		
-	if (!path_t && cmds_t)
-		perror("Wrong command");
 	if (path_t)
 		pipex(fd, cmds_t, path_t);
 	ft_clean_close(fd, cmds_t, path_t);

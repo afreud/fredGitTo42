@@ -24,14 +24,13 @@ static void	ft_hdoc(int *fd,int argc,char **argv)
 		perror("Error opening Files");
 		exit (-3);
 	}
-	while (1)
+	line = get_next_line(0, argv[2]);
+	while (line != NULL)
 	{
-		line = get_next_line(0, argv[2]);
-		if (line == NULL)
-			break;
+		printf("%p", line);
 		write(fd[0], line, ft_strlen(line));
 		free(line);
-		line = NULL;
+		line = get_next_line(0, argv[2]);
 	}
 	close(fd[0]);
 	fd[0] = open("here_file", O_RDONLY, 0666);

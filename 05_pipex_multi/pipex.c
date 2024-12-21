@@ -1,45 +1,59 @@
 
 #include "pipex.h"
 
-static void	ft_child_f(int *fd, int *pipefd, char **cmds, char *cmd_path)
+int	ft_creat_pipes(int pipefd[1024][2], char ***cmds_t)
 {
-	close(pipefd[0]);
-	if (dup2(fd[0], STDIN_FILENO) == -1)
-		perror("dupfd0");
-	if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-		perror("dupfd1");
-	close(fd[0]);
-	close(pipefd[1]);
-	execve(cmd_path, cmds, environ);
-	perror("First command arguments error");
+	int	i;
+	int max;
+
+	i = 0;
+	max = ft_len3(cmds_t) - 1;
+	while (i < max)
+	{
+		if (pipe(pipefd[i++]) < 0)
+			perror("pipe");
+	}
+	return (max);
 }
 
-static void	ft_child_m(int *fdprev, int *fdnext, char **cmds, char *cmd_path)
+void	ft_dupfd(int *fd, int pipefd[1024][2], int i, int max)
 {
-	close(fdnext[0]);
-	if (dup2(fdprev[0], STDIN_FILENO) == -1)
-		perror("pipe");
-	if (dup2(fdnext[1], STDOUT_FILENO) == -1)
-		perror("pipe");
-	close(fdprev[0]);
-	close(fdnext[1]);
-	execve(cmd_path, cmds, environ);
-	perror("Command arguments error");
+		if (!i)
+		{
+			if (dup2(fd[0], STDIN_FILENO) == -1)
+				perror("dupf0");
+			if (dup2(pipefd[i][1], STDOUT_FILENO) == -1)
+				perror("dupf1");
+		}
+		else if (i && i != max)
+		{
+			if (dup2(pipefd[i - 1][0], STDIN_FILENO) == -1)
+				perror("dupm0");
+			if (dup2(pipefd[i][1], STDOUT_FILENO) == -1)
+				perror("dupm1");
+		}
+		else if (i == max)
+		{
+			if (dup2(pipefd[i - 1][0], STDIN_FILENO) == -1)
+				perror("dupl0");
+			if (dup2(fd[1], STDOUT_FILENO) == -1)
+				perror("dupl1");
+		}
 }
 
-static void	ft_child_l(int *fd, int *pipefd, char **cmds, char *cmd_path)
+void	ft_closefd(int pipefd[1024][2],int max)
 {
-	close(pipefd[1]);
-	if (dup2(pipefd[0], STDIN_FILENO) == -1)
-		perror("dupfd0");
-	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		perror("dupfd0");
-	close(fd[1]);
-	close(pipefd[0]);
-	execve(cmd_path, cmds, environ);
-	perror("Last command arguments error");
-}
+	int i = 0;
 
+	i = 0;
+	while (i < max)
+	{
+		close(pipefd[i][1]);
+		close(pipefd[i][0]);
+		i++;
+	}
+
+}
 
 void	pipex(int *fd, char ***cmds_t, char **path_t)
 {
@@ -49,39 +63,22 @@ void	pipex(int *fd, char ***cmds_t, char **path_t)
 	int max;
 
 	i = 0;
-	max = ft_len3(cmds_t) - 1;
+	max = ft_creat_pipes(pipefd, cmds_t);
 	while (cmds_t[i])
 	{
-		if (i != max)
-			if (pipe(pipefd[i]) != 0)
-				perror("pipe");
 		pid = fork();
 		if (pid < 0)
 			perror("fork");
-		if (!pid && !i)
-			ft_child_f(fd, pipefd[i], cmds_t[i], path_t[i]);
-		else if (!pid && i && i != max)
-			ft_child_m(pipefd[i - 1], pipefd[i], cmds_t[i], path_t[i]);
-		else if (!pid && i == max)
-			ft_child_l(fd, pipefd[i - 1], cmds_t[i], path_t[i]);
-		else if (pid)
+		if (pid == 0)
 		{
-			if (i == 0)
-			{
-				close(pipefd[i][1]);
-			}
-			else if (i == max)
-				close(pipefd[i - 1][0]);
-			else
-			{
-				close(pipefd[i - 1][0]);
-				close(pipefd[i][1]);
-			}
+			ft_dupfd(fd, pipefd, i, max);
+			ft_closefd(pipefd, max);
+			execve(path_t[i], cmds_t[i], environ);
 		}
 		i++;
 	}
+	ft_closefd(pipefd, max);
 	i = 0;
 	while (i++ <= max)
 		wait(NULL);
 }
-//tttttttttttttttttttttt

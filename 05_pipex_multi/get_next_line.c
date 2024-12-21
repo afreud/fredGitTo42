@@ -12,18 +12,20 @@
 
 #include "pipex.h"
 
- static void	ft_limiter(char *line, char *limiter)
+ static char	*ft_limiter(char *line, char *limiter)
 {
 	char *limiter_cp;
+
 	limiter_cp = ft_gljoin(limiter, "\n");
 	if (ft_strcmp(line, limiter_cp) == 0)
 	{
 		free(line);
 		line = NULL;
-		//close(0);
+		close(0);
 	}
 	free(limiter_cp);
 	limiter_cp = NULL;
+	return (line);
 }
 
 static ssize_t	ft_read_file(int fd, char *buff)
@@ -80,7 +82,7 @@ static char	*ft_toline(char *stash, char *limiter)
 		free(temp);
 		temp = NULL;
 	}
-	ft_limiter(line, limiter);
+	line = ft_limiter(line, limiter);
 	if (!line)
 	{
 		free(stash);
