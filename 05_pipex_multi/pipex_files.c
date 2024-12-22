@@ -27,7 +27,6 @@ static void	ft_hdoc(int *fd,int argc,char **argv)
 	line = get_next_line(0, argv[2]);
 	while (line != NULL)
 	{
-		printf("%p", line);
 		write(fd[0], line, ft_strlen(line));
 		free(line);
 		line = get_next_line(0, argv[2]);

@@ -15,11 +15,11 @@ static void	ft_error_access(int *t, char **path_t, int i, char ***allpaths_t)
 	*t = 0;
 	while (allpaths_t[i][j])
 		perror(allpaths_t[i][j++]);
-	perror("Command cannot be found");
+	perror("\nCommand cannot be found");
 	ft_clean2(path_t);
 }
 
-static char	*ft_strcp(char *s2)
+static char	*ft_strcp(char *s2, int *t)
 {
 	char *s1;
 	int	i;
@@ -34,6 +34,7 @@ static char	*ft_strcp(char *s2)
 			i++;
 		}
 		s1[i] = '\0';
+		*t = 1;
 	}
 	return (s1);
 }
@@ -41,7 +42,7 @@ static char	*ft_strcp(char *s2)
 static char	**ft_check_acc(char ***allpaths_t, int i, int j)
 {
 	char	**path_t;
-	int t;
+	int		t;
 
 	t = 1;
 	path_t = malloc(sizeof(char *) * (ft_len3(allpaths_t) + 1));
@@ -51,13 +52,10 @@ static char	**ft_check_acc(char ***allpaths_t, int i, int j)
 		while (allpaths_t[i][j] && t == 0)
 		{
 			if (access(allpaths_t[i][j], X_OK) == 0)
-			{
-				path_t[i] = ft_strcp(allpaths_t[i][j]);
-				t = 1;
-			}
+				path_t[i] = ft_strcp(allpaths_t[i][j], &t);
 			j++;
 		}
-		if (t == 0 || !path_t[i])
+		if (!t || !path_t[i])
 		{
 			ft_error_access(&t, path_t, i, allpaths_t);
 			return (NULL);

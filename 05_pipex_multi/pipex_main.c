@@ -27,5 +27,7 @@ int main(int argc, char **argv)
 	if (path_t)
 		pipex(fd, cmds_t, path_t);
 	ft_clean_close(fd, cmds_t, path_t);
+	if (ft_strcmp(argv[0], "here_doc") == 0)
+		unlink("here_file");
 	return (0);
 }
