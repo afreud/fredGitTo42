@@ -1,4 +1,3 @@
-
 #include "pipex.h"
 
 size_t	ft_strlen(const char *s)
@@ -46,7 +45,7 @@ void	ft_clean2(char **t)
 	i = 0;
 	if (t)
 	{
-		while ( t && t[i])
+		while (t && t[i])
 		{
 			free(t[i]);
 			t[i++] = NULL;
@@ -56,7 +55,7 @@ void	ft_clean2(char **t)
 	}
 }
 
-void ft_clean3(char ***t)
+void	ft_clean3(char ***t)
 {
 	int	i;
 

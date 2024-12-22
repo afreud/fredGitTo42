@@ -1,9 +1,8 @@
-
 #include "pipex.h"
 
-void	ft_closefd(int pipefd[1024][2],int max)
+void	ft_closefd(int pipefd[1024][2], int max)
 {
-	int i = 0;
+	int	i;
 
 	i = 0;
 	while (i < max)
@@ -17,7 +16,7 @@ void	ft_closefd(int pipefd[1024][2],int max)
 int	ft_creat_pipes(int pipefd[1024][2], char ***cmds_t)
 {
 	int	i;
-	int max;
+	int	max;
 
 	i = 0;
 	max = ft_len3(cmds_t) - 1;
@@ -35,7 +34,7 @@ int	ft_creat_pipes(int pipefd[1024][2], char ***cmds_t)
 
 void	ft_dupfd(int *fd, int pipefd[1024][2], int i, int *max)
 {
-	int k;
+	int	k;
 
 	if (!i)
 	{
@@ -59,16 +58,16 @@ void	ft_dupfd(int *fd, int pipefd[1024][2], int i, int *max)
 	{
 		ft_closefd(pipefd, *max);
 		*max = -1;
-		perror("dup");
 	}
 }
 
 void	pipex(int *fd, char ***cmds_t, char **path_t)
 {
-	int		pipefd[1024][2];
-	pid_t	pid;
-	int		i;
-	int		max;
+	extern char	**environ;
+	int			pipefd[1024][2];
+	pid_t		pid;
+	int			i;
+	int			max;
 
 	i = 0;
 	max = ft_creat_pipes(pipefd, cmds_t);

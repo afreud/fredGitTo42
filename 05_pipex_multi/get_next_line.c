@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                '                    :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,9 @@
 
 #include "pipex.h"
 
- static char	*ft_limiter(char *line, char *limiter)
+static char	*ft_limiter(char *line, char *limiter)
 {
-	char *limiter_cp;
+	char	*limiter_cp;
 
 	limiter_cp = ft_gljoin(limiter, "\n");
 	if (ft_strcmp(line, limiter_cp) == 0)

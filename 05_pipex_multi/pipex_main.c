@@ -1,8 +1,6 @@
-
 #include "pipex.h"
 
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	int		fd[2];
 	char	***cmds_t;
@@ -16,14 +14,12 @@ int main(int argc, char **argv)
 		return (-1);
 	}
 	if (ft_open_files(fd, argc, argv))
-	{
-		argc--;
-		argv++;
-	}
-	cmds_t = ft_cmds_t(argc, argv);
+		cmds_t = ft_cmds_t(--argc, ++argv);
+	else
+		cmds_t = ft_cmds_t(argc, argv);
 	if (!cmds_t)
 		perror("Problem creating arguments array");
-	path_t = ft_path_t(cmds_t);		
+	path_t = ft_path_t(cmds_t);
 	if (path_t)
 		pipex(fd, cmds_t, path_t);
 	ft_clean_close(fd, cmds_t, path_t);

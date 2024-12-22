@@ -1,4 +1,3 @@
-
 #include "pipex.h"
 
 static int	ft_cmpath(char *str, char *s)
@@ -28,12 +27,12 @@ static void	ft_rho(char *str, char *s)
 	str[i] = '\0';
 }
 
-
 char	**ft_getenv(char *s)
 {
-	char	**var;
-	char	**env;
-	int 	i;
+	extern char	**environ;
+	char		**var;
+	char		**env;
+	int			i;
 
 	i = 0;
 	var = NULL;

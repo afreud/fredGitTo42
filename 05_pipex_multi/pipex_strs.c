@@ -1,4 +1,3 @@
-
 #include "pipex.h"
 
 char	*ft_cjoin(char const *s1, char const *s2)

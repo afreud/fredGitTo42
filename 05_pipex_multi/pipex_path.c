@@ -2,7 +2,7 @@
 
 static void	ft_error_access(int *t, char **path_t, int i, char ***allpaths_t)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (!i)
@@ -21,11 +21,11 @@ static void	ft_error_access(int *t, char **path_t, int i, char ***allpaths_t)
 
 static char	*ft_strcp(char *s2, int *t)
 {
-	char *s1;
-	int	i;
+	char	*s1;
+	int		i;
 
 	i = 0;
- 	s1 = malloc(sizeof(char) * (ft_strlen(s2) + 1));
+	s1 = malloc(sizeof(char) * (ft_strlen(s2) + 1));
 	if (s1)
 	{
 		while (s2[i])
@@ -72,8 +72,8 @@ char	**ft_path_t(char ***cmds_t)
 {
 	char	**path_t;
 	char	***allpaths_t;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;

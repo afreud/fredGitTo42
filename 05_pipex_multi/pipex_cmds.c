@@ -1,4 +1,3 @@
-
 #include "pipex.h"
 
 char	***ft_cmds_t(int argc, char **argv)
@@ -29,8 +28,8 @@ char	***ft_cmds_t(int argc, char **argv)
 
 static char	**ft_join_pc(char **path, char *cmd)
 {
-	char **cmd_path;
-	int	i;
+	char	**cmd_path;
+	int		i;
 
 	i = 0;
 	cmd_path = malloc(sizeof(char *) * (ft_len2(path) + 1));
@@ -42,7 +41,7 @@ static char	**ft_join_pc(char **path, char *cmd)
 		if (!cmd_path[i])
 		{
 			ft_clean2(cmd_path);
-				return (NULL);
+			return (NULL);
 		}
 		i++;
 	}
@@ -54,7 +53,7 @@ char	***ft_allpaths_t(char ***cmds_t)
 {
 	char	***allpaths_t;
 	char	**path;
-	int	i;
+	int		i;
 
 	i = 0;
 	if (!cmds_t)
