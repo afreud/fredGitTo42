@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-static void	ft_error_access(int *t, char **path_t, int i, char ***allpaths_t)
+static char	**ft_error_access(int *t, char **path_t, int i, char ***allpaths_t)
 {
 	int	j;
 
@@ -16,7 +16,8 @@ static void	ft_error_access(int *t, char **path_t, int i, char ***allpaths_t)
 	while (allpaths_t[i][j])
 		perror(allpaths_t[i][j++]);
 	perror("\nCommand cannot be found");
-	ft_clean2(path_t);
+	path_t = ft_clean2(path_t);
+	return (NULL);
 }
 
 static char	*ft_strcp(char *s2, int *t)
@@ -57,7 +58,7 @@ static char	**ft_check_acc(char ***allpaths_t, int i, int j)
 		}
 		if (!t || !path_t[i])
 		{
-			ft_error_access(&t, path_t, i, allpaths_t);
+			path_t = ft_error_access(&t, path_t, i, allpaths_t);
 			return (NULL);
 		}
 		j = 0;
@@ -82,6 +83,6 @@ char	**ft_path_t(char ***cmds_t)
 	if (!allpaths_t)
 		return (NULL);
 	path_t = ft_check_acc(allpaths_t, i, j);
-	ft_clean3(allpaths_t);
+	allpaths_t = ft_clean3(allpaths_t);
 	return (path_t);
 }

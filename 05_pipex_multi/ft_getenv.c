@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-static int	ft_cmpath(char *str, char *s)
+static int	ft_cmppath(char *str, char *s)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ char	**ft_getenv(char *s)
 	env = environ;
 	while (env[i] && s)
 	{
-		if (ft_cmpath(env[i], s))
+		if (ft_cmppath(env[i], s))
 		{
 			ft_rho(env[i], s);
 			var = ft_msplit(env[i], ':');

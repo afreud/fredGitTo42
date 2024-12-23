@@ -17,7 +17,7 @@ char	***ft_cmds_t(int argc, char **argv)
 		cmds_t[i] = ft_msplit(argv[j], ' ');
 		if (!cmds_t[i])
 		{
-			ft_clean3(cmds_t);
+			cmds_t = ft_clean3(cmds_t);
 			return (NULL);
 		}
 		i++;
@@ -40,7 +40,7 @@ static char	**ft_join_pc(char **path, char *cmd)
 		cmd_path[i] = ft_cjoin(path[i], cmd);
 		if (!cmd_path[i])
 		{
-			ft_clean2(cmd_path);
+			cmd_path = ft_clean2(cmd_path);
 			return (NULL);
 		}
 		i++;
@@ -66,11 +66,11 @@ char	***ft_allpaths_t(char ***cmds_t)
 	{
 		allpaths_t[i] = ft_join_pc(path, cmds_t[i][0]);
 		if (!allpaths_t[i])
-			ft_clean3(allpaths_t);
+			allpaths_t = ft_clean3(allpaths_t);
 		i++;
 	}
 	if (allpaths_t)
 		allpaths_t[i] = NULL;
-	ft_clean2(path);
+	path = ft_clean2(path);
 	return (allpaths_t);
 }

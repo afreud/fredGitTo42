@@ -1,11 +1,11 @@
 #include "pipex.h"
 
-void	ft_clean_close(int *fd, char ***cmds_t, char **path_t)
+void	ft_clean_close(int *fd, char ****cmds_t, char ***path_t)
 {
 	close(fd[0]);
 	close(fd[1]);
-	ft_clean3(cmds_t);
-	ft_clean2(path_t);
+	*cmds_t = ft_clean3(*cmds_t);
+	*path_t = ft_clean2(*path_t);
 }
 
 static void	ft_hdoc(int *fd, int argc, char **argv)

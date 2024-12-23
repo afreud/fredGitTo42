@@ -24,7 +24,7 @@ int	ft_creat_pipes(int pipefd[1024][2], char ***cmds_t)
 	{
 		if (pipe(pipefd[i++]) < 0)
 		{
-			ft_closefd(pipefd, (i - 2));
+			ft_closefd(pipefd, (i - 1));
 			perror("pipe");
 			return (-1);
 		}
@@ -61,9 +61,18 @@ void	ft_dupfd(int *fd, int pipefd[1024][2], int i, int *max)
 	}
 }
 
-void	pipex(int *fd, char ***cmds_t, char **path_t)
+void	ft_exec(char *path_t, char **cmds_t, int max)
 {
 	extern char	**environ;
+
+	if (max != -1)
+			execve(path_t, cmds_t, environ);
+	perror(*cmds_t);
+	exit(EXIT_FAILURE);
+}
+
+void	pipex(int *fd, char ***cmds_t, char **path_t)
+{
 	int			pipefd[1024][2];
 	pid_t		pid;
 	int			i;
@@ -80,7 +89,7 @@ void	pipex(int *fd, char ***cmds_t, char **path_t)
 		{
 			ft_dupfd(fd, pipefd, i, &max);
 			ft_closefd(pipefd, max);
-			execve(path_t[i], cmds_t[i], environ);
+			ft_exec(path_t[i], cmds_t[i], max);
 		}
 		i++;
 	}
