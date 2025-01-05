@@ -6,24 +6,49 @@ struct clist;
 int main(int argc, char **argv)
 {
 	t_clist *a;
-	//t_clist *b;
+	t_clist *b;
 	int	i;
 	int n;
 
-	i = 1;
-	//b = NULL;
+	i = 0;
+	b = NULL;
 	a = ft_creat_list(argc, argv);
 	if (!a)
 		exit(EXIT_FAILURE);
 	t_clist *cp_a = a;
 	if (argc > 1 && argc < 4)
 		ft_sort_small(argc, &a);
-	while (i++ < argc)
+	printf("A\n");
+	while (i++ < ft_lstlen(a))
 	{
 		n = cp_a->nb;
 		printf("%d\n", n);
 		cp_a = cp_a->next;
 	}
+	
+	i = ft_lstlen(a);
+	printf("\nlen A: %d\n", i);
+
+	i = 0;
+	ft_pb(&a, &b);
+	n = b->nb;
+	printf("\nB\n%d\n", n);
+
+	i = 0;
+	cp_a = a;
+	printf("\nA\n");
+	while (i++ < ft_lstlen(a))
+	{
+		n = cp_a->nb;
+		printf("%d\n", n);
+		cp_a = cp_a->next;
+	}
+
+	i = ft_lstlen(a);
+	printf("\nlen A: %d\n", i);
+
+
 	ft_clr_lst(&a);
+	ft_clr_lst(&b);
 	return (0);
 }
