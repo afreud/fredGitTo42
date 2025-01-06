@@ -6,19 +6,20 @@ void	ft_sa(t_clist **list_a)
 	t_clist	*buf_anext;
 	t_clist	*buf_a;
 
-	buf_anext = (*list_a)->next->next;
-	buf_a = (*list_a)->next;
-	(*list_a)->prev->next = (*list_a)->next;
-
-	(*list_a)->next->next->prev = (*list_a);
-
-	(*list_a)->next->next = (*list_a);
-	(*list_a)->next->prev = (*list_a)->prev;
-
-	(*list_a)->prev = (*list_a)->next;
-	(*list_a)->next = buf_anext;
-	
-	*list_a = buf_a;
+	if (ft_lstlen(*list_a) == 2)
+		*list_a = (*list_a)->next;
+	else
+	{
+		buf_anext = (*list_a)->next->next;
+		buf_a = (*list_a)->next;
+		(*list_a)->prev->next = (*list_a)->next;
+		(*list_a)->next->next->prev = (*list_a);
+		(*list_a)->next->next = (*list_a);
+		(*list_a)->next->prev = (*list_a)->prev;
+		(*list_a)->prev = (*list_a)->next;
+		(*list_a)->next = buf_anext;
+		*list_a = buf_a;
+	}
 }
 
 void	ft_sb(t_clist **list_b)

@@ -15,9 +15,10 @@ int main(int argc, char **argv)
 	a = ft_creat_list(argc, argv);
 	if (!a)
 		exit(EXIT_FAILURE);
-	t_clist *cp_a = a;
-	if (argc > 1 && argc < 4)
+	if (argc > 1 && argc <= 4)
 		ft_sort_small(argc, &a);
+	ft_index(a);
+	t_clist *cp_a = a;
 	printf("A	Pk0\n");
 	while (i++ < ft_lstlen(a))
 	{

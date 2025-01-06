@@ -39,6 +39,7 @@ void	ft_index(t_clist *lst);
 void	ft_index2(t_clist *lst_a, t_clist *lst_b);
 void	ft_sort_small(int argc, t_clist **list_a);
 t_clist *ft_tosend(t_clist *lst, t_clist *tgt_lst);
+void	ft_sort(t_clist **lst, t_clist **tgt_lst);
 
 
 #endif

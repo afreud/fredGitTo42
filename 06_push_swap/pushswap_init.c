@@ -42,7 +42,7 @@ t_clist	*ft_creat_list(int argc, char **argv)
 	i = 0;
 	start = NULL;
 	new = NULL;
-	if (argc > 2)
+	if (argc >= 2)
 	{
 		while (argv[++i])
 		{

@@ -70,15 +70,13 @@ static void	ft_sort_neg(t_clist *tosend, t_clist **lst, t_clist **tgt_lst)
 	ft_pb(lst, tgt_lst);
 }
 
-static void	ft_sort_dif(t_clist *tosend, t_clist **lst, t_clist **tgt_lst)
+static void	ft_sort_dif(t_clist *a, t_clist **lst, t_clist **tgt_lst)
 {
-	t_clist	*a;
 	t_clist *b;
 	int		rpk0a;
 	int		rpk0b;
 
-	a = tosend;
-	b = tosend->target;
+	b = a->target;
 	rpk0a = a->pk0 - ft_lstlen(a);
 	rpk0b = b->pk0 - ft_lstlen(b);
 
