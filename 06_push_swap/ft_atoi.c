@@ -26,3 +26,49 @@ int	ft_atoi(const char *nptr)
 	}
 	return (nbr * c);
 }
+
+bool	ft_islower(t_clist *a, t_clist *tgt_lst)
+{
+	t_clist	*current;
+	t_clist	*buffer;
+	bool	min;
+
+	current = tgt_lst;
+	buffer = NULL;
+	min = 1;
+	while (buffer != tgt_lst)
+	{
+		buffer = current->next;
+		if (a->nb > current->nb)
+			min = 0;
+		current =buffer;
+	}
+	return (min);
+}
+
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	else
+		return (n);
+}
+
+t_clist	*ft_wbigger(t_clist *lst)
+{
+	t_clist	*current;
+	t_clist	*buffer;
+	t_clist	*big;
+
+	current = lst;
+	buffer = NULL;
+	big = lst;
+	while (buffer != lst)
+	{
+		buffer = current->next;
+		if (current->nb > big->nb)
+			big = current;
+		current = buffer;
+	}
+	return (big);
+}

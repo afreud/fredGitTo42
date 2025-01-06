@@ -18,11 +18,13 @@ int main(int argc, char **argv)
 	t_clist *cp_a = a;
 	if (argc > 1 && argc < 4)
 		ft_sort_small(argc, &a);
-	printf("A\n");
+	printf("A	Pk0\n");
 	while (i++ < ft_lstlen(a))
 	{
 		n = cp_a->nb;
 		printf("%d\n", n);
+		n = cp_a->pk0;
+		printf("	%d\n", n);
 		cp_a = cp_a->next;
 	}
 	
@@ -34,13 +36,16 @@ int main(int argc, char **argv)
 	n = b->nb;
 	printf("\nB\n%d\n", n);
 
+	ft_index(a);
 	i = 0;
 	cp_a = a;
-	printf("\nA\n");
+	printf("\nA	Pk0\n");
 	while (i++ < ft_lstlen(a))
 	{
 		n = cp_a->nb;
 		printf("%d\n", n);
+		n = cp_a->pk0;
+		printf("	%d\n", n);
 		cp_a = cp_a->next;
 	}
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include <stdbool.h>
 
 #ifndef PUSHSWAP_H
 # define PUSHSWAP_H
@@ -9,25 +9,36 @@
 typedef struct	clist
 {
 	int				nb;
+	int				index;
+	int				pk0;
+	int				push_cost;
+	struct clist	*target;
 	struct clist	*next;
 	struct clist	*prev;
 }t_clist;
 
-int		ft_atoi(const char *nptr);
+void	ft_sa(t_clist **list_a);
+void	ft_sb(t_clist **list_b);
+void	ft_ss(t_clist **list_a, t_clist **list_b);
 void	ft_ra(t_clist **list_a);
 void	ft_rb(t_clist **list_b);
 void	ft_rr(t_clist **list_a, t_clist **list_b);
 void	ft_rra(t_clist **list_a);
+void	ft_rrb(t_clist **list_b);
 void	ft_rrr(t_clist **list_a, t_clist **list_b);
-void	ft_pb(t_clist **list_a, t_clist **list_b);
 void	ft_pa(t_clist **list_b, t_clist **list_a);
-void	ft_sb(t_clist **list_b);
-void	ft_sa(t_clist **list_a);
+void	ft_pb(t_clist **list_a, t_clist **list_b);
 t_clist	*ft_creat_list(int argc, char **argv);
-t_clist	*ft_clnew(int n);
 void	ft_clr_lst(t_clist **lst);
 int		ft_lstlen(t_clist *lst);
+int		ft_atoi(const char *nptr);
+bool	ft_islower(t_clist *a, t_clist *tg_lst);
+int		ft_abs(int n);
+t_clist	*ft_wbigger(t_clist *lst);
+void	ft_index(t_clist *lst);
+void	ft_index2(t_clist *lst_a, t_clist *lst_b);
 void	ft_sort_small(int argc, t_clist **list_a);
+t_clist *ft_tosend(t_clist *lst, t_clist *tgt_lst);
 
 
 #endif
