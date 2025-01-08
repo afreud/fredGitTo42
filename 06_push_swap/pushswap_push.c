@@ -27,6 +27,7 @@ void	ft_pb(t_clist **list_a, t_clist **list_b)
 		*list_a = NULL;
 	else
 		*list_a = temp_a;
+	write(1, "pb\n", 3);
 }
 
 void	ft_pa(t_clist **list_b, t_clist **list_a)
@@ -55,4 +56,5 @@ void	ft_pa(t_clist **list_b, t_clist **list_a)
 		*list_b = NULL;
 	else
 		*list_b = temp_b;
+	write(1, "pa\n", 3);
 }

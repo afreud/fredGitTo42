@@ -17,8 +17,8 @@ typedef struct	clist
 	struct clist	*prev;
 }t_clist;
 
-void	ft_sa(t_clist **list_a);
-void	ft_sb(t_clist **list_b);
+void	ft_sa(t_clist **list_a, int p);
+void	ft_sb(t_clist **list_b, int p);
 void	ft_ss(t_clist **list_a, t_clist **list_b);
 void	ft_ra(t_clist **list_a);
 void	ft_rb(t_clist **list_b);
@@ -39,7 +39,14 @@ void	ft_index(t_clist *lst);
 void	ft_index2(t_clist *lst_a, t_clist *lst_b);
 void	ft_sort_small(int argc, t_clist **list_a);
 t_clist *ft_tosend(t_clist *lst, t_clist *tgt_lst);
-void	ft_sort(t_clist **lst, t_clist **tgt_lst);
+
+void	ft_set_cost(t_clist *lst_a, t_clist *lst_b);
+t_clist	*ft_target(t_clist *a, t_clist *lst_b);
+
+void	ft_sort_one(t_clist **lst, t_clist **tgt_lst);
+void	ft_diff_ro(int idx_a, int idx_b, t_clist **lst_a, t_clist **lst_b);
+void	ft_diff_rro(int rpk0_a, int rpk0_b, t_clist **lst_a, t_clist **lst_b);
+void	ft_diff(int pk0_a, int pk0_b, t_clist **lst_a, t_clist **lst_b);
 
 
 #endif

@@ -1,107 +1,73 @@
-
 #include "pushswap.h"
 
-static t_clist	*ft_target(t_clist *a, t_clist *lst_b)
+int	ft_atoi(const char *nptr)
+{
+	int	i;
+	int	nbr;
+	int	c;
+
+	i = 0;
+	nbr = 0;
+	c = 1;
+	while ((nptr[i] > 8 && nptr[i] < 14) || nptr[i] == 32)
+		i++;
+	if (nptr[i] == '-')
+	{
+		c = -1;
+		i++;
+	}
+	else if (nptr[i] == '+')
+		i++;
+	while (nptr[i] != '\0' && (nptr[i] >= '0' && nptr[i] <= '9'))
+	{
+		nbr *= 10;
+		nbr += (nptr[i] - 48) % 10;
+		i++;
+	}
+	return (nbr * c);
+}
+
+bool	ft_islower(t_clist *a, t_clist *tgt_lst)
 {
 	t_clist	*current;
 	t_clist	*buffer;
-	t_clist	*target;
-	int		min;
+	bool	min;
 
-	if (!lst_b)
-		return (NULL);
-	current = lst_b;
+	current = tgt_lst;
 	buffer = NULL;
-	target = lst_b;
-	min = lst_b->nb;
-	if (ft_islower(a, lst_b))
-		return (ft_wbigger(lst_b));
-	while (buffer != lst_b)
+	min = 1;
+	while (buffer != tgt_lst)
 	{
 		buffer = current->next;
-		if (a->nb > current->nb && current->nb > min)
-		{
-			min = current->nb;
-			target = current;
-		}
-		current = buffer;
+		if (a->nb > current->nb)
+			min = 0;
+		current =buffer;
 	}
-	return (target);
+	return (min);
 }
 
-static void	ft_cost(t_clist *a, t_clist *b)
+int	ft_abs(int n)
 {
-	if (!b)
-		a->push_cost = ft_abs(a->pk0);
-	else if (a->pk0 <= 0 && b->pk0 <= 0)
-	{
-		if (a->pk0 <= b->pk0)
-			a->push_cost = ft_abs(a->pk0);
-		else
-			a->push_cost = ft_abs(b->pk0);
-
-	}
-	else if (a->pk0 >= 0 && b->pk0 >= 0)
-	{
-		if (a->pk0 <= b->pk0)
-			a->push_cost = b->pk0;
-		else
-			a->push_cost = a->pk0;
-	}
-	else
-	{
-		if (a->pk0 >= b->index)
-			a->push_cost = a->pk0;
-		else if (b->pk0 >= a->index)
-			a->push_cost = b->pk0;
-		if (a->pk0 < 0 && a->pk0 <= (b->pk0 - ft_lstlen(b)))
-			a->push_cost = ft_abs(a->pk0);
-		if (b->pk0 < 0 && b->pk0 <= (a->pk0 - ft_lstlen(a)))
-			a->push_cost = ft_abs(b->pk0);
-		else
-			a->push_cost = ft_abs(a->pk0 - b->pk0);
-	}
+	if (n < 0)
+		return (-n);
+	return (n);
 }
 
-static void	ft_set_cost(t_clist *lst_a, t_clist *lst_b)
-{
-	t_clist	*current;
-	t_clist *buffer;
-	t_clist	*target;
-
-	current = lst_a;
-	buffer = NULL;
-	target = NULL;
-	while (buffer != lst_a)
-	{
-		buffer = current->next;
-		target = ft_target(current, lst_b);
-		ft_cost(current, target);
-		current->target = target;
-		current = buffer;
-	}
-
-}
-
-t_clist *ft_tosend(t_clist *lst, t_clist *tgt_lst)
+t_clist	*ft_wbigger(t_clist *lst)
 {
 	t_clist	*current;
 	t_clist	*buffer;
-	t_clist	*tosend;
+	t_clist	*big;
 
-	if (!lst)
-		return (NULL);
-	ft_index2(lst, tgt_lst);
-	ft_set_cost(lst, tgt_lst);
 	current = lst;
 	buffer = NULL;
-	tosend = lst;
+	big = lst;
 	while (buffer != lst)
 	{
 		buffer = current->next;
-		if (current->push_cost < tosend->push_cost)
-			tosend = current;
+		if (current->nb > big->nb)
+			big = current;
 		current = buffer;
 	}
-	return (tosend);
+	return (big);
 }

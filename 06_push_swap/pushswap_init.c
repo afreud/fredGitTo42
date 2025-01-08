@@ -44,10 +44,11 @@ t_clist	*ft_creat_list(int argc, char **argv)
 	new = NULL;
 	if (argc >= 2)
 	{
-		while (argv[++i])
+		while (argv[i])
 		{
 			new = ft_clnew(ft_atoi(argv[i]));
 			ft_cladd_back(&start, new);
+			i++;
 		}
 	}
 	ft_index(start);

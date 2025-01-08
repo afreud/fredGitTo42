@@ -3,56 +3,63 @@
 
 struct clist;
 
-int main(int argc, char **argv)
+void	ft_print_ab(t_clist *cp_a,t_clist *cp_b)
+{
+	int	i = 0;
+	int n;
+	t_clist *z;
+	t_clist *w;
+
+	z = ft_tosend(cp_a, cp_b);
+	n = z->nb;
+	printf("\n\nTo send: %d\n", n);
+	w = ft_target(z, cp_b);
+	n = w->nb;
+	printf("Target: %d\n", n);
+
+	printf("\nA	Pk0	Cost\n\n");
+	while (i++ < ft_lstlen(cp_a))
+	{
+		n = cp_a->nb;
+		printf("%d\n", n);
+		n = cp_a->pk0;
+		printf("	%d\n", n);
+		n = cp_a->push_cost;
+		printf("		%d\n", n);
+		cp_a = cp_a->next;
+	}
+	i = 0;
+	printf("\n\nB	Pk0\n");
+	while (i++ < ft_lstlen(cp_b))
+	{
+		n = cp_b->nb;
+		printf("%d\n", n);
+		n = cp_b->pk0;
+		printf("	%d\n", n);
+		cp_b = cp_b->next;
+	}
+
+}
+int main()
 {
 	t_clist *a;
 	t_clist *b;
-	int	i;
-	int n;
+	char	*arga[] = { "8", "3", "2", "20", "200" "6", "7", "9", NULL};
+	char	*argb[] = {"10", "5","4", "1", "13", NULL};
 
-	i = 0;
-	b = NULL;
-	a = ft_creat_list(argc, argv);
+	a = ft_creat_list(2, arga);
+	b = ft_creat_list(7, argb);
 	if (!a)
 		exit(EXIT_FAILURE);
-	if (argc > 1 && argc <= 4)
-		ft_sort_small(argc, &a);
-	ft_index(a);
-	t_clist *cp_a = a;
-	printf("A	Pk0\n");
-	while (i++ < ft_lstlen(a))
-	{
-		n = cp_a->nb;
-		printf("%d\n", n);
-		n = cp_a->pk0;
-		printf("	%d\n", n);
-		cp_a = cp_a->next;
-	}
-	
-	i = ft_lstlen(a);
-	printf("\nlen A: %d\n", i);
+//	if (argc > 1 && argc <= 4)
+//		ft_sort_small(argc, &a);
 
-	i = 0;
-	ft_pb(&a, &b);
-	n = b->nb;
-	printf("\nB\n%d\n", n);
+	ft_print_ab(a, b);
 
-	ft_index(a);
-	i = 0;
-	cp_a = a;
-	printf("\nA	Pk0\n");
-	while (i++ < ft_lstlen(a))
-	{
-		n = cp_a->nb;
-		printf("%d\n", n);
-		n = cp_a->pk0;
-		printf("	%d\n", n);
-		cp_a = cp_a->next;
-	}
+	printf("\nCommands:\n--------\n");
+	ft_sort_one(&a, &b);
 
-	i = ft_lstlen(a);
-	printf("\nlen A: %d\n", i);
-
+	ft_print_ab(a, b);
 
 	ft_clr_lst(&a);
 	ft_clr_lst(&b);
