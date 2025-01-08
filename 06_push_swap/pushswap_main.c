@@ -10,15 +10,21 @@ void	ft_print_ab(t_clist *cp_a,t_clist *cp_b)
 	t_clist *z;
 	t_clist *w;
 
-	z = ft_tosend(cp_a, cp_b);
-	n = z->nb;
-	printf("\n\nTo send: %d\n", n);
-	w = ft_target(z, cp_b);
-	n = w->nb;
-	printf("Target: %d\n", n);
+	if (cp_a)
+	{
+		z = ft_tosend(cp_a, cp_b);
+		n = z->nb;
+		printf("\n\nTo send: %d\n", n);
+		if (cp_b)
+		{
+			w = ft_target(z, cp_b);
+			n = w->nb;
+			printf("Target: %d\n", n);
+		}
+	}
 
 	printf("\nA	Pk0	Cost\n\n");
-	while (i++ < ft_lstlen(cp_a))
+	while ( cp_a && i++ < ft_lstlen(cp_a))
 	{
 		n = cp_a->nb;
 		printf("%d\n", n);
@@ -30,7 +36,7 @@ void	ft_print_ab(t_clist *cp_a,t_clist *cp_b)
 	}
 	i = 0;
 	printf("\n\nB	Pk0\n");
-	while (i++ < ft_lstlen(cp_b))
+	while (cp_b && i++ < ft_lstlen(cp_b))
 	{
 		n = cp_b->nb;
 		printf("%d\n", n);
@@ -45,21 +51,24 @@ int main()
 	t_clist *a;
 	t_clist *b;
 	char	*arga[] = { "8", "3", "2", "20", "200" "6", "7", "9", NULL};
-	char	*argb[] = {"10", "5","4", "1", "13", NULL};
+//	char	*argb[] = {"10", "5","4", "1", "13", NULL};
 
 	a = ft_creat_list(2, arga);
-	b = ft_creat_list(7, argb);
+	b = NULL;
 	if (!a)
 		exit(EXIT_FAILURE);
 //	if (argc > 1 && argc <= 4)
 //		ft_sort_small(argc, &a);
 
 	ft_print_ab(a, b);
-
-	printf("\nCommands:\n--------\n");
-	ft_sort_one(&a, &b);
-
-	ft_print_ab(a, b);
+	int l = ft_lstlen(a);
+	while (l)
+	{
+		printf("\nCommands:\n--------\n");
+		ft_sort_one(&a, &b);
+		ft_print_ab(a, b);
+		l--;
+	}
 
 	ft_clr_lst(&a);
 	ft_clr_lst(&b);

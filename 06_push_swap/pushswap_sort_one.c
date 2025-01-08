@@ -42,7 +42,7 @@ static void	ft_sort_pos(t_clist *a, t_clist **lst, t_clist **tgt_lst)
 	if ((*lst)->nb > (*lst)->next->nb && j == 1)
 		ft_ss(lst, tgt_lst);
 	else if (j == 1)
-		ft_sb(lst, 1);
+		ft_sb(tgt_lst, 1);
 }
 
 static void	ft_sort_neg(t_clist *a, t_clist **lst, t_clist **tgt_lst)
