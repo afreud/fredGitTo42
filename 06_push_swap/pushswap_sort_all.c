@@ -63,8 +63,7 @@ void	ft_sort_all(t_clist **lst_a, t_clist **lst_b)
 	max_rank = ft_lstlen(*lst_a);
 	while (ft_lstlen(*lst_a) > 3 && !(ft_isa_ordered(*lst_a)))
 	{
-//		max_rank = (max_rank * 50) / 100;
-		max_rank = 3;
+		max_rank = (max_rank * 66) / 100;
 		if (max_rank < 3)
 			max_rank = 3;
 		ft_set_bool(*lst_a, max_rank);
@@ -76,6 +75,7 @@ void	ft_sort_all(t_clist **lst_a, t_clist **lst_b)
 		ft_sort_small(lst_a);
 	else
 		ft_reorder_a(lst_a);
-	ft_reorder_b(lst_b);
+	if (*lst_b)
+		ft_reorder_b(lst_b);
 	ft_final_push(lst_a, lst_b);
 }

@@ -52,14 +52,14 @@ void	ft_print_ab(t_clist *cp_a,t_clist *cp_b)
 	}
 
 }
-int main()
+int main(int argc, char **argv)
 {
 	t_clist *a;
 	t_clist *b;
-	char	*arga[] = { "4", "1", "3", "2", "6", "7", "8", "9", "10", "5", NULL};
+//	char	*arga[] = { "4", "1", "3", "2", "7", "6", "8", "9", "10", "5", NULL};
 //	char	*argb[] = {"10", "5","4", "1", "13", NULL};
 
-	a = ft_creat_list(2, arga);
+	a = ft_creat_list(argc, argv);
 	b = NULL;
 	if (!a)
 		exit(EXIT_FAILURE);

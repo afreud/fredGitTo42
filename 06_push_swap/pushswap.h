@@ -30,6 +30,7 @@ void	ft_rrb(t_clist **list_b);
 void	ft_rrr(t_clist **list_a, t_clist **list_b);
 void	ft_pa(t_clist **list_b, t_clist **list_a);
 void	ft_pb(t_clist **list_a, t_clist **list_b);
+char	**ft_split(char const *s, char c);
 t_clist	*ft_creat_list(int argc, char **argv);
 void	ft_clr_lst(t_clist **lst);
 int		ft_lstlen(t_clist *lst);
