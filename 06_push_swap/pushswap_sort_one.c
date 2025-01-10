@@ -84,11 +84,13 @@ static void	ft_sort_dif(t_clist *a, t_clist **lst, t_clist **tgt_lst)
 		ft_diff(a->pk0, b->pk0, lst, tgt_lst);
 }
 
-void	ft_sort_one(t_clist **lst, t_clist **tgt_lst)
+bool	ft_sort_one(t_clist **lst, t_clist **tgt_lst)
 {
 	t_clist	*tosend;
 
 	tosend = ft_tosend(*lst, *tgt_lst);
+	if (!tosend)
+		return (0);
 	if (tosend->target == NULL)
 		ft_sort_nl(tosend, lst, tgt_lst);
 	else if (tosend->pk0 >= 0 && tosend->target->pk0 >= 0)
@@ -97,4 +99,5 @@ void	ft_sort_one(t_clist **lst, t_clist **tgt_lst)
 		ft_sort_neg(tosend, lst, tgt_lst);
 	else
 		ft_sort_dif(tosend, lst, tgt_lst);
+	return (1);
 }

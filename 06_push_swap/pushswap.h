@@ -12,6 +12,8 @@ typedef struct	clist
 	int				index;
 	int				pk0;
 	int				push_cost;
+	int				rank;
+	bool			send;
 	struct clist	*target;
 	struct clist	*next;
 	struct clist	*prev;
@@ -37,16 +39,22 @@ int		ft_abs(int n);
 t_clist	*ft_wbigger(t_clist *lst);
 void	ft_index(t_clist *lst);
 void	ft_index2(t_clist *lst_a, t_clist *lst_b);
-void	ft_sort_small(int argc, t_clist **list_a);
 t_clist *ft_tosend(t_clist *lst, t_clist *tgt_lst);
-
-void	ft_set_cost(t_clist *lst_a, t_clist *lst_b);
-t_clist	*ft_target(t_clist *a, t_clist *lst_b);
-
-void	ft_sort_one(t_clist **lst, t_clist **tgt_lst);
+void	ft_sort_small(t_clist **list_a);
+bool	ft_sort_one(t_clist **lst, t_clist **tgt_lst);
+void	ft_sort_all(t_clist **lst_a, t_clist **lst_b);
 void	ft_diff_ro(int idx_a, int idx_b, t_clist **lst_a, t_clist **lst_b);
 void	ft_diff_rro(int rpk0_a, int rpk0_b, t_clist **lst_a, t_clist **lst_b);
 void	ft_diff(int pk0_a, int pk0_b, t_clist **lst_a, t_clist **lst_b);
+void	ft_ranking(t_clist *lst);
+void	ft_set_bool(t_clist *lst, int max_rank);
+bool	ft_isa_ordered(t_clist *lst);
+void	ft_reorder_a(t_clist **lst_a);
+void	ft_reorder_b(t_clist **lst_b);
+void	ft_final_push(t_clist **lst_a, t_clist **lst_b);
+//a virer
+void	ft_set_cost(t_clist *lst_a, t_clist *lst_b);
+t_clist	*ft_target(t_clist *a, t_clist *lst_b);
 
 
 #endif

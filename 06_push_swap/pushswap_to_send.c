@@ -109,9 +109,13 @@ t_clist *ft_tosend(t_clist *lst, t_clist *tgt_lst)
 	while (buffer != lst)
 	{
 		buffer = current->next;
-		if (current->push_cost < tosend->push_cost)
+		if (!(tosend->send) && current->send)
+			tosend = current;
+		if (current->push_cost < tosend->push_cost && current->send)
 			tosend = current;
 		current = buffer;
 	}
+	if (!(tosend) || !(tosend->send))
+		return (NULL);
 	return (tosend);
 }

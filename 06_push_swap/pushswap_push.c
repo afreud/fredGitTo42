@@ -30,7 +30,7 @@ void	ft_pb(t_clist **list_a, t_clist **list_b)
 	write(1, "pb\n", 3);
 }
 
-void	ft_pa(t_clist **list_b, t_clist **list_a)
+void	ft_pa(t_clist **list_a, t_clist **list_b)
 {
 	t_clist	*temp_b;
 

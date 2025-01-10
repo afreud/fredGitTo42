@@ -21,13 +21,16 @@ static void	ft_sort3(t_clist **list_a)
 	else if (b > a && b > c)
 		ft_rra(list_a);
 	if ((*list_a)->nb > (*list_a)->next->nb)
-		ft_sb(list_a, 1);
+		ft_sa(list_a, 1);
 }
 
-void	ft_sort_small(int argc, t_clist **list_a)
+void	ft_sort_small(t_clist **list_a)
 {
-	if (argc == 3)	
+	int	c;
+	
+	c = ft_lstlen(*list_a);
+	if (c == 2)	
 		ft_sort2(list_a);
-	else if (argc == 4)
+	else if (c == 3)
 		ft_sort3(list_a);
 }
