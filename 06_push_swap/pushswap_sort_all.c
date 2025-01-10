@@ -11,8 +11,11 @@ void	ft_diff_ro(int idx_a, int idx_b, t_clist **lst_a, t_clist **lst_b)
 	}
 	while (idx_a--)
 		ft_ra(lst_a);
-	while (idx_b && idx_b > 1)
+	while (idx_b > 1)
+	{
 		ft_rb(lst_b);
+		idx_b--;
+	}
 	ft_pb(lst_a, lst_b);
 	if ((*lst_a)->nb > (*lst_a)->next->nb && idx_b == 1)
 		ft_ss(lst_a, lst_b);
@@ -63,7 +66,9 @@ void	ft_sort_all(t_clist **lst_a, t_clist **lst_b)
 	max_rank = ft_lstlen(*lst_a);
 	while (ft_lstlen(*lst_a) > 3 && !(ft_isa_ordered(*lst_a)))
 	{
-		max_rank = (max_rank * 66) / 100;
+//		max_rank = (max_rank * 10) / 100;
+//		max_rank = (max_rank * 10) / 100;
+		max_rank = 3;
 		if (max_rank < 3)
 			max_rank = 3;
 		ft_set_bool(*lst_a, max_rank);

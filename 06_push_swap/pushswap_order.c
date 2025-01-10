@@ -46,7 +46,7 @@ void	ft_reorder_a(t_clist **lst_a)
 	ft_index(*lst_a);
 	while ((*lst_a)->prev != big)
 	{
-		if (big->pk0 > 0)
+		if (big->pk0 >= 0)
 			ft_ra(lst_a);
 		if (big->pk0 < 0)
 			ft_rra(lst_a);
