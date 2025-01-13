@@ -1,4 +1,3 @@
-
 #include "pushswap.h"
 
 void	ft_clr_lst(t_clist **lst)
@@ -8,7 +7,7 @@ void	ft_clr_lst(t_clist **lst)
 
 	current = *lst;
 	buffer = NULL;
-	while(buffer != *lst)
+	while (buffer != *lst)
 	{
 		buffer = current->next;
 		current->next = NULL;
@@ -22,7 +21,7 @@ void	ft_clr_lst(t_clist **lst)
 int	ft_lstlen(t_clist *lst)
 {
 	t_clist	*buffer;
-	int	i;
+	int		i;
 
 	if (!lst)
 		return (0);
@@ -34,13 +33,31 @@ int	ft_lstlen(t_clist *lst)
 		i++;
 	}
 	return (i);
-	
+}
+
+t_clist	*ft_wbigger(t_clist *lst)
+{
+	t_clist	*current;
+	t_clist	*buffer;
+	t_clist	*big;
+
+	current = lst;
+	buffer = NULL;
+	big = lst;
+	while (buffer != lst)
+	{
+		buffer = current->next;
+		if (current->nb > big->nb)
+			big = current;
+		current = buffer;
+	}
+	return (big);
 }
 
 void	ft_index(t_clist *lst)
 {
 	int	i;
-	int l;
+	int	l;
 
 	if (lst)
 	{

@@ -21,10 +21,31 @@ int	ft_atoi(const char *nptr)
 	while (nptr[i] != '\0' && (nptr[i] >= '0' && nptr[i] <= '9'))
 	{
 		nbr *= 10;
-		nbr += (nptr[i] - 48) % 10;
+		nbr += (nptr[i] - 48);
 		i++;
 	}
 	return (nbr * c);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return ((int)(unsigned char)s1[i] - (int)(unsigned char)s2[i]);
+		i++;
+	}
+	return ((int)(unsigned char)s1[i] - (int)(unsigned char)s2[i]);
+}
+
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
 }
 
 bool	ft_islower(t_clist *a, t_clist *tgt_lst)
@@ -41,33 +62,7 @@ bool	ft_islower(t_clist *a, t_clist *tgt_lst)
 		buffer = current->next;
 		if (a->nb > current->nb)
 			min = 0;
-		current =buffer;
-	}
-	return (min);
-}
-
-int	ft_abs(int n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
-}
-
-t_clist	*ft_wbigger(t_clist *lst)
-{
-	t_clist	*current;
-	t_clist	*buffer;
-	t_clist	*big;
-
-	current = lst;
-	buffer = NULL;
-	big = lst;
-	while (buffer != lst)
-	{
-		buffer = current->next;
-		if (current->nb > big->nb)
-			big = current;
 		current = buffer;
 	}
-	return (big);
+	return (min);
 }

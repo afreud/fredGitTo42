@@ -56,7 +56,17 @@ void	ft_diff(int pk0_a, int pk0_b, t_clist **lst_a, t_clist **lst_b)
 			ft_rra(lst_a);
 		ft_pb(lst_a, lst_b);
 	}
-	
+}
+
+ static void	ft_final_push(t_clist **lst_a, t_clist **lst_b)
+{
+	int	lb;
+
+	lb = ft_lstlen(*lst_b);
+	while (lb--)
+	{
+		ft_pa(lst_a, lst_b);
+	}
 }
 
 void	ft_sort_all(t_clist **lst_a, t_clist **lst_b)
@@ -66,7 +76,7 @@ void	ft_sort_all(t_clist **lst_a, t_clist **lst_b)
 	max_rank = ft_lstlen(*lst_a);
 	while (ft_lstlen(*lst_a) > 3 && !(ft_isa_ordered(*lst_a)))
 	{
-//		max_rank = (max_rank * 10) / 100;
+//		max_rank = (max_rank * 65) / 100;
 //		max_rank = (max_rank * 10) / 100;
 		max_rank = 3;
 		if (max_rank < 3)
@@ -74,12 +84,12 @@ void	ft_sort_all(t_clist **lst_a, t_clist **lst_b)
 		ft_set_bool(*lst_a, max_rank);
 		while (ft_sort_one(lst_a, lst_b))
 			if (ft_isa_ordered(*lst_a))
-			break;
+				break ;
 	}
 	if (ft_lstlen(*lst_a) <= 3)
-		ft_sort_small(lst_a);
+		ft_sort_small(lst_a, lst_b);
 	else
-		ft_reorder_a(lst_a);
+		ft_reorder_a(lst_a, lst_b);
 	if (*lst_b)
 		ft_reorder_b(lst_b);
 	ft_final_push(lst_a, lst_b);

@@ -1,10 +1,10 @@
-
 #include "pushswap.h"
 
 static void	ft_cmprank(t_clist *current, int *t)
 {
-	int n;
-	int np;
+	int	n;
+	int	np;
+
 	n = current->rank;
 	np = current->prev->rank;
 	n++;
@@ -15,8 +15,8 @@ static void	ft_cmprank(t_clist *current, int *t)
 bool	ft_isa_ordered(t_clist *lst)
 {
 	t_clist	*current;
-	t_clist *buffer;
-	t_clist *start;
+	t_clist	*buffer;
+	t_clist	*start;
 	int		t;
 
 	current = ft_wbigger(lst);
@@ -38,18 +38,49 @@ bool	ft_isa_ordered(t_clist *lst)
 	return (t);
 }
 
-void	ft_reorder_a(t_clist **lst_a)
+void	ft_rot_a(int t, t_clist *big_b, t_clist **lst_a, t_clist **lst_b)
 {
-	t_clist	*big;
+		if (t == 1)
+		{
+			if (big_b && big_b->pk0 > 0)
+			{
+				ft_rr(lst_a, lst_b);
+				(big_b->pk0)--;
+			}
+			else
+				ft_ra(lst_a);
+		}
+		if (t == -1)
+		{
+			if (big_b && big_b->pk0 < 0)
+			{
+				ft_rrr(lst_a, lst_b);
+				(big_b->pk0)++;
+			}
+			else
+				ft_rra(lst_a);
+		}
 
-	big = ft_wbigger(*lst_a);
-	ft_index(*lst_a);
-	while ((*lst_a)->prev != big)
+}
+
+void	ft_reorder_a(t_clist **lst_a, t_clist **lst_b)
+{
+	t_clist	*big_a;
+	t_clist	*big_b;
+
+	big_a = ft_wbigger(*lst_a);
+	big_b = ft_wbigger(*lst_b);
+	ft_index2(*lst_a, *lst_b);
+	while ((*lst_a)->prev != big_a)
 	{
-		if (big->pk0 >= 0)
-			ft_ra(lst_a);
-		if (big->pk0 < 0)
-			ft_rra(lst_a);
+		if (big_a->pk0 > -1 && big_a->pk0 != (ft_lstlen(*lst_a) / 2))
+		{
+			ft_rot_a(1, big_b, lst_a, lst_b);
+		}
+		if (big_a->pk0 < -1 || big_a->pk0 == (ft_lstlen(*lst_a) / 2))
+		{
+			ft_rot_a(-1, big_b, lst_a, lst_b);
+		}
 	}
 }
 
@@ -62,22 +93,11 @@ void	ft_reorder_b(t_clist **lst_b)
 	while (big->pk0 > 0)
 	{
 		ft_rb(lst_b);
-		(big->pk0)--;	
+		(big->pk0)--;
 	}
 	while (big->pk0 < 0)
 	{
 		ft_rrb(lst_b);
 		(big->pk0)++;
-	}
-}
-
-void	ft_final_push(t_clist **lst_a, t_clist **lst_b)
-{
-	int	lb;
-
-	lb = ft_lstlen(*lst_b);
-	while (lb--)
-	{
-		ft_pa(lst_a, lst_b);
 	}
 }

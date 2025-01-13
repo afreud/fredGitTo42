@@ -3,7 +3,7 @@
 static void	ft_rank0(t_clist *lst)
 {
 	t_clist	*current;
-	t_clist *buffer;
+	t_clist	*buffer;
 
 	current = lst;
 	buffer = NULL;
@@ -20,7 +20,7 @@ static t_clist	*ft_find2rank(t_clist *lst)
 	t_clist	*current;
 	t_clist	*buffer;
 	t_clist	*tosend;
-	
+
 	current = lst;
 	buffer = NULL;
 	while (current->rank)

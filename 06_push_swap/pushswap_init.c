@@ -1,9 +1,8 @@
-
 #include "pushswap.h"
 
-char	**ft_clean2(char **strs)
+static char	**ft_clean2(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (strs)
@@ -22,6 +21,7 @@ char	**ft_clean2(char **strs)
 static t_clist	*ft_clnew(int n)
 {
 	t_clist	*new;
+
 	new = (t_clist *)malloc(sizeof(t_clist));
 	if (new)
 	{
@@ -51,11 +51,11 @@ static void	ft_cladd_back(t_clist **start, t_clist *new)
 	(*start)->next = new;
 }
 
-t_clist	*ft_lstfill(char **strs)
+static t_clist	*ft_lstfill(char **strs)
 {
 	t_clist	*start;
 	t_clist	*new;
-	int i;
+	int		i;
 
 	i = 0;
 	start = NULL;
@@ -76,16 +76,16 @@ t_clist	*ft_creat_list(int argc, char **argv)
 
 	start = NULL;
 	strs = NULL;
-//	if (ft_args_ko(argc, argv))
-//		return (NULL);
+	if (argc == 1)
+		return (NULL);
 	if (argc == 2)
 	{
 		strs = ft_split(argv[1], ' ');
-		if (strs)
+		if (strs && ft_args_ok(strs))
 			start = ft_lstfill(strs);
 		strs = ft_clean2(strs);
 	}
-	else
+	else if (ft_args_ok(&argv[1]))
 		start = ft_lstfill(&argv[1]);
 	if (start)
 	{

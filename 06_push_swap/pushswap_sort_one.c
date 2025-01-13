@@ -21,7 +21,7 @@ static void	ft_sort_nl(t_clist *a, t_clist **lst, t_clist **tgt_lst)
 static void	ft_sort_pos(t_clist *a, t_clist **lst, t_clist **tgt_lst)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = a->pk0;
 	j = a->target->pk0;
@@ -48,7 +48,7 @@ static void	ft_sort_pos(t_clist *a, t_clist **lst, t_clist **tgt_lst)
 static void	ft_sort_neg(t_clist *a, t_clist **lst, t_clist **tgt_lst)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = a->pk0;
 	j = a->target->pk0;
@@ -67,8 +67,8 @@ static void	ft_sort_neg(t_clist *a, t_clist **lst, t_clist **tgt_lst)
 
 static void	ft_sort_dif(t_clist *a, t_clist **lst, t_clist **tgt_lst)
 {
-	t_clist *b;
-	int 	max_cost;
+	t_clist	*b;
+	int		max_cost;
 	int		rpk0_a;
 	int		rpk0_b;
 

@@ -31,7 +31,6 @@ t_clist	*ft_target(t_clist *a, t_clist *lst_b)
 
 static void	ft_costdif(t_clist *a, t_clist *b)
 {
-	
 	if (a->pk0 >= b->index)
 		a->push_cost = a->pk0;
 	else if (b->pk0 >= a->index)
@@ -60,7 +59,6 @@ static void	ft_cost(t_clist *a, t_clist *b)
 			a->push_cost = ft_abs(a->pk0);
 		else
 			a->push_cost = ft_abs(b->pk0);
-
 	}
 	else if (a->pk0 >= 0 && b->pk0 >= 0)
 	{
@@ -73,10 +71,10 @@ static void	ft_cost(t_clist *a, t_clist *b)
 		ft_costdif(a, b);
 }
 
-void	ft_set_cost(t_clist *lst_a, t_clist *lst_b)
+static void	ft_set_cost(t_clist *lst_a, t_clist *lst_b)
 {
 	t_clist	*current;
-	t_clist *buffer;
+	t_clist	*buffer;
 	t_clist	*target;
 
 	current = lst_a;
@@ -90,10 +88,9 @@ void	ft_set_cost(t_clist *lst_a, t_clist *lst_b)
 		current->target = target;
 		current = buffer;
 	}
-
 }
 
-t_clist *ft_tosend(t_clist *lst, t_clist *tgt_lst)
+t_clist	*ft_tosend(t_clist *lst, t_clist *tgt_lst)
 {
 	t_clist	*current;
 	t_clist	*buffer;

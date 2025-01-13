@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <limits.h>
 
 #ifndef PUSHSWAP_H
 # define PUSHSWAP_H
@@ -31,30 +32,30 @@ void	ft_rrr(t_clist **list_a, t_clist **list_b);
 void	ft_pa(t_clist **list_b, t_clist **list_a);
 void	ft_pb(t_clist **list_a, t_clist **list_b);
 char	**ft_split(char const *s, char c);
-t_clist	*ft_creat_list(int argc, char **argv);
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_atoi(const char *nptr);
+int		ft_abs(int n);
 void	ft_clr_lst(t_clist **lst);
 int		ft_lstlen(t_clist *lst);
-int		ft_atoi(const char *nptr);
 bool	ft_islower(t_clist *a, t_clist *tg_lst);
-int		ft_abs(int n);
 t_clist	*ft_wbigger(t_clist *lst);
+bool	ft_args_ok(char **args);
+t_clist	*ft_creat_list(int argc, char **argv);
 void	ft_index(t_clist *lst);
 void	ft_index2(t_clist *lst_a, t_clist *lst_b);
+void	ft_ranking(t_clist *lst);
+void	ft_set_bool(t_clist *lst, int max_rank);
 t_clist *ft_tosend(t_clist *lst, t_clist *tgt_lst);
-void	ft_sort_small(t_clist **list_a);
+void	ft_sort_small(t_clist **list_a, t_clist **list_b);
 bool	ft_sort_one(t_clist **lst, t_clist **tgt_lst);
 void	ft_sort_all(t_clist **lst_a, t_clist **lst_b);
 void	ft_diff_ro(int idx_a, int idx_b, t_clist **lst_a, t_clist **lst_b);
 void	ft_diff_rro(int rpk0_a, int rpk0_b, t_clist **lst_a, t_clist **lst_b);
 void	ft_diff(int pk0_a, int pk0_b, t_clist **lst_a, t_clist **lst_b);
-void	ft_ranking(t_clist *lst);
-void	ft_set_bool(t_clist *lst, int max_rank);
 bool	ft_isa_ordered(t_clist *lst);
-void	ft_reorder_a(t_clist **lst_a);
+void	ft_reorder_a(t_clist **lst_a, t_clist **lst_b);
 void	ft_reorder_b(t_clist **lst_b);
-void	ft_final_push(t_clist **lst_a, t_clist **lst_b);
-//a virer
-void	ft_set_cost(t_clist *lst_a, t_clist *lst_b);
+//a virer + re static
 t_clist	*ft_target(t_clist *a, t_clist *lst_b);
 
 
