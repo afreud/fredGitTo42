@@ -55,8 +55,5 @@ void	ft_diff(int pk0_a, int pk0_b, t_clist **lst_a, t_clist **lst_b);
 bool	ft_isa_ordered(t_clist *lst);
 void	ft_reorder_a(t_clist **lst_a, t_clist **lst_b);
 void	ft_reorder_b(t_clist **lst_b);
-//a virer + re static
-t_clist	*ft_target(t_clist *a, t_clist *lst_b);
-
 
 #endif
