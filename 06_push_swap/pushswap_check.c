@@ -9,10 +9,15 @@ static bool	ft_not_digit(char **s)
 	j = 0;
 	while (s[i])
 	{
+		if (!s[i][j])
+			return (1);
 		while (s[i][j])
 		{
 			if ((s[i][j] < '0' || s[i][j] > '9') && s[i][j] != '+'
 					&& s[i][j] != '-')
+				return (1);
+			else if ((s[i][j] == '-' || s[i][j] == '+')
+					&& (s[i][j + 1] <= 32 || j != 0))
 				return (1);
 			j++;
 		}
@@ -33,7 +38,7 @@ static bool	ft_not_unique(char **s)
 		j = i + 1;
 		while (s[j])
 		{
-			if (!(ft_strcmp(s[i], s[j])))
+			if (ft_atoi(s[i]) == ft_atoi(s[j]))
 				return (1);
 			j++;
 		}
@@ -85,19 +90,17 @@ static bool	ft_out_limits(char **s)
 
 bool	ft_args_ok(char **args)
 {
-	if (!args)
-		return (0);
 	if (ft_not_digit(args))
 	{
 		write(1, "Error\n", 6);
 		return (0);
 	}
-	if (ft_not_unique(args))
+	if (ft_out_limits(args))
 	{
 		write(1, "Error\n", 6);
 		return (0);
 	}
-	if (ft_out_limits(args))
+	if (ft_not_unique(args))
 	{
 		write(1, "Error\n", 6);
 		return (0);

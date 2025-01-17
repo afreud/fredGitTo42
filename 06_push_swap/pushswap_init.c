@@ -83,6 +83,8 @@ t_clist	*ft_creat_list(int argc, char **argv)
 		strs = ft_split(argv[1], ' ');
 		if (strs && ft_args_ok(strs))
 			start = ft_lstfill(strs);
+		if (!strs || !strs[0])
+			write(1, "Error\n", 6);
 		strs = ft_clean2(strs);
 	}
 	else if (ft_args_ok(&argv[1]))
