@@ -18,7 +18,9 @@ SRCS =	ft_split.c				\
 		pushswap_sort_tiny.c	\
 		pushswap_swp.c			\
 		pushswap_to_send.c		\
-		pushswap_utils.c
+		pushswap_utils.c		\
+		pushswap_utils2.c		\
+		pushswap_arrays.c
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $^

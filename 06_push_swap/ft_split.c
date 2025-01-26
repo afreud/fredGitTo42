@@ -1,4 +1,5 @@
-#include "pushswap.h"
+//#include "pushswap.h"
+#include <stdlib.h>
 
 static int	ft_len(const char *str, char c)
 {

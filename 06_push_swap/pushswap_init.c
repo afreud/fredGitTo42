@@ -1,23 +1,5 @@
 #include "pushswap.h"
 
-static char	**ft_clean2(char **strs)
-{
-	int	i;
-
-	i = 0;
-	if (strs)
-	{
-		while (strs[i])
-		{
-			free(strs[i]);
-			strs[i] = NULL;
-			i++;
-		}
-		free(strs);
-	}
-	return (NULL);
-}
-
 static t_clist	*ft_clnew(int n)
 {
 	t_clist	*new;
@@ -78,17 +60,15 @@ t_clist	*ft_creat_list(int argc, char **argv)
 	strs = NULL;
 	if (argc == 1)
 		return (NULL);
-	if (argc == 2)
+	else
 	{
-		strs = ft_split(argv[1], ' ');
+		strs = ft_creatab(&argv[1]);
 		if (strs && ft_args_ok(strs))
 			start = ft_lstfill(strs);
 		if (!strs || !strs[0])
 			write(1, "Error\n", 6);
 		strs = ft_clean2(strs);
 	}
-	else if (ft_args_ok(&argv[1]))
-		start = ft_lstfill(&argv[1]);
 	if (start)
 	{
 		ft_index(start);
