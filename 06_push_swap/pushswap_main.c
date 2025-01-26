@@ -1,10 +1,10 @@
 
 #include "pushswap.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_clist *a;
-	t_clist *b;
+	t_clist	*a;
+	t_clist	*b;
 
 	a = ft_creat_list(argc, argv);
 	b = NULL;

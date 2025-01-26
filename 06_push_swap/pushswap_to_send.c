@@ -13,13 +13,13 @@ t_clist	*ft_target(t_clist *a, t_clist *lst_b)
 	current = lst_b;
 	buffer = NULL;
 	target = lst_b;
-	min = 0;
+	min = INT_MIN;
 	if (ft_islower(a, lst_b))
 		return (ft_wbigger(lst_b));
 	while (buffer != lst_b)
 	{
 		buffer = current->next;
-		if (a->nb > current->nb && current->nb > min)
+		if (a->nb > current->nb && current->nb >= min)
 		{
 			min = current->nb;
 			target = current;

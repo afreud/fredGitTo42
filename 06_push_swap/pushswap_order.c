@@ -40,27 +40,26 @@ bool	ft_isa_ordered(t_clist *lst)
 
 void	ft_rot_a(int t, t_clist *big_b, t_clist **lst_a, t_clist **lst_b)
 {
-		if (t == 1)
+	if (t == 1)
+	{
+		if (big_b && big_b->pk0 > 0)
 		{
-			if (big_b && big_b->pk0 > 0)
-			{
-				ft_rr(lst_a, lst_b);
-				(big_b->pk0)--;
-			}
-			else
-				ft_ra(lst_a);
+			ft_rr(lst_a, lst_b);
+			(big_b->pk0)--;
 		}
-		if (t == -1)
+		else
+			ft_ra(lst_a);
+	}
+	if (t == -1)
+	{
+		if (big_b && big_b->pk0 < 0)
 		{
-			if (big_b && big_b->pk0 < 0)
-			{
-				ft_rrr(lst_a, lst_b);
-				(big_b->pk0)++;
-			}
-			else
-				ft_rra(lst_a);
+			ft_rrr(lst_a, lst_b);
+			(big_b->pk0)++;
 		}
-
+		else
+			ft_rra(lst_a);
+	}
 }
 
 void	ft_reorder_a(t_clist **lst_a, t_clist **lst_b)

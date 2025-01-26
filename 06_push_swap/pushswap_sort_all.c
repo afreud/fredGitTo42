@@ -58,7 +58,7 @@ void	ft_diff(int pk0_a, int pk0_b, t_clist **lst_a, t_clist **lst_b)
 	}
 }
 
- static void	ft_final_push(t_clist **lst_a, t_clist **lst_b)
+static void	ft_final_push(t_clist **lst_a, t_clist **lst_b)
 {
 	int	lb;
 

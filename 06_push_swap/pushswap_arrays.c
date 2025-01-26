@@ -2,8 +2,8 @@
 
 static char	***ft_tab3(char **av)
 {
-	int	i;
-	char ***t3;
+	int		i;
+	char	***t3;
 
 	i = 0;
 	t3 = malloc(sizeof(char **) * (ft_len2(av) + 1));
@@ -24,7 +24,7 @@ static char	***ft_tab3(char **av)
 	return (t3);
 }
 
-static char **ft_tab2(char ***t3)
+static char	**ft_tab2(char ***t3)
 {
 	int		i;
 	int		j;

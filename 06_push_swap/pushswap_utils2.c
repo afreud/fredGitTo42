@@ -18,7 +18,7 @@ char	**ft_clean2(char **strs)
 	return (NULL);
 }
 
-char	***ft_clean3(char ***s)	
+char	***ft_clean3(char ***s)
 {
 	int	i;
 
