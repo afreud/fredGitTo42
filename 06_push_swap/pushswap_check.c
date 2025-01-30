@@ -17,7 +17,8 @@ static bool	ft_not_digit(char **s)
 					&& s[i][j] != '-')
 				return (1);
 			else if ((s[i][j] == '-' || s[i][j] == '+')
-					&& (s[i][j + 1] <= 32 || j != 0))
+					&& ((s[i][j + 1] < '0' || s[i][j + 1] > '9')
+					|| (j && s[i][j - 1] > 32)))
 				return (1);
 			j++;
 		}

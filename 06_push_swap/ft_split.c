@@ -33,16 +33,6 @@ static int	ft_wc(const char *str, char c)
 	return (sum);
 }
 
-static void	ft_clear_strs(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs);
-}
-
 static char	*ft_putstr(const char *s, char c, char **strs)
 {
 	int		i;
@@ -52,7 +42,7 @@ static char	*ft_putstr(const char *s, char c, char **strs)
 	dest = malloc(sizeof(char) * (ft_len(s, c) + 1));
 	if (dest == NULL)
 	{
-		ft_clear_strs(strs);
+		strs = ft_clean2(strs);
 		return (NULL);
 	}
 	while (*s != c && *s != '\0')
@@ -69,10 +59,10 @@ char	**ft_split(char const *s, char c)
 
 	i = 0;
 	t = 1;
-	strs = malloc(sizeof(char *) * (ft_wc(s, c) + 1));
-	if (strs == NULL)
+	if (!s[0] || ft_len(s, ' ') == 0)
 		return (NULL);
-	while (*s)
+	strs = malloc(sizeof(char *) * (ft_wc(s, c) + 1));
+	while (*s && strs)
 	{
 		if (*s != c && t == 1)
 		{
