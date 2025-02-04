@@ -49,7 +49,10 @@ static char	**ft_join_pc(char **path, char *cmd)
 		return (NULL);
 	while (path[i])
 	{
-		cmd_path[i] = ft_cjoin(path[i], cmd);
+		if (cmd[0] == '/')
+			cmd_path[i] = ft_cjoin("\0", cmd);
+		else
+			cmd_path[i] = ft_cjoin(path[i], cmd);
 		if (!cmd_path[i])
 		{
 			cmd_path = ft_clean2(cmd_path);

@@ -31,7 +31,7 @@ static int	ft_creat_pipes(int pipefd[512][2], char ***cmds_t)
 	return (max);
 }
 
-static void	ft_nia(int pipefd[512][2], int *max)
+static void	ft_wdup(int pipefd[512][2], int *max)
 {
 	ft_closefd(pipefd, *max);
 	*max = -1;
@@ -62,7 +62,7 @@ static void	ft_dupfd(int *fd, int pipefd[512][2], int i, int *max)
 			k = dup2(fd[1], STDOUT_FILENO);
 	}
 	if (k == -1)
-		ft_nia(pipefd, max);
+		ft_wdup(pipefd, max);
 }
 
 static void	ft_exec(char *path_t, char **cmds_t, int max)
