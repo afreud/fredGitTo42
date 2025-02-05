@@ -1,22 +1,37 @@
-//#include <mlx.h>
+
+#ifndef FDF_H
+# define FDF_H
+
+#include <mlx.h>
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-
+#include <X11/keysym.h>
+#include <X11/X.h>
 
 #include <stdio.h>
 
 #define ANGL 60
 #define BUFFER_SIZE 50
+#define WIN_X 1920
+#define WIN_Y 1080
 
-//typedef struct point
-//{
+typedef struct	data
+{
+	void	*mlx;
+	void	*mlx_win;
+	t_img	img;
+}	t_xdata;
 
-//}	t_point;
-
-#ifndef FDF_H
-# define FDF_H
+typedef struct image
+{
+    void	*mlx_img;
+    char	*addr;
+    int		bpp;
+    int		line_len;
+    int		endian;
+}	t_img;
 
 char	*get_next_line(int fd);
 ssize_t	ft_gllen(char *str, char c);

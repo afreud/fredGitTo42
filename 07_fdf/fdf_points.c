@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-int ft_ptsl(char **s)
+int ft_ppl(char **s)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ int ft_nbpts(char ***s)
 	{
 		while (s[i])
 		{
-			l += ft_ptsl(s[i]);
+			l += ft_ppl(s[i]);
 			i++;
 		}
 	}
@@ -48,6 +48,11 @@ int	**ft_talloc(char ***pts, int n)
 		while (i < l)
 		{
 			tab[i] = (int *)malloc(sizeof(int) * n);
+			if (!tab[i])
+			{
+				ft_clrtab(t3d);
+				return (NULL);
+			}
 			i++;
 		}
 	}
