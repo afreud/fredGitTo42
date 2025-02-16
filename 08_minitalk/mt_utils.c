@@ -34,13 +34,13 @@ char	*ft_realloc(char *s, int l)
 		s = NULL;
 		return (NULL);
 	}
-	ft_strlcpy(temp, s, l);
+	ft_strlcpy(temp, s, l + 1);
 	free(s);
 	s = malloc(sizeof(char) * (l + 1 + 1024));
 	if (s)
 	{
 		ft_bzero(s, sizeof(s));
-		ft_strlcpy(s, temp, l);
+		ft_strlcpy(s, temp, l + 1);
 	}
 	free(temp);
 	temp = NULL;
