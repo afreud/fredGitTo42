@@ -1,6 +1,8 @@
 #ifndef MT_H
 # define MT_H
 
+#define SIZE 1024
+
 #include <unistd.h>
 #include <signal.h>
 #include <stdlib.h>
@@ -16,4 +18,4 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
 
-# endif
+#endif
