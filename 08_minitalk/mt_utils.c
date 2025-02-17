@@ -1,24 +1,15 @@
 
 #include "mt.h"
 
-void	ft_eot(char *s, int *l, int pid)
+void	ft_eot(char **s)
 {
-	if (l)
+	if (*s)
 	{
-		write(1, s, *l);
-		kill(pid, SIGUSR1);
-		kill(pid, SIGUSR2);
-		*l = 0;
+		write(1, "\nbye\n", 5);
+		free(*s);
+		*s = NULL;
 	}
-	else
-	{
-		if (s)
-		{
-			free(s);
-			s = NULL;
-		}
-		exit(EXIT_SUCCESS);
-	}
+	exit(EXIT_SUCCESS);
 }
 
 void	*ft_calloc(size_t nmemb, size_t size)
@@ -39,26 +30,31 @@ void	*ft_calloc(size_t nmemb, size_t size)
 
 char	*ft_realloc(char *s, int l)
 {
-	char	*temp;
+	char		*temp;
+	static int	n = 1;
 
 	if (!s)
-		return (NULL);
-	temp = malloc(sizeof(char) * (l + 1));
-	if (!temp)
 	{
+		write(1, "1er alloc\n", 10);
+		s = ft_calloc((SIZE * n), sizeof(char));
+		return (s);
+	}
+	if ((l + 2) == (SIZE * n))
+	{
+		write(1, "nvl alloc\n", 10);
+		temp = ft_calloc((l + 1), sizeof(char));
+		if (!temp)
+		{
+			free(s);
+			return (NULL);
+		}
+		ft_strlcpy(temp, s, l + 1);
 		free(s);
-		s = NULL;
-		return (NULL);
+		s = ft_calloc((SIZE * ++n), sizeof(char));
+		if (s)
+			ft_strlcpy(s, temp, l + 1);
+		free(temp);
+		temp = NULL;
 	}
-	ft_strlcpy(temp, s, l + 1);
-	free(s);
-	s = malloc(sizeof(char) * (l + 1 + 1024));
-	if (s)
-	{
-		ft_bzero(s, sizeof(s));
-		ft_strlcpy(s, temp, l + 1);
-	}
-	free(temp);
-	temp = NULL;
 	return (s);
 }

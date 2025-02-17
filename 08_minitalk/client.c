@@ -7,9 +7,10 @@ static void	ft_handler(int sig, siginfo_t *info, void *context)
 	(void)info;
 	if (sig == SIGUSR1)
 	{
+		return ;
 	}
-	if (sig == SIGUSR2)
-		write(1, "Message recieved\n", 17);
+//	if (sig == SIGUSR2)
+//		write(1, "Message recieved\n", 17);
 }
 
 static void	ft_sendchar(int pid, unsigned char c, struct sigaction *p_act)
@@ -27,7 +28,6 @@ static void	ft_sendchar(int pid, unsigned char c, struct sigaction *p_act)
 		pause();
 		i++;
 	}
-	sigaction(SIGUSR2, p_act, NULL);
 }
 
 int main(int argc, char **argv)
@@ -52,6 +52,8 @@ int main(int argc, char **argv)
 			i++;
 		}
 		ft_sendchar(pid, '\n', &act);
+//		sigaction(SIGUSR2, &act, NULL);
+//		pause();
 		return (0);
 	}
 	write(1, "Error\n", 6);

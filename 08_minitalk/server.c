@@ -1,6 +1,5 @@
 
 #include "mt.h"
-#include <stdio.h>
 
 static void	ft_wrchar(int sig, siginfo_t *info, void *context)
 {
@@ -10,15 +9,11 @@ static void	ft_wrchar(int sig, siginfo_t *info, void *context)
 	static char				*s = NULL;
 
 	(void)context;
+	s = ft_realloc(s, j);
 	if (!s)
-	{
-		s = malloc(sizeof(char) * 1024);
-		if (!s)
-			exit(EXIT_FAILURE);
-		ft_bzero(s, sizeof(s));
-	}
+		exit(EXIT_FAILURE);
 	if (sig == SIGINT || sig == SIGTERM)
-		ft_eot(s, NULL, info->si_pid);
+		ft_eot(&s);
 	if (sig == SIGUSR1)
 		c |= (0x01 << i);
 	i++;
@@ -29,11 +24,9 @@ static void	ft_wrchar(int sig, siginfo_t *info, void *context)
 		i = 0;
 		if (s[j - 1] == '\n')
 		{
-			ft_eot(s, &j, info->si_pid);
-			return ;
+			write(1, s, j);
+			j = 0;
 		}
-		if (j == sizeof(s) - 1)
-			s = ft_realloc(s, j);
 	}
 	kill(info->si_pid, SIGUSR1);
 }

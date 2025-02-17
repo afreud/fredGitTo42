@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-void	ft_eot(char *s, int *index, int pid);
+void	ft_eot(char **s);
 char	*ft_realloc(char *s, int index);
 int		ft_args_ok(char *arg);
 int		ft_atoi(const char *nptr);
