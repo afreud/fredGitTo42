@@ -22,6 +22,8 @@ static void	ft_wrchar(int sig, siginfo_t *info, void *context)
 		s[j++] = c;
 		c = 0;
 		i = 0;
+//		write(1, s, j);
+//		write(1, "\n", 1);
 		if (s[j - 1] == '\n')
 		{
 			write(1, s, j);

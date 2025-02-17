@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 
 	pid = 0;
 	i = 0;
-	act.sa_handler = NULL;
+	ft_bzero(&act, sizeof(act));
 	act.sa_sigaction = ft_handler;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_SIGINFO;

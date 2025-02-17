@@ -1,6 +1,6 @@
 
 #include "mt.h"
-
+#include <stdio.h>
 void	ft_eot(char **s)
 {
 	if (*s)
@@ -35,10 +35,10 @@ char	*ft_realloc(char *s, int l)
 
 	if (!s)
 	{
-		write(1, "1er alloc\n", 10);
 		s = ft_calloc((SIZE * n), sizeof(char));
 		return (s);
 	}
+	printf("%d\n", l);
 	if ((l + 2) == (SIZE * n))
 	{
 		write(1, "nvl alloc\n", 10);
