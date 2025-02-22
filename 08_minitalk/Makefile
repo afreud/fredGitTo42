@@ -2,7 +2,7 @@ NAME_S = server
 NAME_C = client
 
 CC = cc
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -O2
 RM = rm -rvf
 INCLUDE = -I include
 

@@ -23,17 +23,17 @@ static int	ft_ctlpid(int pid)
 		err_sav = errno;
 		if (err_sav == EPERM)
 		{
-			write(2, "Bad permissions for this process\n", 33);
+				(void)!write(2, "\nNo permission for this process\n", 32);
 			exit(err_sav);
 		}
 		else if (err_sav == ESRCH)
 		{
-			write(2, "Process does not exist\n", 23);
+				(void)!write(2, "\nProcess does not exist\n", 24);
 			exit(err_sav);
 		}
 		else
 		{
-			write(2, "Wrong PID\n", 10);
+			(void)!write(2, "\nNot this PID please\n", 21);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -47,12 +47,12 @@ static void	ft_handler(int sig, siginfo_t *info, void *context)
 	if (sig == SIGUSR1)
 		g_trigger = 1;
 	if (sig == SIGUSR2)
-		write(1, "Message received\n", 17);
+		(void)!write(1, "\n-----Message received-----\n", 28);
 }
 
 static void	ft_err_pid(void)
 {
-	write(2, "Wrong PID\n", 10);
+	(void)!write(2, "\nWrong PID\n", 11);
 	exit(EXIT_FAILURE);
 }
 
@@ -73,7 +73,7 @@ static void	ft_sendchar(int pid, unsigned char c)
 		if (r == -1)
 		{
 			err_sav = errno;
-			write(2, "Problem kill\n", 13);
+			(void)!write(2, "\nProblem kill\n", 14);
 			exit(err_sav);
 		}
 		while (!g_trigger)
@@ -104,9 +104,9 @@ int	main(int argc, char **argv)
 			ft_err_pid();
 		while (argv[2][i])
 			ft_sendchar(pid, (unsigned char)argv[2][i++]);
-		ft_sendchar(pid, '\n');
+		ft_sendchar(pid, '\0');
 		return (0);
 	}
-	write(2, "Error arguments\n", 16);
+	(void)!write(2, "\nError arguments\n", 17);
 	return (1);
 }

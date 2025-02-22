@@ -16,24 +16,28 @@ static void	ft_eot(char **s)
 {
 	if (*s)
 	{
-		write(1, "\nbye\n", 5);
 		free(*s);
 		*s = NULL;
 	}
+	(void)!write(1, "\n\n-----Bye!-----\n", 17);
 	exit(EXIT_SUCCESS);
 }
 
 static void	ft_err_kill(char **line, int err)
 {
-	free(*line);
-	*line = NULL;
-	write(2, "Error kill\n", 11);
+	if (line)
+	{
+		free(*line);
+		*line = NULL;
+	}
+	(void)!write(2, "Error kill\n", 11);
 	exit(err);
 }
 
 static void	ft_putline(char *line, int *j, int pid)
 {
-	write(1, line, *j);
+	(void)!write(1, line, *j);
+	(void)!write(1, "\n", 1);
 	ft_bzero(line, *j);
 	*j = 0;
 	if (kill(pid, SIGUSR2) == -1)
@@ -61,7 +65,7 @@ static void	ft_wrchar(int sig, siginfo_t *info, void *context)
 		line[j++] = c;
 		c = '\0';
 		it_bit = 0;
-		if (line[j - 1] == '\n')
+		if (line[j - 1] == '\0')
 			ft_putline(line, &j, info->si_pid);
 	}
 	if (kill(info->si_pid, SIGUSR1) == -1)
@@ -78,8 +82,9 @@ int	main(void)
 	s = ft_itoa(pid);
 	if (!s)
 		return (1);
-	write(1, s, ft_nblen(pid));
-	write(1, "\n", 1);
+	(void)!write(1, "--- Pid: ", 9);
+	(void)!write(1, s, ft_nblen(pid));
+	(void)!write(1, " ---\n\n", 6);
 	free(s);
 	s = NULL;
 	act.sa_sigaction = ft_wrchar;
