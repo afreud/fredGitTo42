@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mt_convert.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/20 12:54:54 by frdurand          #+#    #+#             */
+/*   Updated: 2025/02/20 12:55:02 by frdurand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "mt.h"
 
@@ -86,18 +97,6 @@ char	*ft_itoa(int n)
 	}
 	return (res);
 }
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (s)
-	{
-		while (s[i] != '\0')
-			i++;
-	}
-	return (i);
-}
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
@@ -114,19 +113,5 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	}
 	if (size > 0 && dst[i] != '\0' && i < (size))
 		dst[i] = '\0';
-	return (ft_strlen((char *)src));
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	char	*s_copy;
-	size_t	i;
-
-	s_copy = (char *)s;
-	i = 0;
-	while (i < n)
-	{
-		s_copy[i] = '\0';
-		i++;
-	}
+	return (i);
 }

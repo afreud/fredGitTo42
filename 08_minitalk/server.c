@@ -1,39 +1,74 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/20 12:56:05 by frdurand          #+#    #+#             */
+/*   Updated: 2025/02/20 14:06:50 by frdurand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "mt.h"
+
+static void	ft_eot(char **s)
+{
+	if (*s)
+	{
+		write(1, "\nbye\n", 5);
+		free(*s);
+		*s = NULL;
+	}
+	exit(EXIT_SUCCESS);
+}
+
+static void	ft_err_kill(char **line, int err)
+{
+	free(*line);
+	*line = NULL;
+	write(2, "Error kill\n", 11);
+	exit(err);
+}
+
+static void	ft_putline(char *line, int *j, int pid)
+{
+	write(1, line, *j);
+	ft_bzero(line, *j);
+	*j = 0;
+	if (kill(pid, SIGUSR2) == -1)
+		ft_err_kill(&line, errno);
+}
 
 static void	ft_wrchar(int sig, siginfo_t *info, void *context)
 {
 	static unsigned char	c;
-	static int				i;
+	static int				it_bit;
 	static int				j;
-	static char				*s = NULL;
+	static char				*line = NULL;
 
 	(void)context;
-	s = ft_realloc(s, j);
-	if (!s)
+	line = ft_realloc(line, j);
+	if (!line)
 		exit(EXIT_FAILURE);
-	if (sig == SIGINT || sig == SIGTERM)
-		ft_eot(&s);
+	if (sig == SIGINT || sig == SIGTERM || sig == SIGQUIT)
+		ft_eot(&line);
 	if (sig == SIGUSR1)
-		c |= (0x01 << i);
-	i++;
-	if (i == 8)
+		c |= (0x01 << it_bit);
+	it_bit++;
+	if (it_bit == 8)
 	{
-		s[j++] = c;
-		c = 0;
-		i = 0;
-//		write(1, s, j);
-//		write(1, "\n", 1);
-		if (s[j - 1] == '\n')
-		{
-			write(1, s, j);
-			j = 0;
-		}
+		line[j++] = c;
+		c = '\0';
+		it_bit = 0;
+		if (line[j - 1] == '\n')
+			ft_putline(line, &j, info->si_pid);
 	}
-	kill(info->si_pid, SIGUSR1);
+	if (kill(info->si_pid, SIGUSR1) == -1)
+		ft_err_kill(&line, errno);
 }
 
-int main()
+int	main(void)
 {
 	int					pid;
 	char				*s;
@@ -47,17 +82,15 @@ int main()
 	write(1, "\n", 1);
 	free(s);
 	s = NULL;
-	ft_bzero(&act, sizeof(act));
 	act.sa_sigaction = ft_wrchar;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGUSR2, &act, NULL);
+	sigaction(SIGINT, &act, NULL);
+	sigaction(SIGTERM, &act, NULL);
+	sigaction(SIGQUIT, &act, NULL);
 	while (1)
-	{
-		sigaction(SIGUSR1, &act, NULL);
-		sigaction(SIGUSR2, &act, NULL);
-		sigaction(SIGINT, &act, NULL);
-		sigaction(SIGTERM, &act, NULL);
 		pause();
-	}
 	return (0);
 }

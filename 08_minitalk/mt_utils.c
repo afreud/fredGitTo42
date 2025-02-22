@@ -1,15 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mt_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/20 12:55:15 by frdurand          #+#    #+#             */
+/*   Updated: 2025/02/20 13:57:48 by frdurand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "mt.h"
-#include <stdio.h>
-void	ft_eot(char **s)
+
+void	ft_bzero(void *s, size_t n)
 {
-	if (*s)
+	char	*s_copy;
+	size_t	i;
+
+	s_copy = (char *)s;
+	i = 0;
+	while (i < n)
 	{
-		write(1, "\nbye\n", 5);
-		free(*s);
-		*s = NULL;
+		s_copy[i] = '\0';
+		i++;
 	}
-	exit(EXIT_SUCCESS);
 }
 
 void	*ft_calloc(size_t nmemb, size_t size)
@@ -38,10 +52,8 @@ char	*ft_realloc(char *s, int l)
 		s = ft_calloc((SIZE * n), sizeof(char));
 		return (s);
 	}
-	printf("%d\n", l);
 	if ((l + 2) == (SIZE * n))
 	{
-		write(1, "nvl alloc\n", 10);
 		temp = ft_calloc((l + 1), sizeof(char));
 		if (!temp)
 		{
