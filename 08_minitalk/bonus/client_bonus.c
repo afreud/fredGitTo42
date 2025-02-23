@@ -46,6 +46,8 @@ static void	ft_handler(int sig, siginfo_t *info, void *context)
 	(void)info;
 	if (sig == SIGUSR1)
 		g_trigger = 1;
+	if (sig == SIGUSR2)
+		(void)!write(1, "\n-----Message received-----\n", 28);
 }
 
 static void	ft_err_pid(void)
@@ -93,6 +95,7 @@ int	main(int argc, char **argv)
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_SIGINFO | SA_RESTART;
 	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGUSR2, &act, NULL);
 	if (argc == 3)
 	{
 		if (ft_args_ok(argv[1]))
