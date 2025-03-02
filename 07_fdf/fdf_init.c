@@ -1,48 +1,76 @@
 
 #include "fdf.h"
 
-int	ft_height(int fd, char *path)
+static void	ft_prep(t_xdata *xdata)
 {
-	int		h;
-	char	c;
-
-	h = 0;
-	while (read(fd, &c, 1) > 0)
-	{
-		if (c == '\n' || c == '\0')
-			h++;
-	}
-	close(fd);
-	fd = open(path, O_RDONLY);
-	return (h);
+	(*xdata).map.width = 0;
+	(*xdata).map.height = 0;
+	(*xdata).map.pts_3d = NULL;
+	(*xdata).map.pts_2d = NULL;
+	xdata->mlx = NULL;
+	xdata->mlx_win = NULL;
+	(*xdata).img.mlx_img = NULL;
+	(*xdata).img.addr = NULL;
 }
 
-char	***ft_init_pts(char *path)
+void	ft_mlxexit(t_xdata *xdata)
 {
-	int		i;
-	int		ht;
-	int		fd;
-	char	*line;
-	char	***pts;
-
-	i = 0;
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	ht = ft_height(fd, path);
-	pts = malloc(sizeof(char **) * (ht + 1));
-	if (!pts)
-		return (NULL);
-	line = get_next_line(fd);
-	while (line)
+	if ((*xdata).map.pts_3d)
+		ft_clrtab((*xdata).map.pts_3d);
+	if ((*xdata).map.pts_2d)
+		ft_clrtab((*xdata).map.pts_2d);
+	if ((*xdata).img.mlx_img)
+		mlx_destroy_image(xdata->mlx, (*xdata).img.mlx_img);
+	if (xdata->mlx_win)
+		mlx_destroy_window(xdata->mlx, xdata->mlx_win);
+	if (xdata->mlx)
 	{
-		pts[i] = ft_split(line, ' ');
-		if (!pts[i++])
-			ft_clrexit(&pts, fd);
-		free(line);
-		line = get_next_line(fd);
+		mlx_destroy_display(xdata->mlx);
+		free (xdata->mlx);
 	}
-	pts[i] = NULL;
-	close(fd);
-	return (pts);
+	exit(EXIT_FAILURE);
+}
+
+static void	ft_init_map(char *path, t_xdata *xdata)
+{
+	char	***spts;
+
+	spts = ft_spts(path);
+	if (!spts)
+		exit(EXIT_FAILURE);
+	(*xdata).map.width = ft_width(spts);
+	(*xdata).map.height = ft_len3(spts);
+	if (!(*xdata).map.width || !(*xdata).map.height)
+		ft_mlxexit(xdata);
+	(*xdata).map.pts_3d = ft_3d_points(spts);
+	if (!(*xdata).map.pts_3d)
+		ft_mlxexit(xdata);
+	(*xdata).map.pts_2d = ft_2d_points(spts, (*xdata).map.pts_3d);
+	if (!(*xdata).map.pts_2d)
+		ft_mlxexit(xdata);
+	ft_clean3(spts);
+	spts = NULL;
+}
+
+static void	ft_init_mlx(char *path, t_xdata *xdata)
+{
+	xdata->mlx = mlx_init();
+	if (!xdata->mlx)
+		ft_mlxexit(xdata);
+	xdata->mlx_win = mlx_new_window(xdata->mlx, WIN_X, WIN_Y, path);
+	if (!xdata->mlx_win)
+		ft_mlxexit(xdata);
+	(*xdata).img.mlx_img = mlx_new_image(xdata->mlx,WIN_X,WIN_Y);
+	if (!(*xdata).img.mlx_img)
+		ft_mlxexit(xdata);
+	(*xdata).img.addr = mlx_get_data_addr((*xdata).img.mlx_img, &(*xdata).img.bpp, &(*xdata).img.line_len, &(*xdata).img.endian);
+	if (!(*xdata).img.addr)
+		ft_mlxexit(xdata);
+}
+
+void	ft_init(char *path, t_xdata *xdata)
+{
+	ft_prep(xdata);
+	ft_init_map(path, xdata);
+	ft_init_mlx(path, xdata);
 }

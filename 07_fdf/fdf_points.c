@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-int ft_ppl(char **s)
+static int	ft_ppl(char **s)
 {
 	int	i;
 
@@ -13,7 +13,7 @@ int ft_ppl(char **s)
 	return (i);
 }
 
-int ft_nbpts(char ***s)
+static int	ft_nbpts(char ***s)
 {
 	int	i;
 	int l;
@@ -23,12 +23,8 @@ int ft_nbpts(char ***s)
 	if (s)
 	{
 		while (s[i])
-		{
-			l += ft_ppl(s[i]);
-			i++;
-		}
+			l += ft_ppl(s[i++]);
 	}
-	printf("Totpts: %d\n", l);
 	return (l);
 }
 
@@ -50,7 +46,7 @@ int	**ft_talloc(char ***pts, int n)
 			tab[i] = (int *)malloc(sizeof(int) * n);
 			if (!tab[i])
 			{
-				ft_clrtab(t3d);
+				ft_clrtab(tab);
 				return (NULL);
 			}
 			i++;
@@ -88,17 +84,13 @@ int	**ft_3d_points(char ***pts)
 	return (t3d);
 }
 
-int **ft_2d_points(char ***pts)
+int **ft_2d_points(char ***spts, int **t3d)
 {
 	int	**t2d;
-	int	**t3d;
 	int	i;
 
 	i = 0;
-	t3d = ft_3d_points(pts);
-	if (!t3d)
-		return (NULL);
-	t2d = ft_talloc(pts, 2);
+	t2d = ft_talloc(spts, 2);
 	if (t2d)
 	{
 		while (t3d[i])
@@ -110,7 +102,6 @@ int **ft_2d_points(char ***pts)
 			i++;
 		}
 		t2d[i] = NULL;
-		ft_clrtab(t3d);
 	}
 	return (t2d);
 }

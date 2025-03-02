@@ -1,30 +1,36 @@
 #include "fdf.h"
 
-int	ft_atoi(const char *nptr)
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
+
+int	ft_len2(char **s)
 {
 	int	i;
-	int	nbr;
-	int	c;
 
 	i = 0;
-	nbr = 0;
-	c = 1;
-	while ((nptr[i] > 8 && nptr[i] < 14) || nptr[i] == 32)
-		i++;
-	if (nptr[i] == '-')
+	if (s)
 	{
-		c = -1;
-		i++;
+		while (s[i])
+			i++;
 	}
-	else if (nptr[i] == '+')
-		i++;
-	while (nptr[i] != '\0' && (nptr[i] >= '0' && nptr[i] <= '9'))
+	return (i);
+}
+
+int	ft_len3(char ***s)
+{
+	int	i;
+
+	i = 0;
+	if (s)
 	{
-		nbr *= 10;
-		nbr += (nptr[i] - 48) % 10;
-		i++;
+		while (s[i])
+			i++;
 	}
-	return (nbr * c);
+	return (i);
 }
 
 void	ft_clrtab(int **tab)
