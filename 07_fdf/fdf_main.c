@@ -8,13 +8,26 @@ int main(int ac, char **av)
 	if (ac < 2)
 		exit(EXIT_FAILURE);
 	ft_init(av[1], &xdata);
+	/*
 	int **t3 = xdata.map.pts_3d;
+	int **t2 = xdata.map.pts_2d;
 	int	i=0;
 	while (t3[i])
 	{
-		printf("%d: %d,%d\n", i, t3[i][0], t3[i][1]);
+		printf("%d: %d,%d,%d\n", i, t3[i][0], t3[i][1], t3[i][2]);
 		i++;
 	}
+	i = 0;
+	while (t2[i])
+	{
+		printf("%d: %d,%d\n", i, t2[i][0], t2[i][1]);
+		i++;
+	}
+	*/
+	int p1[2] = {1,0};
+	int p2[2] = {0,10};
+	
+	ft_draw_line(p1, p2, &xdata.img);
 	ft_mlxexit(&xdata);
 //	ft_pixels(&xdata);
 //	mlx_put_image_to_window(xdata.mlx, xdata.mlx_win, xdata.img.mlx_img, 0, 0);

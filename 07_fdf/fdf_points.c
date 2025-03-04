@@ -95,10 +95,8 @@ int **ft_2d_points(char ***spts, int **t3d)
 	{
 		while (t3d[i])
 		{
-			t2d[i][0] = t3d[i][0] * cos(ANGL + 2) + t3d[i][1] * cos(ANGL)
-				+ t3d[i][2] * cos(ANGL - 2);
-			t2d[i][1] = t3d[i][0] * sin(ANGL + 2) + t3d[i][1] * sin(ANGL)
-				+ t3d[i][2] * sin(ANGL - 2);
+			t2d[i][0] = (t3d[i][0] - t3d[i][1]) * cos(0.523599);
+			t2d[i][1] = (t3d[i][0] + t3d[i][1]) * sin(0.523599) - t3d[i][2];
 			i++;
 		}
 		t2d[i] = NULL;

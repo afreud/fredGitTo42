@@ -23,12 +23,12 @@ static int	ft_ctlpid(int pid)
 		err_sav = errno;
 		if (err_sav == EPERM)
 		{
-			(void)!write(2, "\nNo permission for this process\n", 32);
+			(void)!write(2, "\nOperation not permitted\n", 25);
 			exit(err_sav);
 		}
 		else if (err_sav == ESRCH)
 		{
-			(void)!write(2, "\nProcess does not exist\n", 24);
+			(void)!write(2, "\nNo such process\n", 17);
 			exit(err_sav);
 		}
 		else
