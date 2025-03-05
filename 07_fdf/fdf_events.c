@@ -14,13 +14,6 @@ void	ft_exit(t_xdata *xdata)
 	exit(EXIT_SUCCESS);
 }
 
-void	ft_scale(pts_2d)
-{
-	int	i;
-
-	i = 0;
-}
-
 int ft_key_input(int key, t_xdata *xdata)
 {
 	if (key == XK_Escape)

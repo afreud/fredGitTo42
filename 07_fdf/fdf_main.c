@@ -8,22 +8,32 @@ int main(int ac, char **av)
 	if (ac < 2)
 		exit(EXIT_FAILURE);
 	ft_init(av[1], &xdata);
-	/*
-	int **t3 = xdata.map.pts_3d;
+	
+	printf("width: %d\n", xdata.map.width);
+	printf("height %d\n", xdata.map.height);
+//	int **t3 = xdata.map.pts_3d;
 	int **t2 = xdata.map.pts_2d;
-	int	i=0;
+/*	int	i=0;
 	while (t3[i])
 	{
 		printf("%d: %d,%d,%d\n", i, t3[i][0], t3[i][1], t3[i][2]);
 		i++;
 	}
+	*/
+	int i = 0;
+	while (t2[i])
+	{
+		printf("%d: %d,%d\n", i, t2[i][0], t2[i][1]);
+		i++;
+	}
+	ft_center(&(xdata).map);
 	i = 0;
 	while (t2[i])
 	{
 		printf("%d: %d,%d\n", i, t2[i][0], t2[i][1]);
 		i++;
 	}
-	*/
+	
 	int p1[2] = {1,0};
 	int p2[2] = {0,10};
 	
