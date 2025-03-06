@@ -6,7 +6,7 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 12:53:57 by frdurand          #+#    #+#             */
-/*   Updated: 2025/02/20 14:31:46 by frdurand         ###   ########.fr       */
+/*   Updated: 2025/03/06 11:09:32 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	main(int argc, char **argv)
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = SA_SIGINFO | SA_RESTART;
 	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGUSR2, &act, NULL);
 	if (argc == 3)
 	{
 		if (ft_args_ok(argv[1]))
