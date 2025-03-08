@@ -96,12 +96,12 @@ float	ft_scale (t_map *map)
 
 int	ft_offset_x(t_map *map)
 {
-	return (WIN_X / 2 - ft_moy_x(map) / 2);
+	return (WIN_X / 2 - ft_moy_x(map));
 }
 
 int	ft_offset_y(t_map *map)
 {
-	return (WIN_Y / 2 - ft_moy_y(map) / 2);
+	return (WIN_Y / 2 - ft_moy_y(map));
 }
 
 void	ft_center(t_map *map)

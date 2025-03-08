@@ -13,7 +13,7 @@ int main(int ac, char **av)
 
 	mlx_loop_hook(xdata.mlx, &ft_no_event, &xdata);
 	mlx_hook(xdata.mlx_win, KeyPress, KeyPressMask, &ft_key_input, &xdata);
-//	mlx_hook(xdata.mlx_win, 12, 0, &ft_red_cross, &xdata);
+	mlx_hook(xdata.mlx_win, 33, 0, &ft_exit, &xdata);
 	mlx_loop(xdata.mlx);
 	return (0);
 }

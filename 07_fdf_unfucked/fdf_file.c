@@ -13,17 +13,13 @@ int	ft_atoi(const char *nptr)
 	while ((nptr[i] > 8 && nptr[i] < 14) || nptr[i] == 32)
 		i++;
 	if (nptr[i] == '-')
-	{
 		c = -1;
-		i++;
-	}
-	else if (nptr[i] == '+')
+	if (nptr[i] == '+' || nptr[i] == '-')
 		i++;
 	while (nptr[i] != '\0' && (nptr[i] >= '0' && nptr[i] <= '9'))
 	{
 		nbr *= 10;
-		nbr += (nptr[i] - 48) % 10;
-		i++;
+		nbr += (nptr[i++] - 48) % 10;
 	}
 	return (nbr * c);
 }
@@ -52,7 +48,9 @@ int	ft_width(char ***spts)
 
 	i = 0;
 	width = 0;
-	width_temp = ft_len2(spts[i++]);
+	width_temp = 0;
+	if (spts && spts[i])
+		width_temp = ft_len2(spts[i++]);
 	while (spts && spts[i])
 	{
 		width = ft_len2(spts[i++]);
@@ -70,12 +68,17 @@ char	***ft_spts(char *path)
 	char	***pts;
 
 	i = 0;
+	pts = NULL;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	pts = malloc(sizeof(char **) * (ft_height(fd, path) + 1));
+	if (ft_height(fd, path))
+		pts = malloc(sizeof(char **) * (ft_height(fd, path) + 2));
 	if (!pts)
+	{
+		close(fd);
 		return (NULL);
+	}
 	line = get_next_line(fd);
 	while (line)
 	{
