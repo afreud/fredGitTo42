@@ -1,6 +1,33 @@
 
 #include "fdf.h"
 
+bool	ft_atoi_error(char *s)
+{
+	int		i;
+	int		nb;
+	bool	pos;
+
+	i = 0;
+	nb = 0;
+	pos = 1;
+	while ((s[i] > 8 && s[i] < 14) || s[i] == 32)
+		i++;
+	if (s[i] == '-')
+		pos = 0;
+	if (s[i] == '+' || s[i] == '-')
+		i++;
+	while (s[i] && s[i] >= '0' && s[i] <= '9')
+	{
+		if (pos && ((s[i] - 48) > INT_MAX - (nb * 10)))
+			return (1);
+		if (!pos && ((48 - s[i]) < (INT_MIN) + (nb * 10)))
+			return (1);
+		nb *= 10;
+		nb += s[i++] - 48;
+	}
+	return (0);
+}
+
 int	ft_atoi(const char *nptr)
 {
 	int	i;

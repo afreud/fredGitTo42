@@ -12,6 +12,7 @@
 #include <X11/keysym.h>
 #include <X11/X.h>
 #include <limits.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 #define BUFFER_SIZE 10000
@@ -57,6 +58,7 @@ char	***ft_spts(char *path);
 int		**ft_2d_points(char ***spts, int **t3d);
 int 	**ft_3d_points(char ***pts);
 int		ft_atoi(const char *nptr);
+bool	ft_atoi_error(char *s);
 void	ft_clrtab(int **tab);
 void	ft_clrexit(char ****s, int fd);
 char	***ft_clean3(char ***t);

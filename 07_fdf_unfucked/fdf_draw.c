@@ -57,14 +57,14 @@ void	ft_draw_line(int *pt_start, int *pt_end, t_img *img, int colo)
 	y = pt_start[1];
 	dx = pt_end[0] - pt_start[0];
 	dy = pt_end[1] - pt_start[1];
-	if (dx && ft_abs(dy / dx) < 1)
+	if (ft_abs(dy) < ft_abs(dx))
 		pk = (2 * ft_abs(dy)) - (2 * ft_abs(dx));
 	else
 		pk = (2 * ft_abs(dx)) - (2 * ft_abs(dy));
 	ft_add_pixel(img, x, y, colo);
-	while (x != pt_end[0] && y != pt_end[1])
+	while (x != pt_end[0] || y != pt_end[1])
 	{
-		if (dx && ft_abs(dy / dx) < 1)
+		if (ft_abs(dy) < ft_abs(dx))
 		{
 			ft_scopeneg(&x, &y, dx, dy, &pk);
 		}

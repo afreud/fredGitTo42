@@ -52,6 +52,7 @@ int	**ft_talloc(char ***pts, int n)
 			i++;
 		}
 	}
+	tab[l] = NULL;
 	return (tab);
 }
 
@@ -74,6 +75,8 @@ int	**ft_3d_points(char ***pts)
 		{
 			t3d[n][0] = j * 30;
 			t3d[n][1] = i * 30;
+			if (ft_atoi_error(pts[i][j]))
+				return (NULL);
 			t3d[n][2] = ft_atoi(pts[i][j]) * 30;
 			j++;
 			n++;

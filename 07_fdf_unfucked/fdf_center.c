@@ -41,11 +41,12 @@ float	ft_delta_y(t_map *map)
 	return (max - min);
 }
 
-float	ft_moy_x(t_map *map)
+float	ft_offset_x(t_map *map)
 {
 	int	i;
 	int	max;
 	int	min;
+	int	moy;
 
 	i = 0;
 	min = INT_MAX;
@@ -58,14 +59,16 @@ float	ft_moy_x(t_map *map)
 			min = (*map).pts_2d[i][0];
 		i++;
 	}
-	return ((max + min) / 2);
+	moy = (max + min) / 2;
+	return ((WIN_X / 2) - moy);
 }
 
-float	ft_moy_y(t_map *map)
+float	ft_offset_y(t_map *map)
 {
 	int	i;
 	int	max;
 	int	min;
+	int	moy;
 
 	i = 0;
 	min = INT_MAX;
@@ -78,7 +81,8 @@ float	ft_moy_y(t_map *map)
 			min = (*map).pts_2d[i][1];
 		i++;
 	}
-	return ((max + min) / 2);
+	moy = (max + min) / 2;
+	return ((WIN_Y / 2) - moy);
 }
 
 float	ft_scale (t_map *map)
@@ -92,16 +96,6 @@ float	ft_scale (t_map *map)
 		return (sx);
 	else
 		return (sy);
-}
-
-int	ft_offset_x(t_map *map)
-{
-	return (WIN_X / 2 - ft_moy_x(map));
-}
-
-int	ft_offset_y(t_map *map)
-{
-	return (WIN_Y / 2 - ft_moy_y(map));
 }
 
 void	ft_center(t_map *map)

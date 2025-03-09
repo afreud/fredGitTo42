@@ -1,0 +1,11 @@
+[user]
+	email = fredxdur@gmail.com
+	name = afreud
+
+[alias]
+	lg = log -7 --oneline
+	st = status
+	co = commit
+	ca = commit -m "Message_Auto"
+	p = push
+	a = add

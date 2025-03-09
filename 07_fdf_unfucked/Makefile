@@ -11,6 +11,7 @@ SRC = 	fdf_center.c		\
 		fdf_init.c			\
 		fdf_main.c			\
 		fdf_points.c		\
+		fdf_str.c			\
 		fdf_utils.c			\
 		ft_split.c			\
 		get_next_line.c		\
@@ -22,7 +23,7 @@ SRC = 	fdf_center.c		\
 OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -O3 -o $(NAME)
 
 all: $(NAME)
 
