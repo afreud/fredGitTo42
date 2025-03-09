@@ -12,10 +12,8 @@
 #include <X11/keysym.h>
 #include <X11/X.h>
 #include <limits.h>
-
 #include <stdio.h>
 
-#define ANGL 60
 #define BUFFER_SIZE 10000
 #define WIN_X 720
 #define WIN_Y 860
@@ -67,10 +65,9 @@ int		ft_len2(char **s);
 int		ft_len3(char ***s);
 int	 	ft_no_event(t_xdata *xdata);
 int		ft_key_input(int key, t_xdata *xdata);
+void	ft_center(t_map *map);
 void	ft_pixels(t_xdata *xdata);
 void	ft_mlxexit(t_xdata *xdata, int err, char ***s);
 int		ft_exit(t_xdata *xdata);
-void	ft_draw_line(int *pt_start, int *pt_end, t_img *img, int colo);
-void	ft_center(t_map *map);
 
 #endif
