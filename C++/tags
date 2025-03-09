@@ -1,0 +1,53 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/fredux/Progamation/C++/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+__anon64b909870102	ex_14_1.cpp	/^    auto test_alpha = [](std::string reponse) -> bool {return std::all_of(std::begin(reponse), s/;"	f	function:demander_info	typeref:typename:bool	file:
+__anon64b909870202	ex_14_1.cpp	/^    auto test_age = [](int age) -> bool {return (age>0);};$/;"	f	function:demander_info	typeref:typename:bool	file:
+__anone3b6ffb80102	ex_12_4_1.cpp	/^{$/;"	f	typeref:typename:bool	file:
+__anone3b6ffb80202	ex_12_4_1.cpp	/^{$/;"	f	typeref:typename:int	file:
+affiche_rectangle	ex_10_2_1.cpp	/^void affiche_rectangle( int h, int l )$/;"	f	typeref:typename:void
+afficher_nbr_billets	ex_10_2_1.cpp	/^void afficher_nbr_billets( int somme, std::vector<int> coupures )$/;"	f	typeref:typename:void
+age	ex_14_1.cpp	/^    int age ;$/;"	m	struct:info_perso	typeref:typename:int	file:
+create_duree	ex_15_3.cpp	/^duree create_duree(int heures, int minutes, int secondes)$/;"	f	typeref:typename:duree
+create_duree	ex_15_3.cpp	/^duree create_duree(int minutes, int secondes)$/;"	f	typeref:typename:duree
+create_duree	ex_15_3.cpp	/^duree create_duree(int secondes)$/;"	f	typeref:typename:duree
+demander_info	ex_14_1.cpp	/^void demander_info ( info_perso & structure )$/;"	f	typeref:typename:void
+distributeur	ex_10_2_1.cpp	/^std::vector<int> distributeur( int somme, std::vector<int> coupures )$/;"	f	typeref:typename:std::vector<int>
+duree	ex_15_3.cpp	/^struct duree$/;"	s	file:
+enregistrer_info	ex_14_1.cpp	/^void enregistrer_info ( info_perso const structure)$/;"	f	typeref:typename:void
+entree_securisee	ex_14_1.cpp	/^void entree_securisee( T1 & info, T2 lambda )$/;"	f	typeref:typename:void
+info_perso	ex_14_1.cpp	/^struct info_perso$/;"	s	file:
+know_duree_hms	ex_15_3.cpp	/^std::tuple<int, int, int> know_duree_hms(duree & a)$/;"	f	typeref:typename:std::tuple<int,int,int>
+know_duree_ms	ex_15_3.cpp	/^std::tuple<int,int> know_duree_ms(duree & a)$/;"	f	typeref:typename:std::tuple<int,int>
+know_duree_secondes	ex_15_3.cpp	/^int know_duree_secondes(duree & a)$/;"	f	typeref:typename:int
+main	ex5_9.cpp	/^int main ()$/;"	f	typeref:typename:int
+main	ex6_2.cpp	/^int main ()$/;"	f	typeref:typename:int
+main	ex6_8.cpp	/^int main ()$/;"	f	typeref:typename:int
+main	ex7_3.cpp	/^int main ()$/;"	f	typeref:typename:int
+main	ex8_1.cpp	/^int main ()$/;"	f	typeref:typename:int
+main	ex8_4_1.cpp	/^int main ()$/;"	f	typeref:typename:int
+main	ex8_4_2.cpp	/^int main ()$/;"	f	typeref:typename:int
+main	ex8_4_3.cpp	/^int main ()$/;"	f	typeref:typename:int
+main	ex9.cpp	/^int main()$/;"	f	typeref:typename:int
+main	ex_14_1.cpp	/^int main()$/;"	f	typeref:typename:int
+main	ex_15_3.cpp	/^int main()$/;"	f	typeref:typename:int
+nom	ex_14_1.cpp	/^    std::string nom;$/;"	m	struct:info_perso	typeref:typename:std::string	file:
+operator !=	ex_15_3.cpp	/^bool operator!=(duree const & a, duree const & b)$/;"	f	typeref:typename:bool
+operator +	ex_15_3.cpp	/^duree operator+(duree const & a, duree const & b)$/;"	f	typeref:typename:duree
+operator -	ex_15_3.cpp	/^duree operator-(duree const & a)$/;"	f	typeref:typename:duree
+operator -	ex_15_3.cpp	/^duree operator-(duree const & a, duree const & b)$/;"	f	typeref:typename:duree
+operator <<	ex_15_3.cpp	/^std::ostream & operator<<(std::ostream & flux, duree & a)$/;"	f	typeref:typename:std::ostream &
+operator <=	ex_15_3.cpp	/^bool operator<=(duree const & a, duree const & b)$/;"	f	typeref:typename:bool
+operator ==	ex_15_3.cpp	/^bool operator==(duree const & a, duree const & b)$/;"	f	typeref:typename:bool
+operator >=	ex_15_3.cpp	/^bool operator>=(duree const & a, duree const & b)$/;"	f	typeref:typename:bool
+prenom	ex_14_1.cpp	/^    std::string prenom ;$/;"	m	struct:info_perso	typeref:typename:std::string	file:
+secondes	ex_15_3.cpp	/^    int secondes ;$/;"	m	struct:duree	typeref:typename:int	file:
+sexe	ex_14_1.cpp	/^    std::string  sexe ;$/;"	m	struct:info_perso	typeref:typename:std::string	file:
