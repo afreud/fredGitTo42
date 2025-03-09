@@ -5,7 +5,7 @@ BONUS_NAME_S = server_bonus
 BONUS_NAME_C = client_bonus
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -O2
+CFLAGS = -Wall -Werror -Wextra -O3
 RM = rm -rvf
 
 SRCS_S =	server.c		\

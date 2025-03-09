@@ -12,7 +12,7 @@
 
 #include "mt.h"
 
-int	g_trigger = 0;
+bool	g_is_received = 0;
 
 static int	ft_ctlpid(int pid)
 {
@@ -45,7 +45,7 @@ static void	ft_handler(int sig, siginfo_t *info, void *context)
 	(void)context;
 	(void)info;
 	if (sig == SIGUSR1)
-		g_trigger = 1;
+		g_is_received = 1;
 }
 
 static void	ft_err_pid(void)
@@ -74,9 +74,9 @@ static void	ft_sendchar(int pid, unsigned char c)
 			(void)!write(2, "\nProblem kill\n", 14);
 			exit(err_sav);
 		}
-		while (!g_trigger)
+		while (!g_is_received)
 			usleep(1);
-		g_trigger = 0;
+		g_is_received = 0;
 		i++;
 	}
 }

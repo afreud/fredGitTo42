@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <errno.h>
+#include <stdbool.h>
 
 char	*ft_realloc(char *s, int index);
 int		ft_args_ok(char *arg);
