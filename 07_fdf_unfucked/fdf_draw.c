@@ -87,14 +87,16 @@ int	ft_colo(int z)
 		return (0X0000FF00);
 	else if (z > 0 && z <= 2)
 		return (0X00E7FF00);
-	else if (z > 2 && z <= 4)
+	else if (z > 2 && z <= 5)
 		return (0X00FF6C00);
-	else if (z > 4 && z <= 7)
+	else if (z > 5 && z <= 7)
 		return (0X00FF0000);
 	else if (z > 7 && z <= 10)
 		return (0X00FF0000);
-	else
+	else if (z > 10 && z <= 50)
 		return (0X00FF00FF);
+	else
+		return (0X00B150FF);
 }
 
 void	ft_pixels(t_xdata *xdata)
