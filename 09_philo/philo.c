@@ -18,16 +18,12 @@ bool	ft_take_frk(t_data *gdata, t_phidata *phi)
 	if (gdata->frk[phi->n] == ON_TABLE)
 		pthread_mutex_lock(&gdata->frk_mutex[phi->n]);
 	else
-	{
-		phi->clock += gdata->eat_time;
 		return (1);
-	}
 	if (gdata->frk[(phi->n + 1) % gdata->tot_philo] == ON_TABLE)
 		pthread_mutex_lock(&gdata->frk_mutex[(phi->n + 1) % gdata->tot_philo]);
 	else
 	{
 		pthread_mutex_unlock(&gdata->frk_mutex[phi->n]);
-		phi->clock += gdata->eat_time;
 		return (1);
 	}
 	phi->have2frks = 1;
@@ -35,6 +31,7 @@ bool	ft_take_frk(t_data *gdata, t_phidata *phi)
 	gdata->frk[phi->n] = TAKEN;
 	printf("%ld %d has taken a fork\n", phi->clock, (phi->n + 1));
 	printf("%ld %d has taken a fork\n", phi->clock, (phi->n + 1));
+	usleep(1000);
 	return (0);
 }
 
@@ -42,6 +39,7 @@ void	ft_eat_and_sleep(t_data *gdata, t_phidata *phi)
 {
 	if (phi->have2frks)
 	{
+		usleep(1000);
 		printf("%ld %d is eating\n", phi->clock, (phi->n + 1));
 		phi->clock_eat = phi->clock;
 		phi->clock += gdata->eat_time;
@@ -51,8 +49,10 @@ void	ft_eat_and_sleep(t_data *gdata, t_phidata *phi)
 		phi->have2frks = 0;
 		pthread_mutex_unlock(&gdata->frk_mutex[phi->n]);
 		pthread_mutex_unlock(&gdata->frk_mutex[(phi->n + 1) % gdata->tot_philo]);
+		usleep(1000);
 		printf("%ld %d is sleeping\n", phi->clock, (phi->n + 1));
 		phi->clock += gdata->sleep_time;
+		usleep(2000);
 		printf("%ld %d is thinking\n", phi->clock, (phi->n + 1));
 	}
 }
@@ -76,12 +76,14 @@ int	ft_dining_philosophers(void *data)
 	t_data		*gdata;
 	t_phidata	phi;
 	
+	memset(&phi, 0, sizeof(phi));
 	phi.meals = 0;
 	gdata = (t_data *)data;
 	ft_take_place(gdata, &phi);
 	while (!gdata->one_is_dead && (!gdata->meals_nbr || (phi.meals < gdata->meals_nbr)))
 	{
 		while (ft_take_frk(gdata, &phi))
+			;
 		
 		if (ft_check_death(gdata, &phi))
 			return (0);

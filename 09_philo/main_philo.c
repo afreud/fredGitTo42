@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	while (!err && i < gdata.tot_philo)
 	{
 		err = pthread_create(&philo[i++], NULL, (void *)ft_dining_philosophers, &gdata);
-		usleep(250000);
+		usleep(100);
 	}
 	i = 0;
 	while (!err && i < gdata.tot_philo)
@@ -27,6 +27,6 @@ int main(int argc, char **argv)
 	while (!err && i < 5)
 		err = pthread_mutex_destroy(&(gdata.mutex[i++]));
 	if (err)
-		write(2, "Problem mutex", 13);
+		write(2, "Problem mutex\n", 14);
 	return (err);
 }
