@@ -82,11 +82,10 @@ int	ft_dining_philosophers(void *data)
 	ft_take_place(gdata, &phi);
 	while (!gdata->one_is_dead && (!gdata->meals_nbr || (phi.meals < gdata->meals_nbr)))
 	{
-		while (ft_take_frk(gdata, &phi))
-			;
+		ft_take_frk(gdata, &phi);
 		
-		if (ft_check_death(gdata, &phi))
-			return (0);
+//		if (ft_check_death(gdata, &phi))
+//			return (0);
 		
 		ft_eat_and_sleep(gdata, &phi);
 

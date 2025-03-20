@@ -87,16 +87,11 @@ int	ft_init_data(t_data *gdata, char **argv)
 	if (!err)
 	{
 		gdata->tot_philo = ft_atoi(argv[1]);
-		printf("phi%d\n", gdata->tot_philo);
 		gdata->death_time = ft_atoi(argv[2]);
-		printf("death%d\n", gdata->death_time);
 		gdata->eat_time = ft_atoi(argv[3]);
-		printf("eat%d\n", gdata->eat_time);
 		gdata->sleep_time = ft_atoi(argv[4]);
-		printf("sleep%d\n", gdata->sleep_time);
 		if (argv[5])
 			gdata->meals_nbr = ft_atoi(argv[5]) ;
-		printf("meals%d\n", gdata->meals_nbr);
 	}
 	return (err);
 }
