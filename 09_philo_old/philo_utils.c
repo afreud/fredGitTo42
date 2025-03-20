@@ -72,26 +72,26 @@ void	ft_check_args(int argc, char **argv)
 	}
 }
 
-int	ft_init_data(t_data *gdata, char **argv)
+int	ft_init_data(t_data *pdata, char **argv)
 {
 	int	i;
 	int	err;
 
 	i = 0;
 	err = 0;
-	while (!err && i < gdata->tot_philo)
-		err = pthread_mutex_init(&(gdata->frk_mutex[i++]), NULL);
+	while (!err && i < pdata->tot_philo)
+		err = pthread_mutex_init(&(pdata->frk_mutex[i++]), NULL);
 	i = 0;
-	while (!err && i < 2)
-		err = pthread_mutex_init(&(gdata->mutex[i++]), NULL);
+	while (!err && i < 5)
+		err = pthread_mutex_init(&(pdata->mutex[i++]), NULL);
 	if (!err)
 	{
-		gdata->tot_philo = ft_atoi(argv[1]);
-		gdata->death_time = ft_atoi(argv[2]);
-		gdata->eat_time = ft_atoi(argv[3]);
-		gdata->sleep_time = ft_atoi(argv[4]);
+		pdata->tot_philo = ft_atoi(argv[1]);
+		pdata->death_time = ft_atoi(argv[2]);
+		pdata->eat_time = ft_atoi(argv[3]);
+		pdata->sleep_time = ft_atoi(argv[4]);
 		if (argv[5])
-			gdata->meals_nbr = ft_atoi(argv[5]) ;
+			pdata->meals_nbr = ft_atoi(argv[5]) ;
 	}
 	return (err);
 }
