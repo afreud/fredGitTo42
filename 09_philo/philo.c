@@ -4,12 +4,24 @@
 void	ft_take_place(t_data *gdata, t_phidata *phi)
 {
 	pthread_mutex_lock(&gdata->mutex[PLACE]);
-	if (gdata->philo_place_nbr >= (gdata->tot_philo))
-		gdata->philo_place_nbr = 1;
-	phi->n = gdata->philo_place_nbr;
-	if (phi->n % 2)
-		phi->clock += gdata->eat_time;
-	gdata->philo_place_nbr += 2;
+	if (gdata->tot_philo == 3)
+	{
+		phi->n = gdata->philo_place_nbr;
+		if (phi->n)
+			phi->clock += gdata->eat_time;
+		if (phi->n == 2)
+			phi->clock += gdata->eat_time;
+		gdata->philo_place_nbr += 1;
+	}
+	else
+	{
+		if (gdata->philo_place_nbr >= (gdata->tot_philo))
+			gdata->philo_place_nbr = 1;
+		phi->n = gdata->philo_place_nbr;
+		if (phi->n % 2)
+			phi->clock += gdata->eat_time;
+		gdata->philo_place_nbr += 2;
+	}
 	pthread_mutex_unlock(&gdata->mutex[PLACE]);
 }
 
@@ -52,8 +64,8 @@ void	ft_eat_and_sleep(t_data *gdata, t_phidata *phi)
 		usleep(1000);
 		printf("%ld %d is sleeping\n", phi->clock, (phi->n + 1));
 		phi->clock += gdata->sleep_time;
-		usleep(2000);
 		printf("%ld %d is thinking\n", phi->clock, (phi->n + 1));
+		usleep(1000);
 	}
 }
 
