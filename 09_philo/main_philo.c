@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 	while (!err && i < gdata.tot_philo)
 		err = pthread_mutex_destroy(&(gdata.frk_mutex[i++]));
 	i = 0;
-	while (!err && i < 2)
+	while (!err && i < 4)
 		err = pthread_mutex_destroy(&(gdata.mutex[i++]));
 	if (err)
 		write(2, "Problem mutex\n", 14);

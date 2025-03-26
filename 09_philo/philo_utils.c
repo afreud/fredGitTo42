@@ -7,11 +7,11 @@ int	ft_atoi_error(char **s)
 	int	nb;
 
 	i = 0;
-	nb = 0;
 	if (!s)
 		return (1);
 	while (s[i])
 	{
+		nb = 0;
 		j = 0;
 		while ( s[i][j] && (s[i][j] <= 32 || s[i][j] == '+'))
 			j++;
@@ -20,7 +20,9 @@ int	ft_atoi_error(char **s)
 			if (s[i][j] < '0' || s[i][j] > '9')
 				return (1);
 			if ((s[i][j] - '0') > INT_MAX - (nb * 10))
+			{
 				return (1);
+			}
 			nb = ((nb * 10) + (s[i][j++] - '0'));
 		}
 		i++;

@@ -11,17 +11,20 @@
 # include <time.h>
 
 # define MAX_PHI 256
-# define ON_TABLE 0
-# define TAKEN 1
 
-# define PLACE 0
-# define DEATH 1
+# define ON_TABLE	0
+# define TAKEN		1
+
+# define PLACE  0
+# define DEATH  1
+# define PRINT	2
+# define ALLFKS	3
 
 typedef struct	data
 {
 	pthread_mutex_t	frk_mutex[MAX_PHI];
 	bool			frk[MAX_PHI];
-	pthread_mutex_t	mutex[2];
+	pthread_mutex_t	mutex[4];
 	int				philo_place_nbr;
 	bool			one_is_dead;
 	int				tot_philo;
