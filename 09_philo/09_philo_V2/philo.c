@@ -1,7 +1,7 @@
 
 #include "philo.h"
 
-void	ft_take_place(t_data *gdata, t_phidata *phi)
+void	ft_take_place(t_data *gdata, t_phidata *phi) // n, clock[TIME]
 {
 	pthread_mutex_lock(&gdata->mutex[PLACE]);
 	if (gdata->tot_philo == 3)
@@ -28,7 +28,7 @@ void	ft_take_place(t_data *gdata, t_phidata *phi)
 //		usleep(gdata->eat_time * 10);
 }
 
-void	ft_add_time(t_data *gdata, t_phidata *phi)
+void	ft_add_time(t_data *gdata, t_phidata *phi) // meals, clock[TIME]
 {
 	if (gdata->tot_philo == 3 && phi->meals)
 	{
@@ -46,7 +46,7 @@ void	ft_add_time(t_data *gdata, t_phidata *phi)
 	}
 }
 
-bool	ft_take_frk(t_data *gdata, t_phidata *phi)
+bool	ft_take_frk(t_data *gdata, t_phidata *phi) // n, have2frks, clock[TIME]
 {
 	pthread_mutex_lock(&gdata->mutex[ALLFKS]);
 	if (gdata->frk[phi->n] == ON_TABLE && gdata->frk[(phi->n + 1) % gdata->tot_philo] == ON_TABLE)
@@ -68,7 +68,7 @@ bool	ft_take_frk(t_data *gdata, t_phidata *phi)
 	return (0);
 }
 
-void	ft_eat_and_sleep(t_data *gdata, t_phidata *phi)
+void	ft_eat_and_sleep(t_data *gdata, t_phidata *phi) // n, clock[TIME], clock[EAT_TIME], have2frks, meals
 {
 	if (phi->have2frks)
 	{
@@ -102,7 +102,7 @@ void	ft_eat_and_sleep(t_data *gdata, t_phidata *phi)
 	}
 }
 
-int	ft_check_death(t_data *gdata, t_phidata *phi)
+int	ft_check_death(t_data *gdata, t_phidata *phi) // n, clock[TIME], clock[EAT_TIME], meals
 {
 	if (phi->clock - phi->clock_eat > gdata->death_time)
 	{
@@ -125,7 +125,7 @@ int	ft_check_death(t_data *gdata, t_phidata *phi)
 	return (0);
 }
 
-int	ft_dining_philosophers(void *data)
+int	ft_dining_philosophers(void *data) // int n, long clock[2] {define TIME 0, define EAT_TIME 1}, bool have2frks, int meals
 {
 	t_data		*gdata;
 	t_phidata	phi;

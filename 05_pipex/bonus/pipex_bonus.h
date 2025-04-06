@@ -6,7 +6,7 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:33:35 by frdurand          #+#    #+#             */
-/*   Updated: 2025/01/07 10:43:18 by frdurand         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:46:28 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_clean_close(int *fd, char ****cmds_t, char ***path_t);
 int		pipex(int *fd, char ***cmds_t, char **path_t);
 int		ft_open_files(int *fd, int argc, char **argv);
 void	ft_closefd(int pipefd[512][2], int max);
+void	ft_closefd2(int pipefd[512][2], int max, int fd[2]);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*get_next_line(int fd, char *limiter);
 ssize_t	ft_gllen(char *str, char c);

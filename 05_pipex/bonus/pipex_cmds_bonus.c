@@ -6,7 +6,7 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:33:53 by frdurand          #+#    #+#             */
-/*   Updated: 2024/12/24 13:44:08 by frdurand         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:33:54 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	**ft_join_pc(char **path, char *cmd)
 		return (NULL);
 	while (path[i])
 	{
-		if (cmd[0] == '/')
+		if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
 			cmd_path[i] = ft_cjoin("\0", cmd);
 		else
 			cmd_path[i] = ft_cjoin(path[i], cmd);

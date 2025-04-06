@@ -6,11 +6,12 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:14:38 by frdurand          #+#    #+#             */
-/*   Updated: 2025/01/31 12:22:23 by frdurand         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:40:43 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <stdio.h>
 
 static int	ft_creat_pipes(int pipefd[512][2], char ***cmds_t)
 {
@@ -31,9 +32,9 @@ static int	ft_creat_pipes(int pipefd[512][2], char ***cmds_t)
 	return (max);
 }
 
-static void	ft_wrdup(int pipefd[512][2], int *max)
+static void	ft_wrdup(int pipefd[512][2], int *max, int *fd)
 {
-	ft_closefd(pipefd, *max);
+	ft_closefd2(pipefd, *max, fd);
 	*max = -1;
 	perror("Problem with dup2");
 }
@@ -62,7 +63,7 @@ static void	ft_dupfd(int *fd, int pipefd[512][2], int i, int *max)
 			k = dup2(fd[1], STDOUT_FILENO);
 	}
 	if (k == -1)
-		ft_wrdup(pipefd, max);
+		ft_wrdup(pipefd, max, fd);
 }
 
 static void	ft_exec(char *path_t, char **cmds_t, int max)
@@ -70,9 +71,13 @@ static void	ft_exec(char *path_t, char **cmds_t, int max)
 	extern char	**environ;
 
 	if (max != -1)
-		execve(path_t, cmds_t, environ);
-	perror(*cmds_t);
-	exit(EXIT_FAILURE);
+	{
+		if (execve(path_t, cmds_t, environ) == -1)
+		{
+			perror(*cmds_t);
+			exit(errno);
+		}
+	}
 }
 
 int	pipex(int *fd, char ***cmds_t, char **path_t)
@@ -87,14 +92,17 @@ int	pipex(int *fd, char ***cmds_t, char **path_t)
 	max = ft_creat_pipes(pipefd, cmds_t);
 	while (++i <= max)
 	{
-		pid = fork();
-		if (pid < 0)
-			break ;
-		if (pid == 0)
+		if (path_t[i])
 		{
-			ft_dupfd(fd, pipefd, i, &max);
-			ft_closefd(pipefd, max);
-			ft_exec(path_t[i], cmds_t[i], max);
+			pid = fork();
+			if (pid < 0)
+				break ;
+			if (pid == 0)
+			{
+				ft_dupfd(fd, pipefd, i, &max);
+				ft_closefd2(pipefd, max, fd);
+				ft_exec(path_t[i], cmds_t[i], max);
+			}
 		}
 	}
 	ft_closefd(pipefd, max);

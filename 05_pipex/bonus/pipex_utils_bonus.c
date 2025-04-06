@@ -6,13 +6,13 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:34:58 by frdurand          #+#    #+#             */
-/*   Updated: 2024/12/24 13:45:12 by frdurand         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:24:09 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-void	ft_closefd(int pipefd[512][2], int max)
+void	ft_closefd2(int pipefd[512][2], int max, int fd[2])
 {
 	int	i;
 
@@ -23,6 +23,10 @@ void	ft_closefd(int pipefd[512][2], int max)
 		close(pipefd[i][0]);
 		i++;
 	}
+	if (fd[0] > 2)
+		close(fd[0]);
+	if (fd[1] > 2)
+		close(fd[1]);
 }
 
 int	ft_len2(char **s)

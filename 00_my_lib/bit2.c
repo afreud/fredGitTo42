@@ -40,6 +40,25 @@ unsigned char	swap_bits(unsigned char octet)
 	return (g | d);
 }
 
+char	*ft_tolower(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] >= 'A' && s[i] <= 'Z')
+		s[i++] |= 32;
+	return (s);
+}
+
+char *ft_toupper(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] >= 'a' && s[i] <= 'z')
+		s[i++] &= ~32;
+	return (s);
+}
 
 int main()
 {

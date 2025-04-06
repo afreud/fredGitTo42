@@ -14,6 +14,9 @@
 
 static char	**ft_error_access(int *t, char **path_t, int i)
 {
+	int	j;
+
+	j = 0;
 	if (!i)
 	{
 		free(path_t);

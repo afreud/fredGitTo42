@@ -6,7 +6,7 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:13:02 by frdurand          #+#    #+#             */
-/*   Updated: 2025/01/07 10:16:14 by frdurand         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:41:42 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <errno.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 80
 
@@ -38,6 +39,7 @@ void	ft_clean_close(int *fd, char ****cmds_t, char ***path_t);
 int		pipex(int *fd, char ***cmds_t, char **path_t);
 void	ft_open_files(int *fd, int argc, char **argv);
 void	ft_closefd(int pipefd[512][2], int max);
+void	ft_closefd2(int pipefd[512][2], int max, int fd[2]);
 int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

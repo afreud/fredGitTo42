@@ -4,7 +4,7 @@ BONUS = pipex_bonus
 
 CC = cc
 
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -g -Werror -Wall -Wextra
 
 RM = rm -vf
 

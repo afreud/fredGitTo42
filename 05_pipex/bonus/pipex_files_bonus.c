@@ -6,11 +6,24 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:34:03 by frdurand          #+#    #+#             */
-/*   Updated: 2024/12/27 10:16:35 by frdurand         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:05:51 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
+
+void	ft_closefd(int pipefd[512][2], int max)
+{
+	int	i;
+
+	i = 0;
+	while (i < max)
+	{
+		close(pipefd[i][1]);
+		close(pipefd[i][0]);
+		i++;
+	}
+}
 
 void	ft_clean_close(int *fd, char ****cmds_t, char ***path_t)
 {
@@ -25,13 +38,13 @@ static void	ft_hdoc(int *fd, int argc, char **argv)
 	char	*line;
 
 	line = NULL;
-	fd[0] = open("here_file", O_WRONLY | O_CREAT, 0666);
+	fd[0] = open("here_file", O_RDWR | O_CREAT, 0666);
 	fd[1] = open(argv[argc - 1], O_WRONLY | O_APPEND | O_CREAT, 0666);
 	if (fd[0] < 0 || fd[1] < 0)
 	{
-		if (fd[0] > 0)
+		if (fd[0] < 0)
 			close(fd[0]);
-		if (fd[1] > 0)
+		if (fd[1] < 0)
 			close(fd[1]);
 		perror("Error opening Files");
 		exit (EXIT_FAILURE);
@@ -44,7 +57,7 @@ static void	ft_hdoc(int *fd, int argc, char **argv)
 		line = get_next_line(0, argv[2]);
 	}
 	close(fd[0]);
-	fd[0] = open("here_file", O_RDONLY, 0666);
+	fd[0] = open("here_file", O_RDONLY);
 	if (fd[0] < 0)
 		close(fd[1]);
 }

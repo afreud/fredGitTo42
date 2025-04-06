@@ -6,7 +6,7 @@
 /*   By: frdurand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:33:20 by frdurand          #+#    #+#             */
-/*   Updated: 2025/01/07 11:39:53 by frdurand         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:12:59 by frdurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static int	ft_creat_pipes(int pipefd[512][2], char ***cmds_t)
 	return (max);
 }
 
-static void	ft_wdup(int pipefd[512][2], int *max)
+static void	ft_wdup(int pipefd[512][2], int *max, int *fd)
 {
-	ft_closefd(pipefd, *max);
+	ft_closefd2(pipefd, *max, fd);
 	*max = -1;
 	perror("Problem with dup2");
 }
@@ -62,7 +62,7 @@ static void	ft_dupfd(int *fd, int pipefd[512][2], int i, int *max)
 			k = dup2(fd[1], STDOUT_FILENO);
 	}
 	if (k == -1)
-		ft_wdup(pipefd, max);
+		ft_wdup(pipefd, max, fd);
 }
 
 static void	ft_exec(char *path_t, char **cmds_t, int max)
@@ -93,7 +93,7 @@ int	pipex(int *fd, char ***cmds_t, char **path_t)
 		if (pid == 0)
 		{
 			ft_dupfd(fd, pipefd, i, &max);
-			ft_closefd(pipefd, max);
+			ft_closefd2(pipefd, max, fd);
 			ft_exec(path_t[i], cmds_t[i], max);
 		}
 	}
