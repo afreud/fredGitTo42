@@ -1,7 +1,7 @@
 
 #include "philo.h"
 
-void	ft_take_place(t_data *gdata, t_phidata *phi) // n, clock[TIME]
+void	ft_take_place(t_data *gdata, t_phidata *phi)
 {
 	pthread_mutex_lock(&gdata->mutex[PLACE]);
 	if (gdata->tot_philo == 3)
@@ -23,12 +23,15 @@ void	ft_take_place(t_data *gdata, t_phidata *phi) // n, clock[TIME]
 		gdata->philo_place_nbr += 2;
 	}
 	pthread_mutex_unlock(&gdata->mutex[PLACE]);
-	usleep(gdata->eat_time * 10);
+	if (gdata->eat_time >= gdata->sleep_time)
+		usleep(gdata->eat_time * 10);
+	else
+		usleep(gdata->sleep_time * 10);
 //	if (gdata->tot_philo == 3)
 //		usleep(gdata->eat_time * 10);
 }
 
-void	ft_add_time(t_data *gdata, t_phidata *phi) // meals, clock[TIME]
+void	ft_add_time(t_data *gdata, t_phidata *phi)
 {
 	if (gdata->tot_philo == 3 && phi->meals)
 	{
@@ -46,7 +49,7 @@ void	ft_add_time(t_data *gdata, t_phidata *phi) // meals, clock[TIME]
 	}
 }
 
-bool	ft_take_frk(t_data *gdata, t_phidata *phi) // n, have2frks, clock[TIME]
+bool	ft_take_frk(t_data *gdata, t_phidata *phi)
 {
 	pthread_mutex_lock(&gdata->mutex[ALLFKS]);
 	if (gdata->frk[phi->n] == ON_TABLE && gdata->frk[(phi->n + 1) % gdata->tot_philo] == ON_TABLE)
@@ -68,7 +71,7 @@ bool	ft_take_frk(t_data *gdata, t_phidata *phi) // n, have2frks, clock[TIME]
 	return (0);
 }
 
-void	ft_eat_and_sleep(t_data *gdata, t_phidata *phi) // n, clock[TIME], clock[EAT_TIME], have2frks, meals
+void	ft_eat_and_sleep(t_data *gdata, t_phidata *phi)
 {
 	if (phi->have2frks)
 	{
@@ -102,7 +105,7 @@ void	ft_eat_and_sleep(t_data *gdata, t_phidata *phi) // n, clock[TIME], clock[EA
 	}
 }
 
-int	ft_check_death(t_data *gdata, t_phidata *phi) // n, clock[TIME], clock[EAT_TIME], meals
+int	ft_check_death(t_data *gdata, t_phidata *phi)
 {
 	if (phi->clock - phi->clock_eat > gdata->death_time)
 	{
@@ -110,7 +113,10 @@ int	ft_check_death(t_data *gdata, t_phidata *phi) // n, clock[TIME], clock[EAT_T
 		gdata->one_is_dead = 1;
 		pthread_mutex_unlock(&gdata->mutex[DEATH]);
 
-		//usleep(gdata->sleep_time * 10);
+		if (gdata->eat_time <= gdata->sleep_time)
+			usleep((gdata->eat_time) * 10);	/////////////////////////////
+		else
+			usleep((gdata->sleep_time) * 10);	/////////////////////////////
 		pthread_mutex_lock(&gdata->mutex[PRINT]);
 		printf("%ld %d is dead\n", phi->clock, (phi->n + 1));
 		pthread_mutex_unlock(&gdata->mutex[PRINT]);
@@ -125,7 +131,7 @@ int	ft_check_death(t_data *gdata, t_phidata *phi) // n, clock[TIME], clock[EAT_T
 	return (0);
 }
 
-int	ft_dining_philosophers(void *data) // int n, long clock[2] {define TIME 0, define EAT_TIME 1}, bool have2frks, int meals
+int	ft_dining_philosophers(void *data)
 {
 	t_data		*gdata;
 	t_phidata	phi;
@@ -136,15 +142,11 @@ int	ft_dining_philosophers(void *data) // int n, long clock[2] {define TIME 0, d
 	while (!gdata->one_is_dead && (!gdata->meals_nbr || (phi.meals < gdata->meals_nbr)))
 	{
 		ft_add_time(gdata, &phi);
-
 		if (ft_check_death(gdata, &phi))
 			return (0);
-
 		while (ft_take_frk(gdata, &phi))
 			;
-
 		ft_eat_and_sleep(gdata, &phi);
-
 	}
 	return (0);
 }
