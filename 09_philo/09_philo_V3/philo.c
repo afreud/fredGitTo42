@@ -103,7 +103,8 @@ int	ft_check_death(t_data *gdata, int phi[3], long clock[2])
 		pthread_mutex_unlock(&gdata->mutex[DEATH]);
 		usleep((gdata->eat_time) * 10);	/////////////////////////////
 		pthread_mutex_lock(&gdata->mutex[PRINT]);
-		printf("%ld %d is dead\n", clock[TIME], (phi[N] + 1));
+		printf("%ld %d is dead\n", clock[EAT_TIME]
+			+ gdata->death_time, (phi[N] + 1));
 		pthread_mutex_unlock(&gdata->mutex[PRINT]);
 	}
 	pthread_mutex_lock(&gdata->mutex[DEATH]);
