@@ -75,8 +75,8 @@ void	ft_eat_and_sleep(t_data *gdata, int phi[3], long clock[2])
 		printf("%ld %d is eating\n", clock[TIME], (phi[N] + 1));
 		pthread_mutex_unlock(&gdata->mutex[PRINT]);
 		usleep(gdata->eat_time * 10);	////////////////////////
-		clock[EAT_TIME] = clock[TIME];
 		clock[TIME] += gdata->eat_time;
+		clock[EAT_TIME] = clock[TIME];
 		phi[MEALS] += 1;
 		pthread_mutex_lock(&gdata->mutex[ALLFKS]);
 		gdata->frk[phi[N]] = ON_TABLE;
